@@ -1,0 +1,61 @@
+{
+  "$schema": "https://tr.designtokens.org/format/",
+  "meta": {
+    "product": "SwasthyaBillCheck (NMBTP)",
+    "team": "TechNova — SBI Youth Ideathon 2026",
+    "tagline": "Ideas today, impact tomorrow.",
+    "wcagCompliance": "AA (>= 4.5:1 text contrast, >= 48px touch targets)"
+  },
+  "color": {
+    "brand": {
+      "indigo": {
+        "950": { "value": "#1A0942", "description": "Deepest Hero & Dark Background" },
+        "900": { "value": "#2B1166", "description": "Primary Brand Deep Indigo (from Deck)" },
+        "800": { "value": "#3B1B85", "description": "Elevated Indigo Surface" },
+        "700": { "value": "#4E26A8", "description": "Interactive Indigo Border/Hover" },
+        "100": { "value": "#EDE9FE", "description": "Lavender Surface Tint" },
+        "50":  { "value": "#F6F4FF", "description": "Light Lavender App Background" }
+      },
+      "saffron": {
+        "600": { "value": "#D96B12", "description": "High-contrast Saffron Hover" },
+        "500": { "value": "#F58220", "description": "Primary Accent Saffron-Orange (from Deck)" },
+        "100": { "value": "#FFEDD5", "description": "Saffron Badge Surface" }
+      }
+    },
+    "semantic": {
+      "success": {
+        "600": { "value": "#16A34A", "description": "Within Govt Reference Rate Tick" },
+        "50":  { "value": "#ECFDF5", "description": "Verified Line Surface" }
+      },
+      "warning": {
+        "600": { "value": "#D97706", "description": "Needs User Confirmation Ring" },
+        "50":  { "value": "#FFFBEB", "description": "Low Confidence Alert Surface" }
+      },
+      "danger": {
+        "600": { "value": "#DC2626", "description": "Above Reference Rate Flag (Deck Red)" },
+        "50":  { "value": "#FEF2F2", "description": "Flagged Line Surface (Deck Soft Pink)" }
+      }
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "latin": { "value": "'Plus Jakarta Sans', 'Inter', system-ui, sans-serif" },
+      "indic": { "value": "'Noto Sans Devanagari', 'Noto Sans', sans-serif" },
+      "mono":  { "value": "'JetBrains Mono', monospace" }
+    },
+    "lineHeight": {
+      "latin": { "value": "1.5" },
+      "indic": { "value": "1.7" }
+    }
+  },
+  "spacing": {
+    "minTouchTarget": { "value": "48px" },
+    "cardRadius": { "value": "16px" }
+  },
+  "motion": {
+    "scanLineDuration": { "value": "1.6s" },
+    "springStiffness": { "value": 260 },
+    "springDamping": { "value": 22 }
+  }
+}
+

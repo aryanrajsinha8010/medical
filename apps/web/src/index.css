@@ -1,0 +1,236 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * SwasthyaBillCheck design system
+ * Direction: "civic receipt". Warm paper, indigo ink, one saffron accent.
+ * Each colour is an RGB triplet so Tailwind's /alpha syntax works.
+ * Contrast is checked against WCAG AA (4.5:1 body text, 3:1 large text/UI).
+ */
+@layer base {
+  :root {
+    --paper: 250 247 242;
+    --card: 255 255 255;
+    --ink: 30 18 64;
+    --muted: 94 86 112;
+    --line: 231 224 214;
+    --brand: 43 17 102;
+    --on-brand: 255 255 255;
+    --brand-soft: 238 233 252;
+    --saffron: 245 130 32;
+    --saffron-ink: 168 75 5;
+    --ok: 29 107 69;
+    --ok-soft: 227 241 232;
+    --flag: 179 38 30;
+    --flag-soft: 251 233 230;
+    --warn: 138 90 0;
+    --warn-soft: 253 243 214;
+    --shadow: 43 17 102;
+    color-scheme: light;
+  }
+
+  .dark {
+    --paper: 18 12 34;
+    --card: 27 20 48;
+    --ink: 242 236 226;
+    --muted: 171 163 189;
+    --line: 52 42 78;
+    --brand: 220 210 255;
+    --on-brand: 30 18 64;
+    --brand-soft: 44 33 78;
+    --saffron: 245 130 32;
+    --saffron-ink: 255 162 90;
+    --ok: 111 211 156;
+    --ok-soft: 22 52 38;
+    --flag: 255 138 126;
+    --flag-soft: 66 24 24;
+    --warn: 245 196 92;
+    --warn-soft: 58 44 14;
+    --shadow: 0 0 0;
+    color-scheme: dark;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    font-size: 16px;
+  }
+
+  html.text-large {
+    font-size: 18.5px;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    line-height: 1.55;
+  }
+
+  /* Indic scripts have tall matras; give them room so they don't collide. */
+  :lang(hi),
+  :lang(mr),
+  :lang(bn),
+  :lang(as),
+  :lang(ta),
+  :lang(te),
+  :lang(kn),
+  :lang(ml),
+  :lang(gu),
+  :lang(pa),
+  :lang(or) {
+    line-height: 1.75;
+  }
+
+  ::selection {
+    background: rgb(var(--saffron) / 0.35);
+  }
+
+  :focus-visible {
+    outline: 3px solid rgb(var(--saffron));
+    outline-offset: 2px;
+    border-radius: 10px;
+  }
+
+  summary {
+    cursor: pointer;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button {
+    opacity: 0.4;
+  }
+}
+
+@layer components {
+  /* Subtle paper grain. Inline SVG so there's no extra network request on slow 3G. */
+  .grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.35;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.17 0 0 0 0 0.07 0 0 0 0 0.4 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* The bill report is a receipt: torn zig-zag edge at the top and bottom. */
+  .receipt {
+    --tooth: 9px;
+    background: rgb(var(--card));
+    -webkit-mask:
+      conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / calc(var(--tooth) * 2) var(--tooth) repeat-x,
+      conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / calc(var(--tooth) * 2) var(--tooth) repeat-x,
+      linear-gradient(#000 0 0) center / 100% calc(100% - var(--tooth) * 2 + 1px) no-repeat;
+    mask:
+      conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / calc(var(--tooth) * 2) var(--tooth) repeat-x,
+      conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / calc(var(--tooth) * 2) var(--tooth) repeat-x,
+      linear-gradient(#000 0 0) center / 100% calc(100% - var(--tooth) * 2 + 1px) no-repeat;
+    filter: drop-shadow(0 18px 24px rgb(var(--shadow) / 0.18));
+  }
+
+  .dotted-rule {
+    background-image: radial-gradient(circle, rgb(var(--muted) / 0.55) 1px, transparent 1.4px);
+    background-size: 7px 3px;
+    background-repeat: repeat-x;
+    background-position: center;
+    height: 3px;
+  }
+
+  /* Rubber-stamp verdict. Double border plus a light ink texture, slightly rotated. */
+  .stamp {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.9rem;
+    border: 2.5px solid currentColor;
+    border-radius: 8px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    transform: rotate(-2.5deg);
+    background-image: radial-gradient(rgb(var(--card) / 0.55) 0.8px, transparent 1px);
+    background-size: 5px 5px;
+  }
+  .stamp::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border: 1px solid currentColor;
+    border-radius: 5px;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .scan-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgb(var(--saffron)), transparent);
+    box-shadow: 0 0 18px 4px rgb(var(--saffron) / 0.35);
+    animation: scan 1.6s ease-in-out infinite;
+  }
+
+  .skeleton {
+    background: linear-gradient(90deg, rgb(var(--line) / 0.6), rgb(var(--line)), rgb(var(--line) / 0.6));
+    background-size: 200% 100%;
+    animation: shimmer 1.3s linear infinite;
+    border-radius: 8px;
+  }
+
+  .pulse-once {
+    animation: pulseOnce 1.2s ease-out 0.5s 1;
+  }
+
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .term {
+    text-decoration: underline dotted rgb(var(--muted) / 0.7);
+    text-underline-offset: 3px;
+    cursor: help;
+  }
+}
+
+@keyframes scan {
+  0%,
+  100% {
+    top: 6%;
+  }
+  50% {
+    top: 90%;
+  }
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes pulseOnce {
+  0% {
+    box-shadow: 0 0 0 0 rgb(var(--flag) / 0.45);
+  }
+  100% {
+    box-shadow: 0 0 0 12px rgb(var(--flag) / 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

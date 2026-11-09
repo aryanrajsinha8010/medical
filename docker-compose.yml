@@ -1,0 +1,60 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: swasthya-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-swasthya}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-swasthya_dev_only}
+      POSTGRES_DB: ${POSTGRES_DB:-swasthyabillcheck}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U swasthya -d swasthyabillcheck"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  ai-engine:
+    build:
+      context: .
+      dockerfile: services/ai-engine/Dockerfile
+    container_name: swasthya-ai-engine
+    environment:
+      PORT: "8000"
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  api:
+    build:
+      context: ./services/api
+      dockerfile: Dockerfile
+    container_name: swasthya-api
+    environment:
+      PORT: "4000"
+      AI_ENGINE_URL: "http://ai-engine:8000"
+    ports:
+      - "4000:4000"
+    depends_on:
+      - ai-engine
+
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    container_name: swasthya-web
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
+

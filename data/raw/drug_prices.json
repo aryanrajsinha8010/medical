@@ -1,0 +1,211 @@
+[
+  {
+    "drug_id": "DRUG_PCM_IV_1G",
+    "canonical_id": "TERM_DRUG_PARACETAMOL_IV",
+    "generic_name": "Paracetamol Infusion IP 1000mg / 100ml",
+    "atc_code": "N02BE01",
+    "unit": "100ml Bottle",
+    "nppa_ceiling_price": 135.0,
+    "janaushadhi_mrp": 42.0,
+    "janaushadhi_drug_code": "PMBI-0412",
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025"
+  },
+  {
+    "drug_id": "DRUG_PAN_INJ_40",
+    "canonical_id": "TERM_DRUG_PANTOPRAZOLE_INJ",
+    "generic_name": "Pantoprazole Injection IP 40mg",
+    "atc_code": "A02BC02",
+    "unit": "1 Vial",
+    "nppa_ceiling_price": 56.0,
+    "janaushadhi_mrp": 18.0,
+    "janaushadhi_drug_code": "PMBI-0295",
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025"
+  },
+  {
+    "drug_id": "DRUG_CEF_INJ_1G",
+    "canonical_id": "TERM_DRUG_CEFTRIAXONE_1G",
+    "generic_name": "Ceftriaxone Injection IP 1g",
+    "atc_code": "J01DD04",
+    "unit": "1 Vial",
+    "nppa_ceiling_price": 68.5,
+    "janaushadhi_mrp": 24.0,
+    "janaushadhi_drug_code": "PMBI-0108",
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025"
+  },
+  {
+    "drug_id": "DRUG_ENOX_PFS_40",
+    "canonical_id": "TERM_DRUG_ENOXAPARIN_40",
+    "generic_name": "Enoxaparin Sodium Injection IP 40mg/0.4ml",
+    "atc_code": "B01AB05",
+    "unit": "1 Prefilled Syringe",
+    "nppa_ceiling_price": 425.0,
+    "janaushadhi_mrp": 165.0,
+    "janaushadhi_drug_code": "PMBI-0688",
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025"
+  },
+  {
+    "drug_id": "DRUG_TOPICAL_ANALGESIC",
+    "canonical_id": "TERM_DRUG_TOPICAL_ANALGESIC",
+    "generic_name": "Methyl Salicylate + Menthol / Diclofenac Analgesic Gel 30g",
+    "atc_code": "M02AC",
+    "unit": "30g Tube",
+    "nppa_ceiling_price": 35.0,
+    "janaushadhi_mrp": 25.0,
+    "janaushadhi_drug_code": "PMBI-1102",
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025"
+  },
+  {
+    "drug_id": "DRUG_TRAMADOL_50",
+    "canonical_id": "TERM_DRUG_TRAMADOL_50",
+    "generic_name": "Tramadol Hydrochloride Capsules IP 50mg (10s)",
+    "atc_code": "N02AX02",
+    "unit": "Strip of 10",
+    "nppa_ceiling_price": 22.5,
+    "janaushadhi_mrp": 7.5,
+    "janaushadhi_drug_code": "PMBI-0415",
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025"
+  },
+  {
+    "drug_id": "DRUG_ALENDRONATE_70",
+    "canonical_id": "TERM_DRUG_ALENDRONATE_70",
+    "generic_name": "Alendronate Sodium 70mg + Cholecalciferol (Vit D3) Tablets",
+    "atc_code": "M05BB03",
+    "unit": "Strip of 4",
+    "nppa_ceiling_price": 120.0,
+    "janaushadhi_mrp": 48.0,
+    "janaushadhi_drug_code": "PMBI-0918",
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025"
+  },
+  {
+    "drug_id": "DRUG_KETOPROFEN_PLASTER",
+    "canonical_id": "TERM_DRUG_KETOPROFEN_PLASTER",
+    "generic_name": "Ketoprofen 30mg Transdermal Analgesic Plaster (Pack of 6)",
+    "atc_code": "M02AA10",
+    "unit": "Pack of 6",
+    "nppa_ceiling_price": 95.0,
+    "janaushadhi_mrp": 55.0,
+    "janaushadhi_drug_code": "PMBI-1108",
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025"
+  },
+  {
+    "drug_id": "DRUG_CALCIUM_VITD3",
+    "canonical_id": "TERM_DRUG_CALCIUM_VITD3",
+    "generic_name": "Calcium 500mg + Vitamin D3 500 IU Tablets IP (15s)",
+    "atc_code": "A12AX",
+    "unit": "Strip of 15",
+    "nppa_ceiling_price": 14.3,
+    "janaushadhi_mrp": 8.5,
+    "janaushadhi_drug_code": "PMBI-0905",
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025"
+  },
+  {
+    "drug_id": "DRUG_PCM_500_TAB",
+    "canonical_id": "TERM_DRUG_PARACETAMOL_500_TAB",
+    "generic_name": "Paracetamol Tablets IP 500mg (10s)",
+    "atc_code": "N02BE01",
+    "unit": "Strip of 10",
+    "nppa_ceiling_price": 18.1,
+    "janaushadhi_mrp": 9.0,
+    "janaushadhi_drug_code": "PMBI-0001",
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025"
+  },
+  {
+    "drug_id": "DRUG_COUGH_SYRUP_200",
+    "canonical_id": "TERM_DRUG_COUGH_SYRUP_200",
+    "generic_name": "Ambroxol + Guaiphenesin + Terbutaline Cough Syrup 200ml",
+    "atc_code": "R05CB06",
+    "unit": "200ml Bottle",
+    "nppa_ceiling_price": 48.0,
+    "janaushadhi_mrp": 36.0,
+    "janaushadhi_drug_code": "PMBI-0412",
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025"
+  },
+  {
+    "drug_id": "DRUG_ANTIBIOTIC_CREAM_30G",
+    "canonical_id": "TERM_DRUG_ANTIBIOTIC_CREAM_30G",
+    "generic_name": "Povidone Iodine / Fusidic Acid Topical Antibiotic Cream 30g",
+    "atc_code": "D06AX",
+    "unit": "30g Tube",
+    "nppa_ceiling_price": 32.0,
+    "janaushadhi_mrp": 22.0,
+    "janaushadhi_drug_code": "PMBI-0518",
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025"
+  },
+  {
+    "drug_id": "DRUG_MERO_1G",
+    "canonical_id": "TERM_DRUG_MEROPENEM_1G",
+    "generic_name": "Meropenem Powder for Injection IP 1000mg",
+    "atc_code": "J01DH02",
+    "unit": "1 Vial",
+    "nppa_ceiling_price": 975.62,
+    "janaushadhi_mrp": 260.0,
+    "janaushadhi_drug_code": "PMBI-0912",
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025"
+  },
+  {
+    "drug_id": "DRUG_AZI_500",
+    "canonical_id": "TERM_DRUG_AZITHROMYCIN_500",
+    "generic_name": "Azithromycin Tablets IP 500mg (10s)",
+    "atc_code": "J01FA10",
+    "unit": "Strip of 10",
+    "nppa_ceiling_price": 239.8,
+    "janaushadhi_mrp": 72.0,
+    "janaushadhi_drug_code": "PMBI-0084",
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025"
+  },
+  {
+    "drug_id": "DRUG_ATOR_20",
+    "canonical_id": "TERM_DRUG_ATORVASTATIN_20",
+    "generic_name": "Atorvastatin Tablets IP 20mg (10s)",
+    "atc_code": "C10AA05",
+    "unit": "Strip of 10",
+    "nppa_ceiling_price": 147.5,
+    "janaushadhi_mrp": 12.47,
+    "janaushadhi_drug_code": "PMBI-0211",
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025"
+  },
+  {
+    "drug_id": "DRUG_MET_500",
+    "canonical_id": "TERM_DRUG_METFORMIN_500",
+    "generic_name": "Metformin Hydrochloride Tablets IP 500mg (10s)",
+    "atc_code": "A10BA02",
+    "unit": "Strip of 10",
+    "nppa_ceiling_price": 20.6,
+    "janaushadhi_mrp": 6.81,
+    "janaushadhi_drug_code": "PMBI-0302",
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025"
+  },
+  {
+    "drug_id": "DRUG_AMLO_5",
+    "canonical_id": "TERM_DRUG_AMLODIPINE_5",
+    "generic_name": "Amlodipine Tablets IP 5mg (10s)",
+    "atc_code": "C08CA01",
+    "unit": "Strip of 10",
+    "nppa_ceiling_price": 25.6,
+    "janaushadhi_mrp": 4.69,
+    "janaushadhi_drug_code": "PMBI-0190",
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025"
+  },
+  {
+    "drug_id": "DRUG_OMEPRAZOLE_20",
+    "canonical_id": "TERM_DRUG_OMEPRAZOLE_20",
+    "generic_name": "Omeprazole Capsules IP 20mg (10s)",
+    "atc_code": "A02BC01",
+    "unit": "Strip of 10",
+    "nppa_ceiling_price": 29.4,
+    "janaushadhi_mrp": 3.5,
+    "janaushadhi_drug_code": "PMBI-0042",
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025"
+  },
+  {
+    "drug_id": "DRUG_AZITHROMYCIN_500",
+    "canonical_id": "TERM_DRUG_AZITHROMYCIN_500",
+    "generic_name": "Azithromycin Tablets IP 500mg (3s)",
+    "atc_code": "J01FA10",
+    "unit": "Strip of 3",
+    "nppa_ceiling_price": 53.49,
+    "janaushadhi_mrp": 24.0,
+    "janaushadhi_drug_code": "PMBI-0085",
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025"
+  }
+]

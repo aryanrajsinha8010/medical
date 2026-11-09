@@ -1,0 +1,15 @@
+{
+  "golden_bills_tested": 42,
+  "total_lines_evaluated": 130,
+  "ocr_field_accuracy_pct": 95.38,
+  "canonical_match_accuracy_pct": 95.38,
+  "flag_precision_pct": 97.5,
+  "flag_recall_pct": 92.86,
+  "false_flag_rate_pct": 1.19,
+  "confusion_matrix": {
+    "true_positives_flagged": 39,
+    "false_positives_flagged": 1,
+    "true_negatives_ok": 83,
+    "false_negatives_missed": 3
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "SwasthyaBillCheck (NMBTP)",
+  "short_name": "SwasthyaBillCheck",
+  "description": "National Medical Bill Transparency Platform — Verify hospital bills against official CGHS, PM-JAY & NPPA reference rates.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2B1166",
+  "theme_color": "#2B1166",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
+

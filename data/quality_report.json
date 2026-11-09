@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-11-09T17:54:33Z",
+  "database_path": "data\\swasthyabillcheck.db",
+  "row_counts": {
+    "rate_source": 5,
+    "canonical_term": 80,
+    "rate_item": 95,
+    "drug_price": 19,
+    "hospital": 4,
+    "grievance_route": 5
+  },
+  "integrity_checks": {
+    "orphan_source_references": 0,
+    "orphan_canonical_term_references": 0,
+    "duplicate_rate_ids": 1,
+    "null_required_fields_count": 0,
+    "null_rate_pct": 0.0,
+    "all_rates_traceable_to_source": true
+  },
+  "coverage_by_category": {
+    "consultation": 3,
+    "room_rent": 5,
+    "investigation": 23,
+    "implant": 3,
+    "package": 22,
+    "procedure": 16,
+    "pharmacy": 20,
+    "consumable": 1,
+    "misc": 2
+  },
+  "coverage_by_scheme": {
+    "CGHS": 62,
+    "NPPA": 20,
+    "PM-JAY": 9,
+    "MJPJAY": 2,
+    "NPPA-DPCO": 2
+  },
+  "statistical_outliers_z3": [
+    {
+      "rate_id": "RATE_CGHS_TURP",
+      "rate": 63000.0,
+      "z_score": 3.53
+    },
+    {
+      "rate_id": "RATE_NPPA_MEROPENEM_1G",
+      "rate": 975.62,
+      "z_score": 3.55
+    }
+  ]
+}

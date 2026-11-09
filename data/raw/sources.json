@@ -1,0 +1,72 @@
+[
+  {
+    "source_id": "SRC_CGHS_2023_OM",
+    "scheme": "CGHS",
+    "name": "Central Government Health Scheme (CGHS) Revised Consultation, Room Rent & ICU Rates + Tier X/Y/Z Schedule",
+    "authority": "Directorate General of CGHS, Ministry of Health & Family Welfare, Govt. of India",
+    "source_url": "https://cghs.mohfw.gov.in",
+    "document_version": "OM F.No. 5-16/CGHS(HQ)/HEC/2023 (Z.15025/28/2022/DIR/CGHS) dated 12-04-2023 & Delhi/Tier-X Rate Schedule",
+    "effective_from": "2023-04-12",
+    "effective_to": null,
+    "retrieval_date": "2026-11-09T17:54:33Z",
+    "licence_note": "Government of India Open Public Notification / GODL-India compliant reference",
+    "is_sample_seed": false,
+    "notes": "Itemized rates for OPD/IPD consultation (Rs 350), Room Rent (General Rs 1500, Semi-Private Rs 3000, Private Rs 4500), ICU (Rs 5400), and NABL/NABH diagnostic & procedure rates. Non-NABH is 15% lower for procedures/diagnostics; Tier Y is 10% lower and Tier Z is 20% lower for package procedures."
+  },
+  {
+    "source_id": "SRC_PMJAY_HBP_22",
+    "scheme": "PM-JAY",
+    "name": "Ayushman Bharat PM-JAY Health Benefit Package (HBP 2.2) Master",
+    "authority": "National Health Authority (NHA), Ministry of Health & Family Welfare, Govt. of India",
+    "source_url": "https://pmjay.gov.in",
+    "document_version": "HBP 2.2 National Master (April 2022 / 2024 Rationalized)",
+    "effective_from": "2022-04-01",
+    "effective_to": null,
+    "retrieval_date": "2026-11-09T17:54:33Z",
+    "licence_note": "NHA Public Health Benefit Package Reference (Informational use; bundled cashless rates)",
+    "is_sample_seed": true,
+    "notes": "Bundled surgical & medical package rates (inclusive of bed, nursing, surgeon, OT, standard consumables, pre/post hospitalization). Curated subset marked with sample seed badge where full hospital-portal login is required."
+  },
+  {
+    "source_id": "SRC_NPPA_DPCO_2025",
+    "scheme": "NPPA",
+    "name": "NPPA DPCO 2013 Ceiling Prices for Coronary Stents, Orthopaedic Knee Implants & Scheduled NLEM Formulations",
+    "authority": "National Pharmaceutical Pricing Authority (NPPA), Dept. of Pharmaceuticals, Govt. of India",
+    "source_url": "https://www.nppaindia.nic.in",
+    "document_version": "Gazette Notification S.O. 1473(E) dated 27-03-2025 (w.e.f. 01-04-2025) & S.O. 1551(E) / S.O. 3869(E)",
+    "effective_from": "2025-04-01",
+    "effective_to": "2026-11-15",
+    "retrieval_date": "2026-11-09T17:54:33Z",
+    "licence_note": "Statutory Gazette Notification under Drugs (Prices Control) Order, 2013",
+    "is_sample_seed": false,
+    "notes": "Legally binding ceiling prices (excl. GST) across India for Bare Metal Stents (Rs 10,692.69), Drug Eluting Stents (Rs 38,933.14), Knee Implants, and NLEM scheduled drugs."
+  },
+  {
+    "source_id": "SRC_PMBI_JANAUSHADHI_2025",
+    "scheme": "PMBI",
+    "name": "Pradhan Mantri Bhartiya Janaushadhi Pariyojana (PMBJP) Generic Product & MRP Basket",
+    "authority": "Pharmaceuticals & Medical Devices Bureau of India (PMBI)",
+    "source_url": "https://www.janaushadhi.gov.in/product-mrp-list",
+    "document_version": "PMBI Product MRP Master 2024-25",
+    "effective_from": "2024-04-01",
+    "effective_to": null,
+    "retrieval_date": "2026-11-09T17:54:33Z",
+    "licence_note": "Public MRP catalogue published by PMBI for citizen awareness",
+    "is_sample_seed": true,
+    "notes": "Benchmark generic MRPs for high-volume hospital inpatient & outpatient medicines."
+  },
+  {
+    "source_id": "SRC_STATE_MJPJAY_2024",
+    "scheme": "MJPJAY",
+    "name": "Mahatma Jyotirao Phule Jan Arogya Yojana (Maharashtra) & Mukhyamantri Ayushman Arogya (MAA Rajasthan) Package Tariff",
+    "authority": "State Health Assurance Society, Govt. of Maharashtra & Rajasthan SHAA",
+    "source_url": "https://www.jeevandayee.gov.in",
+    "document_version": "MJPJAY-PMJAY Integrated Tariff Schedule 2024",
+    "effective_from": "2024-01-01",
+    "effective_to": null,
+    "retrieval_date": "2026-11-09T17:54:33Z",
+    "licence_note": "State Government Public Health Scheme Tariff Reference",
+    "is_sample_seed": true,
+    "notes": "State-level bundled surgical and medical package benchmarks for Maharashtra (MJPJAY) and Rajasthan (MAA)."
+  }
+]

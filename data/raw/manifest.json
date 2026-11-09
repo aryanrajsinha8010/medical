@@ -1,0 +1,115 @@
+{
+  "project": "SwasthyaBillCheck (NMBTP)",
+  "team": "TechNova — SBI Youth Ideathon 2026",
+  "retrieved_at": "2026-11-09T12:10:32Z",
+  "portal_probes": [
+    {
+      "source_id": "SRC_CGHS_2023_OM",
+      "url": "https://cghs.mohfw.gov.in",
+      "robots_url": "https://cghs.mohfw.gov.in/robots.txt",
+      "robots_allowed": true,
+      "robots_note": "robots.txt unreachable or not present (HTTPError); defaulting to polite metadata probe",
+      "retrieved_at": "2026-11-09T12:10:32Z",
+      "live_fetch_succeeded": true,
+      "http_status": 200,
+      "raw_file": "data/raw/SRC_CGHS_2023_OM_portal_snapshot.html",
+      "sha256": "6514031b44b86fc9b0ca9ce2392384c6e938fa5413908f4b14aa13cdb997ec8f",
+      "fallback_used": false,
+      "bytes": 123841
+    },
+    {
+      "source_id": "SRC_PMJAY_HBP_22",
+      "url": "https://pmjay.gov.in",
+      "robots_url": "https://pmjay.gov.in/robots.txt",
+      "robots_allowed": true,
+      "robots_note": "robots.txt unreachable or not present (URLError); defaulting to polite metadata probe",
+      "retrieved_at": "2026-11-09T12:10:32Z",
+      "live_fetch_succeeded": false,
+      "http_status": null,
+      "raw_file": null,
+      "sha256": null,
+      "fallback_used": true,
+      "error": "URLError: <urlopen error timed out>"
+    },
+    {
+      "source_id": "SRC_NPPA_DPCO_2025",
+      "url": "https://www.nppaindia.nic.in",
+      "robots_url": "https://www.nppaindia.nic.in/robots.txt",
+      "robots_allowed": true,
+      "robots_note": "robots.txt unreachable or not present (URLError); defaulting to polite metadata probe",
+      "retrieved_at": "2026-11-09T12:10:32Z",
+      "live_fetch_succeeded": false,
+      "http_status": null,
+      "raw_file": null,
+      "sha256": null,
+      "fallback_used": true,
+      "error": "URLError: <urlopen error [Errno 11001] getaddrinfo failed>"
+    },
+    {
+      "source_id": "SRC_PMBI_JANAUSHADHI_2025",
+      "url": "https://www.janaushadhi.gov.in",
+      "robots_url": "https://www.janaushadhi.gov.in/robots.txt",
+      "robots_allowed": true,
+      "robots_note": "robots.txt HTTP 200 (allowed=True)",
+      "retrieved_at": "2026-11-09T12:10:32Z",
+      "live_fetch_succeeded": true,
+      "http_status": 200,
+      "raw_file": "data/raw/SRC_PMBI_JANAUSHADHI_2025_portal_snapshot.html",
+      "sha256": "86d25c2933618c33b15743d7cdc230b3b95467f8eabda61e26c76871db57660c",
+      "fallback_used": false,
+      "bytes": 3971
+    },
+    {
+      "source_id": "SRC_STATE_MJPJAY_2024",
+      "url": "https://www.jeevandayee.gov.in",
+      "robots_url": "https://www.jeevandayee.gov.in/robots.txt",
+      "robots_allowed": true,
+      "robots_note": "robots.txt unreachable or not present (URLError); defaulting to polite metadata probe",
+      "retrieved_at": "2026-11-09T12:10:32Z",
+      "live_fetch_succeeded": false,
+      "http_status": null,
+      "raw_file": null,
+      "sha256": null,
+      "fallback_used": true,
+      "error": "URLError: <urlopen error timed out>"
+    }
+  ],
+  "raw_files": {
+    "data/raw/sources.json": {
+      "sha256": "ae58d44e2a07418ed085484ccee153b863d309ca93ed48b7181992f024cfbed9",
+      "row_count": 5,
+      "bytes": 4243,
+      "generated_at": "2026-11-09T17:54:33Z"
+    },
+    "data/raw/canonical_terms.json": {
+      "sha256": "58a3bcb7b31eaf2dd5392f0889dc6ddc9feb773a098b7ea491bcab203fe208ac",
+      "row_count": 80,
+      "bytes": 76695,
+      "generated_at": "2026-11-09T17:54:33Z"
+    },
+    "data/raw/rate_items.json": {
+      "sha256": "b8ec5f0ebd648166251a031c17895fcb70a9591a3e0acfd94354e2b92acef0f2",
+      "row_count": 95,
+      "bytes": 51142,
+      "generated_at": "2026-11-09T17:54:33Z"
+    },
+    "data/raw/drug_prices.json": {
+      "sha256": "5fe7fe3a4daa1d672cf2accbc95b2988102fd50a1fc67f44c26576d3e27601f8",
+      "row_count": 19,
+      "bytes": 6863,
+      "generated_at": "2026-11-09T17:54:33Z"
+    },
+    "data/raw/hospitals.json": {
+      "sha256": "0d865c8b4fef2c07a30714a63a7c6835f416d9fbfdc78901f8915b6c31ee52ca",
+      "row_count": 4,
+      "bytes": 1084,
+      "generated_at": "2026-11-09T17:54:33Z"
+    },
+    "data/raw/grievance_routes.json": {
+      "sha256": "5c2a2335aeee8d44ad4c196578e7458d70e5ebf18f9457a49d494805b08c84c4",
+      "row_count": 5,
+      "bytes": 2395,
+      "generated_at": "2026-11-09T17:54:33Z"
+    }
+  }
+}

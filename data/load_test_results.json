@@ -1,0 +1,11 @@
+{
+  "concurrent_requests": 100,
+  "success_rate_pct": 100.0,
+  "total_wall_time_ms": 679.37,
+  "mean_latency_ms": 372.22,
+  "p50_latency_ms": 369.14,
+  "p95_latency_ms": 609.21,
+  "p99_latency_ms": 631.51,
+  "p95_target_ms": 800.0,
+  "target_met": true
+}

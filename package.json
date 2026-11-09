@@ -1,0 +1,15 @@
+{
+  "name": "swasthyabillcheck-nmbtp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SwasthyaBillCheck (NMBTP: National Medical Bill Transparency Platform) — Team TechNova, SBI Youth Ideathon 2026",
+  "scripts": {
+    "seed": "python data/etl/fetch_and_verify.py && python data/etl/expand_rates.py && python data/etl/monthly_refresh.py && python data/etl/generate_golden_bills.py",
+    "test:unit": "pytest tests/test_core_suite.py -v",
+    "test:integration": "pytest tests/test_api_and_load.py -v",
+    "test:e2e": "pytest tests/e2e_playwright.py -v",
+    "test": "pytest tests/ -v",
+    "build": "npm --prefix apps/web run build && npm --prefix services/api run build"
+  }
+}
+

@@ -1,0 +1,1762 @@
+[
+  {
+    "bill_id": "BILL_001_DECK_SLIDE3",
+    "title": "Deck Slide 3 Benchmark Bill (Consultation, Room Charges, Lab Tests)",
+    "category": "clean_photo",
+    "hospital_name": "Indraprastha Metro Super Speciality Hospital",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 2,
+    "patient_header": "Patient Name: Rajesh Sharma | Phone: 9811223344 | UHID: IMSH-2026-0891 | Aadhaar: 4512 8923 6701",
+    "lines": [
+      {
+        "raw_text": "Consultation",
+        "qty": 1,
+        "unit_price": 1500.0,
+        "total": 1500.0,
+        "expected_canonical_id": "TERM_CONSULT_OPD",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Room charges",
+        "qty": 1,
+        "unit_price": 9000.0,
+        "total": 9000.0,
+        "expected_canonical_id": "TERM_ROOM_SEMI_PRIVATE",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "Lab tests",
+        "qty": 1,
+        "unit_price": 3000.0,
+        "total": 3000.0,
+        "expected_canonical_id": "TERM_LAB_PANEL_STANDARD",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_001_DECK_SLIDE3.png",
+    "pdf_file": "data/golden_bills/BILL_001_DECK_SLIDE3.pdf",
+    "ocr_text": "Indraprastha Metro Super Speciality Hospital\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 2\nPatient Name: Rajesh Sharma | Phone: 9811223344 | UHID: IMSH-2026-0891 | Aadhaar: 4512 8923 6701\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nConsultation | 1 | Rs. 1500.00 | Rs. 1500.00\nRoom charges | 1 | Rs. 9000.00 | Rs. 9000.00\nLab tests | 1 | Rs. 3000.00 | Rs. 3000.00\nGrand Total: Rs. 13500.00"
+  },
+  {
+    "bill_id": "BILL_002_CLEAN_CARDIAC",
+    "title": "Cardiac Stent & Angioplasty Bill (NPPA Stent Cap Violation)",
+    "category": "clean_photo",
+    "hospital_name": "Apex Heart & Vascular Institute",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 3,
+    "patient_header": "Patient Name: Sunita Verma | Phone: 9876543210 | UHID: AHVI-9920",
+    "lines": [
+      {
+        "raw_text": "Coronary Angioplasty (PTCA Package)",
+        "qty": 1,
+        "unit_price": 57500.0,
+        "total": 57500.0,
+        "expected_canonical_id": "TERM_PKG_PTCA",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Drug Eluting Stent (DES Coronary Stent)",
+        "qty": 1,
+        "unit_price": 62000.0,
+        "total": 62000.0,
+        "expected_canonical_id": "TERM_IMPLANT_STENT_DES",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "2D Echocardiography",
+        "qty": 1,
+        "unit_price": 1475.0,
+        "total": 1475.0,
+        "expected_canonical_id": "TERM_CARD_2DECHO",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "ECG 12 Lead",
+        "qty": 1,
+        "unit_price": 175.0,
+        "total": 175.0,
+        "expected_canonical_id": "TERM_CARD_ECG",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_002_CLEAN_CARDIAC.png",
+    "pdf_file": null,
+    "ocr_text": "Apex Heart & Vascular Institute\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 3\nPatient Name: Sunita Verma | Phone: 9876543210 | UHID: AHVI-9920\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nCoronary Angioplasty (PTCA Package) | 1 | Rs. 57500.00 | Rs. 57500.00\nDrug Eluting Stent (DES Coronary Stent) | 1 | Rs. 62000.00 | Rs. 62000.00\n2D Echocardiography | 1 | Rs. 1475.00 | Rs. 1475.00\nECG 12 Lead | 1 | Rs. 175.00 | Rs. 175.00\nGrand Total: Rs. 121150.00"
+  },
+  {
+    "bill_id": "BILL_003_CLEAN_OPD_DIAG",
+    "title": "Outpatient Diagnostic & Consultation Bill (Overcharged HRCT & Lipid)",
+    "category": "clean_photo",
+    "hospital_name": "Metro Diagnostics & Multispeciality Centre",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 1,
+    "patient_header": "Patient Name: Amitabh Nair | Phone: 9123456780 | UHID: MDMC-1102",
+    "lines": [
+      {
+        "raw_text": "OPD Consultation",
+        "qty": 1,
+        "unit_price": 350.0,
+        "total": 350.0,
+        "expected_canonical_id": "TERM_CONSULT_OPD",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Complete Blood Count (CBC)",
+        "qty": 1,
+        "unit_price": 300.0,
+        "total": 300.0,
+        "expected_canonical_id": "TERM_LAB_CBC",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Lipid Profile",
+        "qty": 1,
+        "unit_price": 1250.0,
+        "total": 1250.0,
+        "expected_canonical_id": "TERM_LAB_LIPID",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "HRCT Chest",
+        "qty": 1,
+        "unit_price": 4500.0,
+        "total": 4500.0,
+        "expected_canonical_id": "TERM_RAD_HRCT_CHEST",
+        "expected_flagged": true
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_003_CLEAN_OPD_DIAG.png",
+    "pdf_file": null,
+    "ocr_text": "Metro Diagnostics & Multispeciality Centre\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 1\nPatient Name: Amitabh Nair | Phone: 9123456780 | UHID: MDMC-1102\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nOPD Consultation | 1 | Rs. 350.00 | Rs. 350.00\nComplete Blood Count (CBC) | 1 | Rs. 300.00 | Rs. 300.00\nLipid Profile | 1 | Rs. 1250.00 | Rs. 1250.00\nHRCT Chest | 1 | Rs. 4500.00 | Rs. 4500.00\nGrand Total: Rs. 6400.00"
+  },
+  {
+    "bill_id": "BILL_004_CLEAN_ALL_OK",
+    "title": "Compliant CGHS-Aligned Inpatient Bill (Zero Overcharges)",
+    "category": "clean_photo",
+    "hospital_name": "National Care NABH Hospital",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "general",
+    "stay_days": 2,
+    "patient_header": "Patient Name: Kavita Joshi | Phone: 9988776655 | UHID: NCNH-4401",
+    "lines": [
+      {
+        "raw_text": "General Ward Bed Charges",
+        "qty": 2,
+        "unit_price": 1500.0,
+        "total": 3000.0,
+        "expected_canonical_id": "TERM_ROOM_GENERAL",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Specialist Visit",
+        "qty": 2,
+        "unit_price": 350.0,
+        "total": 700.0,
+        "expected_canonical_id": "TERM_CONSULT_OPD",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Kidney Function Test (KFT)",
+        "qty": 1,
+        "unit_price": 500.0,
+        "total": 500.0,
+        "expected_canonical_id": "TERM_LAB_KFT",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Chest X-Ray",
+        "qty": 1,
+        "unit_price": 230.0,
+        "total": 230.0,
+        "expected_canonical_id": "TERM_RAD_XRAY_CHEST",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_004_CLEAN_ALL_OK.png",
+    "pdf_file": null,
+    "ocr_text": "National Care NABH Hospital\nState: DL | City Tier: X | Ward: general | Stay Days: 2\nPatient Name: Kavita Joshi | Phone: 9988776655 | UHID: NCNH-4401\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nGeneral Ward Bed Charges | 2 | Rs. 1500.00 | Rs. 3000.00\nSpecialist Visit | 2 | Rs. 350.00 | Rs. 700.00\nKidney Function Test (KFT) | 1 | Rs. 500.00 | Rs. 500.00\nChest X-Ray | 1 | Rs. 230.00 | Rs. 230.00\nGrand Total: Rs. 4430.00"
+  },
+  {
+    "bill_id": "BILL_005_CLEAN_ICU_UNBUNDLED",
+    "title": "ICU Stay with Unbundled Nursing/Monitor Charge",
+    "category": "clean_photo",
+    "hospital_name": "Fortis Care Critical Hospital",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 3,
+    "patient_header": "Patient Name: Deepak Malhotra | Phone: 9711223344 | UHID: FCCH-3029",
+    "lines": [
+      {
+        "raw_text": "ICU Charges",
+        "qty": 3,
+        "unit_price": 5400.0,
+        "total": 16200.0,
+        "expected_canonical_id": "TERM_ROOM_ICU",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Nursing Charges",
+        "qty": 3,
+        "unit_price": 1800.0,
+        "total": 5400.0,
+        "expected_canonical_id": "TERM_PROC_NURSING_RMO",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "Inj Meropenem 1g",
+        "qty": 3,
+        "unit_price": 975.0,
+        "total": 2925.0,
+        "expected_canonical_id": "TERM_DRUG_MEROPENEM_1G",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_005_CLEAN_ICU_UNBUNDLED.png",
+    "pdf_file": null,
+    "ocr_text": "Fortis Care Critical Hospital\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 3\nPatient Name: Deepak Malhotra | Phone: 9711223344 | UHID: FCCH-3029\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nICU Charges | 3 | Rs. 5400.00 | Rs. 16200.00\nNursing Charges | 3 | Rs. 1800.00 | Rs. 5400.00\nInj Meropenem 1g | 3 | Rs. 975.00 | Rs. 2925.00\nGrand Total: Rs. 24525.00"
+  },
+  {
+    "bill_id": "BILL_006_CLEAN_DENGUE",
+    "title": "Acute Dengue Fever Admission Bill",
+    "category": "clean_photo",
+    "hospital_name": "Lotus City Hospital",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 3,
+    "patient_header": "Patient Name: Meena Kumari | Phone: 9810011223 | UHID: LCH-7712",
+    "lines": [
+      {
+        "raw_text": "Semi-Private Room",
+        "qty": 3,
+        "unit_price": 3000.0,
+        "total": 9000.0,
+        "expected_canonical_id": "TERM_ROOM_SEMI_PRIVATE",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Dengue NS1 Antigen",
+        "qty": 1,
+        "unit_price": 1200.0,
+        "total": 1200.0,
+        "expected_canonical_id": "TERM_LAB_DENGUE_NS1",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "Complete Haemogram",
+        "qty": 2,
+        "unit_price": 300.0,
+        "total": 600.0,
+        "expected_canonical_id": "TERM_LAB_CBC",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Paracetamol IV",
+        "qty": 3,
+        "unit_price": 350.0,
+        "total": 1050.0,
+        "expected_canonical_id": "TERM_DRUG_PARACETAMOL_IV",
+        "expected_flagged": true
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_006_CLEAN_DENGUE.png",
+    "pdf_file": null,
+    "ocr_text": "Lotus City Hospital\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 3\nPatient Name: Meena Kumari | Phone: 9810011223 | UHID: LCH-7712\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nSemi-Private Room | 3 | Rs. 3000.00 | Rs. 9000.00\nDengue NS1 Antigen | 1 | Rs. 1200.00 | Rs. 1200.00\nComplete Haemogram | 2 | Rs. 300.00 | Rs. 600.00\nParacetamol IV | 3 | Rs. 350.00 | Rs. 1050.00\nGrand Total: Rs. 11850.00"
+  },
+  {
+    "bill_id": "BILL_007_CLEAN_DIALYSIS",
+    "title": "Nephrology Maintenance Hemodialysis Bill",
+    "category": "clean_photo",
+    "hospital_name": "Renal Care Super Speciality Centre",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "general",
+    "stay_days": 1,
+    "patient_header": "Patient Name: Harish Chandra | Phone: 9412345678 | UHID: RCSS-5510",
+    "lines": [
+      {
+        "raw_text": "Hemodialysis",
+        "qty": 2,
+        "unit_price": 3200.0,
+        "total": 6400.0,
+        "expected_canonical_id": "TERM_PROC_HEMODIALYSIS",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "Kidney Function Test",
+        "qty": 1,
+        "unit_price": 500.0,
+        "total": 500.0,
+        "expected_canonical_id": "TERM_LAB_KFT",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "OPD Consultation",
+        "qty": 1,
+        "unit_price": 350.0,
+        "total": 350.0,
+        "expected_canonical_id": "TERM_CONSULT_OPD",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_007_CLEAN_DIALYSIS.png",
+    "pdf_file": null,
+    "ocr_text": "Renal Care Super Speciality Centre\nState: DL | City Tier: X | Ward: general | Stay Days: 1\nPatient Name: Harish Chandra | Phone: 9412345678 | UHID: RCSS-5510\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nHemodialysis | 2 | Rs. 3200.00 | Rs. 6400.00\nKidney Function Test | 1 | Rs. 500.00 | Rs. 500.00\nOPD Consultation | 1 | Rs. 350.00 | Rs. 350.00\nGrand Total: Rs. 7250.00"
+  },
+  {
+    "bill_id": "BILL_008_SKEWED_NEURO",
+    "title": "Neurology MRI & CT Scan Bill (Skewed 5 deg)",
+    "category": "skewed",
+    "skew_deg": 5.0,
+    "hospital_name": "NeuroLife Brain & Spine Institute",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 1,
+    "patient_header": "Patient Name: Vikramaditya Rao | Phone: 9822114455 | UHID: NLBS-0192",
+    "lines": [
+      {
+        "raw_text": "MRI Brain",
+        "qty": 1,
+        "unit_price": 6800.0,
+        "total": 6800.0,
+        "expected_canonical_id": "TERM_RAD_MRI_BRAIN",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "CT Scan Brain",
+        "qty": 1,
+        "unit_price": 1035.0,
+        "total": 1035.0,
+        "expected_canonical_id": "TERM_RAD_CT_HEAD",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Doctor Consultation",
+        "qty": 1,
+        "unit_price": 800.0,
+        "total": 800.0,
+        "expected_canonical_id": "TERM_CONSULT_OPD",
+        "expected_flagged": true
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_008_SKEWED_NEURO.png",
+    "pdf_file": null,
+    "ocr_text": "NeuroLife Brain & Spine Institute\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 1\nPatient Name: Vikramaditya Rao | Phone: 9822114455 | UHID: NLBS-0192\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nMRI Brain | 1 | Rs. 6800.00 | Rs. 6800.00\nCT Scan Brain | 1 | Rs. 1035.00 | Rs. 1035.00\nDoctor Consultation | 1 | Rs. 800.00 | Rs. 800.00\nGrand Total: Rs. 8635.00"
+  },
+  {
+    "bill_id": "BILL_009_SKEWED_GASTRO",
+    "title": "Gastroenterology Endoscopy & USG Bill (Skewed -6 deg)",
+    "category": "skewed",
+    "skew_deg": -6.0,
+    "hospital_name": "Digestive Health Hospital",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 1,
+    "patient_header": "Patient Name: Pooja Deshmukh | Phone: 9833445566 | UHID: DHH-8821",
+    "lines": [
+      {
+        "raw_text": "Upper GI Endoscopy",
+        "qty": 1,
+        "unit_price": 4500.0,
+        "total": 4500.0,
+        "expected_canonical_id": "TERM_PROC_ENDOSCOPY",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "USG Whole Abdomen",
+        "qty": 1,
+        "unit_price": 800.0,
+        "total": 800.0,
+        "expected_canonical_id": "TERM_RAD_USG_ABDOMEN",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Liver Function Test (LFT)",
+        "qty": 1,
+        "unit_price": 500.0,
+        "total": 500.0,
+        "expected_canonical_id": "TERM_LAB_LFT",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Inj Pantoprazole 40mg",
+        "qty": 2,
+        "unit_price": 56.0,
+        "total": 112.0,
+        "expected_canonical_id": "TERM_DRUG_PANTOPRAZOLE_INJ",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_009_SKEWED_GASTRO.png",
+    "pdf_file": null,
+    "ocr_text": "Digestive Health Hospital\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 1\nPatient Name: Pooja Deshmukh | Phone: 9833445566 | UHID: DHH-8821\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nUpper GI Endoscopy | 1 | Rs. 4500.00 | Rs. 4500.00\nUSG Whole Abdomen | 1 | Rs. 800.00 | Rs. 800.00\nLiver Function Test (LFT) | 1 | Rs. 500.00 | Rs. 500.00\nInj Pantoprazole 40mg | 2 | Rs. 56.00 | Rs. 112.00\nGrand Total: Rs. 5912.00"
+  },
+  {
+    "bill_id": "BILL_010_SKEWED_PHARMACY",
+    "title": "Inpatient Pharmacy & Antibiotic Bill (Skewed 7 deg)",
+    "category": "skewed",
+    "skew_deg": 7.0,
+    "hospital_name": "City Care Hospital",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 2,
+    "patient_header": "Patient Name: रमेश गुप्ता | Phone: 9911002233 | UHID: CCH-3310",
+    "lines": [
+      {
+        "raw_text": "Inj Ceftriaxone 1g",
+        "qty": 4,
+        "unit_price": 180.0,
+        "total": 720.0,
+        "expected_canonical_id": "TERM_DRUG_CEFTRIAXONE_1G",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "Inj Enoxaparin 40mg",
+        "qty": 2,
+        "unit_price": 425.0,
+        "total": 850.0,
+        "expected_canonical_id": "TERM_DRUG_ENOXAPARIN_40",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Tab Azithromycin 500mg",
+        "qty": 1,
+        "unit_price": 239.0,
+        "total": 239.0,
+        "expected_canonical_id": "TERM_DRUG_AZITHROMYCIN_500",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_010_SKEWED_PHARMACY.png",
+    "pdf_file": null,
+    "ocr_text": "City Care Hospital\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 2\nPatient Name: रमेश गुप्ता | Phone: 9911002233 | UHID: CCH-3310\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nInj Ceftriaxone 1g | 4 | Rs. 180.00 | Rs. 720.00\nInj Enoxaparin 40mg | 2 | Rs. 425.00 | Rs. 850.00\nTab Azithromycin 500mg | 1 | Rs. 239.00 | Rs. 239.00\nGrand Total: Rs. 1809.00"
+  },
+  {
+    "bill_id": "BILL_011_SKEWED_METABOLIC",
+    "title": "Endocrinology & Diabetes Checkup Bill (Skewed -4.5 deg)",
+    "category": "skewed",
+    "skew_deg": -4.5,
+    "hospital_name": "DiabCare & Hormone Clinic",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 1,
+    "patient_header": "Patient Name: Farhan Akhtar | Phone: 9845012345 | UHID: DCHC-410",
+    "lines": [
+      {
+        "raw_text": "Thyroid Profile",
+        "qty": 1,
+        "unit_price": 950.0,
+        "total": 950.0,
+        "expected_canonical_id": "TERM_LAB_THYROID",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "HbA1c",
+        "qty": 1,
+        "unit_price": 300.0,
+        "total": 300.0,
+        "expected_canonical_id": "TERM_LAB_HBA1C",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Tab Metformin 500mg",
+        "qty": 1,
+        "unit_price": 20.0,
+        "total": 20.0,
+        "expected_canonical_id": "TERM_DRUG_METFORMIN_500",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_011_SKEWED_METABOLIC.png",
+    "pdf_file": null,
+    "ocr_text": "DiabCare & Hormone Clinic\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 1\nPatient Name: Farhan Akhtar | Phone: 9845012345 | UHID: DCHC-410\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nThyroid Profile | 1 | Rs. 950.00 | Rs. 950.00\nHbA1c | 1 | Rs. 300.00 | Rs. 300.00\nTab Metformin 500mg | 1 | Rs. 20.00 | Rs. 20.00\nGrand Total: Rs. 1270.00"
+  },
+  {
+    "bill_id": "BILL_012_SKEWED_DUPLICATE",
+    "title": "Duplicate Pathology Billing Anomaly (Skewed 6 deg)",
+    "category": "skewed",
+    "skew_deg": 6.0,
+    "hospital_name": "Sunrise Metro Hospital",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 1,
+    "patient_header": "Patient Name: Anjali Menon | Phone: 9765432109 | UHID: SMH-902",
+    "lines": [
+      {
+        "raw_text": "Complete Blood Count (CBC)",
+        "qty": 1,
+        "unit_price": 300.0,
+        "total": 300.0,
+        "expected_canonical_id": "TERM_LAB_CBC",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "CBC",
+        "qty": 1,
+        "unit_price": 300.0,
+        "total": 300.0,
+        "expected_canonical_id": "TERM_LAB_CBC",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "Chest X-Ray",
+        "qty": 1,
+        "unit_price": 230.0,
+        "total": 230.0,
+        "expected_canonical_id": "TERM_RAD_XRAY_CHEST",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_012_SKEWED_DUPLICATE.png",
+    "pdf_file": null,
+    "ocr_text": "Sunrise Metro Hospital\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 1\nPatient Name: Anjali Menon | Phone: 9765432109 | UHID: SMH-902\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nComplete Blood Count (CBC) | 1 | Rs. 300.00 | Rs. 300.00\nCBC | 1 | Rs. 300.00 | Rs. 300.00\nChest X-Ray | 1 | Rs. 230.00 | Rs. 230.00\nGrand Total: Rs. 830.00"
+  },
+  {
+    "bill_id": "BILL_013_SKEWED_PRIVATE_ROOM",
+    "title": "Private Single Room Entitlement Bill (Skewed -5 deg)",
+    "category": "skewed",
+    "skew_deg": -5.0,
+    "hospital_name": "Regency Super Speciality Hospital",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "private",
+    "stay_days": 2,
+    "patient_header": "Patient Name: Siddharth Roy | Phone: 9811998877 | UHID: RSSH-512",
+    "lines": [
+      {
+        "raw_text": "Private Ward",
+        "qty": 2,
+        "unit_price": 4500.0,
+        "total": 9000.0,
+        "expected_canonical_id": "TERM_ROOM_PRIVATE",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "RT-PCR",
+        "qty": 1,
+        "unit_price": 2200.0,
+        "total": 2200.0,
+        "expected_canonical_id": "TERM_LAB_RTPCR",
+        "expected_flagged": true
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_013_SKEWED_PRIVATE_ROOM.png",
+    "pdf_file": null,
+    "ocr_text": "Regency Super Speciality Hospital\nState: DL | City Tier: X | Ward: private | Stay Days: 2\nPatient Name: Siddharth Roy | Phone: 9811998877 | UHID: RSSH-512\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nPrivate Ward | 2 | Rs. 4500.00 | Rs. 9000.00\nRT-PCR | 1 | Rs. 2200.00 | Rs. 2200.00\nGrand Total: Rs. 11200.00"
+  },
+  {
+    "bill_id": "BILL_014_BLURRY_CAG",
+    "title": "Coronary Angiography Diagnostic Bill (Low-End Phone Blur)",
+    "category": "blurry",
+    "hospital_name": "HeartLine Hospital",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 1,
+    "patient_header": "Patient Name: Manohar Lal | Phone: 9899001122 | UHID: HLH-204",
+    "lines": [
+      {
+        "raw_text": "Coronary Angiography",
+        "qty": 1,
+        "unit_price": 21000.0,
+        "total": 21000.0,
+        "expected_canonical_id": "TERM_PROC_CAG",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "ECG",
+        "qty": 1,
+        "unit_price": 175.0,
+        "total": 175.0,
+        "expected_canonical_id": "TERM_CARD_ECG",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Tab Atorvastatin 20mg",
+        "qty": 1,
+        "unit_price": 147.5,
+        "total": 147.5,
+        "expected_canonical_id": "TERM_DRUG_ATORVASTATIN_20",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_014_BLURRY_CAG.png",
+    "pdf_file": null,
+    "ocr_text": "HeartLine Hospital\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 1\nPatient Name: Manohar Lal | Phone: 9899001122 | UHID: HLH-204\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nCoronary Angiography | 1 | Rs. 21000.00 | Rs. 21000.00\nECG | 1 | Rs. 175.00 | Rs. 175.00\nTab Atorvastatin 20mg | 1 | Rs. 147.50 | Rs. 147.50\nGrand Total: Rs. 21322.50"
+  },
+  {
+    "bill_id": "BILL_015_BLURRY_BMS_STENT",
+    "title": "Bare Metal Stent Bill (NPPA BMS Cap Check)",
+    "category": "blurry",
+    "hospital_name": "Pulse Cardiac Centre",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 2,
+    "patient_header": "Patient Name: Gurpreet Singh | Phone: 9814011223 | UHID: PCC-609",
+    "lines": [
+      {
+        "raw_text": "Bare Metal Stent",
+        "qty": 1,
+        "unit_price": 18500.0,
+        "total": 18500.0,
+        "expected_canonical_id": "TERM_IMPLANT_STENT_BMS",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "2D Echo",
+        "qty": 1,
+        "unit_price": 1475.0,
+        "total": 1475.0,
+        "expected_canonical_id": "TERM_CARD_2DECHO",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_015_BLURRY_BMS_STENT.png",
+    "pdf_file": null,
+    "ocr_text": "Pulse Cardiac Centre\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 2\nPatient Name: Gurpreet Singh | Phone: 9814011223 | UHID: PCC-609\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nBare Metal Stent | 1 | Rs. 18500.00 | Rs. 18500.00\n2D Echo | 1 | Rs. 1475.00 | Rs. 1475.00\nGrand Total: Rs. 19975.00"
+  },
+  {
+    "bill_id": "BILL_016_BLURRY_TIER_Y",
+    "title": "Tier-Y City Hospital Bill (Bhopal 10% Lower Procedure Rate)",
+    "category": "blurry",
+    "hospital_name": "Narmada Care & Heart Institute",
+    "state": "MP",
+    "city_tier": "Y",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 2,
+    "patient_header": "Patient Name: Vivek Tiwari | Phone: 9425012345 | UHID: NCHI-701",
+    "lines": [
+      {
+        "raw_text": "Semi-Private Ward",
+        "qty": 2,
+        "unit_price": 3000.0,
+        "total": 6000.0,
+        "expected_canonical_id": "TERM_ROOM_SEMI_PRIVATE",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Hemodialysis",
+        "qty": 1,
+        "unit_price": 1449.0,
+        "total": 1449.0,
+        "expected_canonical_id": "TERM_PROC_HEMODIALYSIS",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Tab Amlodipine 5mg",
+        "qty": 2,
+        "unit_price": 60.0,
+        "total": 120.0,
+        "expected_canonical_id": "TERM_DRUG_AMLODIPINE_5",
+        "expected_flagged": true
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_016_BLURRY_TIER_Y.png",
+    "pdf_file": null,
+    "ocr_text": "Narmada Care & Heart Institute\nState: MP | City Tier: Y | Ward: semi_private | Stay Days: 2\nPatient Name: Vivek Tiwari | Phone: 9425012345 | UHID: NCHI-701\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nSemi-Private Ward | 2 | Rs. 3000.00 | Rs. 6000.00\nHemodialysis | 1 | Rs. 1449.00 | Rs. 1449.00\nTab Amlodipine 5mg | 2 | Rs. 60.00 | Rs. 120.00\nGrand Total: Rs. 7569.00"
+  },
+  {
+    "bill_id": "BILL_017_BLURRY_NON_NABH",
+    "title": "Non-NABH Hospital Bill (15% Discount Rule Verification)",
+    "category": "blurry",
+    "hospital_name": "Sunrise City Nursing Home (Non-NABH)",
+    "state": "UP",
+    "city_tier": "X",
+    "nabh_accredited": false,
+    "ward_type": "general",
+    "stay_days": 2,
+    "patient_header": "Patient Name: Brijesh Yadav | Phone: 9415098765 | UHID: SCNH-119",
+    "lines": [
+      {
+        "raw_text": "CBC",
+        "qty": 1,
+        "unit_price": 255.0,
+        "total": 255.0,
+        "expected_canonical_id": "TERM_LAB_CBC",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Lipid Profile",
+        "qty": 1,
+        "unit_price": 490.0,
+        "total": 490.0,
+        "expected_canonical_id": "TERM_LAB_LIPID",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "ICU Charges",
+        "qty": 1,
+        "unit_price": 4590.0,
+        "total": 4590.0,
+        "expected_canonical_id": "TERM_ROOM_ICU",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_017_BLURRY_NON_NABH.png",
+    "pdf_file": null,
+    "ocr_text": "Sunrise City Nursing Home (Non-NABH)\nState: UP | City Tier: X | Ward: general | Stay Days: 2\nPatient Name: Brijesh Yadav | Phone: 9415098765 | UHID: SCNH-119\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nCBC | 1 | Rs. 255.00 | Rs. 255.00\nLipid Profile | 1 | Rs. 490.00 | Rs. 490.00\nICU Charges | 1 | Rs. 4590.00 | Rs. 4590.00\nGrand Total: Rs. 5335.00"
+  },
+  {
+    "bill_id": "BILL_018_BLURRY_DAYS_MISMATCH",
+    "title": "Room Days Exceed Declared Stay Anomaly Bill",
+    "category": "blurry",
+    "hospital_name": "Silver Oak Hospital",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 2,
+    "patient_header": "Patient Name: Nandini Sen | Phone: 9830123456 | UHID: SOH-811",
+    "lines": [
+      {
+        "raw_text": "Semi-Private Ward",
+        "qty": 4,
+        "unit_price": 3000.0,
+        "total": 12000.0,
+        "expected_canonical_id": "TERM_ROOM_SEMI_PRIVATE",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "OPD Consultation",
+        "qty": 1,
+        "unit_price": 350.0,
+        "total": 350.0,
+        "expected_canonical_id": "TERM_CONSULT_OPD",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_018_BLURRY_DAYS_MISMATCH.png",
+    "pdf_file": null,
+    "ocr_text": "Silver Oak Hospital\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 2\nPatient Name: Nandini Sen | Phone: 9830123456 | UHID: SOH-811\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nSemi-Private Ward | 4 | Rs. 3000.00 | Rs. 12000.00\nOPD Consultation | 1 | Rs. 350.00 | Rs. 350.00\nGrand Total: Rs. 12350.00"
+  },
+  {
+    "bill_id": "BILL_019_BLURRY_ARITHMETIC",
+    "title": "Line Item Multiplication Arithmetic Error Bill",
+    "category": "blurry",
+    "hospital_name": "Green Valley Hospital",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "general",
+    "stay_days": 2,
+    "patient_header": "Patient Name: Pradeep Kumar | Phone: 9818099887 | UHID: GVH-334",
+    "lines": [
+      {
+        "raw_text": "General Ward",
+        "qty": 2,
+        "unit_price": 1500.0,
+        "total": 4500.0,
+        "expected_canonical_id": "TERM_ROOM_GENERAL",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "Liver Function Test",
+        "qty": 1,
+        "unit_price": 500.0,
+        "total": 500.0,
+        "expected_canonical_id": "TERM_LAB_LFT",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_019_BLURRY_ARITHMETIC.png",
+    "pdf_file": null,
+    "ocr_text": "Green Valley Hospital\nState: DL | City Tier: X | Ward: general | Stay Days: 2\nPatient Name: Pradeep Kumar | Phone: 9818099887 | UHID: GVH-334\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nGeneral Ward | 2 | Rs. 1500.00 | Rs. 4500.00\nLiver Function Test | 1 | Rs. 500.00 | Rs. 500.00\nGrand Total: Rs. 5000.00"
+  },
+  {
+    "bill_id": "BILL_020_HINDI_IPD",
+    "title": "Hindi Bilingual Inpatient Bill (कमरे का किराया और जांच)",
+    "category": "hindi",
+    "hospital_name": "जनकल्याण सुपर स्पेशलिटी अस्पताल (Jankalyan Hospital)",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 2,
+    "patient_header": "मरीज का नाम: सुरेश चंद्र | Phone: 9811556677 | UHID: JKH-2026-11",
+    "lines": [
+      {
+        "raw_text": "परामर्श शुल्क",
+        "qty": 1,
+        "unit_price": 350.0,
+        "total": 350.0,
+        "expected_canonical_id": "TERM_CONSULT_OPD",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "कमरे का किराया",
+        "qty": 2,
+        "unit_price": 4500.0,
+        "total": 9000.0,
+        "expected_canonical_id": "TERM_ROOM_SEMI_PRIVATE",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "सीबीसी जांच",
+        "qty": 1,
+        "unit_price": 300.0,
+        "total": 300.0,
+        "expected_canonical_id": "TERM_LAB_CBC",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "छाती का एक्स-रे",
+        "qty": 1,
+        "unit_price": 230.0,
+        "total": 230.0,
+        "expected_canonical_id": "TERM_RAD_XRAY_CHEST",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_020_HINDI_IPD.png",
+    "pdf_file": null,
+    "ocr_text": "जनकल्याण सुपर स्पेशलिटी अस्पताल (Jankalyan Hospital)\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 2\nमरीज का नाम: सुरेश चंद्र | Phone: 9811556677 | UHID: JKH-2026-11\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nपरामर्श शुल्क | 1 | Rs. 350.00 | Rs. 350.00\nकमरे का किराया | 2 | Rs. 4500.00 | Rs. 9000.00\nसीबीसी जांच | 1 | Rs. 300.00 | Rs. 300.00\nछाती का एक्स-रे | 1 | Rs. 230.00 | Rs. 230.00\nGrand Total: Rs. 9880.00"
+  },
+  {
+    "bill_id": "BILL_021_HINDI_CARDIAC",
+    "title": "Hindi Cardiac Stent & ICU Bill",
+    "category": "hindi",
+    "hospital_name": "हृदय केयर संस्थान (Hriday Care Institute)",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 2,
+    "patient_header": "Patient Name: Kamla Devi | Phone: 9910112233 | UHID: HCI-908",
+    "lines": [
+      {
+        "raw_text": "हार्ट स्टेंट (DES)",
+        "qty": 1,
+        "unit_price": 55000.0,
+        "total": 55000.0,
+        "expected_canonical_id": "TERM_IMPLANT_STENT_DES",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "आईसीयू शुल्क",
+        "qty": 2,
+        "unit_price": 5400.0,
+        "total": 10800.0,
+        "expected_canonical_id": "TERM_ROOM_ICU",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "2डी इको",
+        "qty": 1,
+        "unit_price": 1475.0,
+        "total": 1475.0,
+        "expected_canonical_id": "TERM_CARD_2DECHO",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_021_HINDI_CARDIAC.png",
+    "pdf_file": null,
+    "ocr_text": "हृदय केयर संस्थान (Hriday Care Institute)\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 2\nPatient Name: Kamla Devi | Phone: 9910112233 | UHID: HCI-908\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nहार्ट स्टेंट (DES) | 1 | Rs. 55000.00 | Rs. 55000.00\nआईसीयू शुल्क | 2 | Rs. 5400.00 | Rs. 10800.00\n2डी इको | 1 | Rs. 1475.00 | Rs. 1475.00\nGrand Total: Rs. 67275.00"
+  },
+  {
+    "bill_id": "BILL_022_HINDI_DIAGNOSTIC",
+    "title": "Hindi Radiology & Pathology Bill",
+    "category": "hindi",
+    "hospital_name": "आरोग्य डायग्नोस्टिक्स (Arogya Diagnostics)",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 1,
+    "patient_header": "Patient Name: Mukesh Yadav | Phone: 9871122334 | UHID: AD-445",
+    "lines": [
+      {
+        "raw_text": "एचआरसीटी चेस्ट",
+        "qty": 1,
+        "unit_price": 3800.0,
+        "total": 3800.0,
+        "expected_canonical_id": "TERM_RAD_HRCT_CHEST",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "किडनी जांच",
+        "qty": 1,
+        "unit_price": 500.0,
+        "total": 500.0,
+        "expected_canonical_id": "TERM_LAB_KFT",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "लिवर की जांच",
+        "qty": 1,
+        "unit_price": 500.0,
+        "total": 500.0,
+        "expected_canonical_id": "TERM_LAB_LFT",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_022_HINDI_DIAGNOSTIC.png",
+    "pdf_file": null,
+    "ocr_text": "आरोग्य डायग्नोस्टिक्स (Arogya Diagnostics)\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 1\nPatient Name: Mukesh Yadav | Phone: 9871122334 | UHID: AD-445\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nएचआरसीटी चेस्ट | 1 | Rs. 3800.00 | Rs. 3800.00\nकिडनी जांच | 1 | Rs. 500.00 | Rs. 500.00\nलिवर की जांच | 1 | Rs. 500.00 | Rs. 500.00\nGrand Total: Rs. 4800.00"
+  },
+  {
+    "bill_id": "BILL_023_HINDI_SURGERY",
+    "title": "Hindi Gallbladder Lap Cholecystectomy Bill",
+    "category": "hindi",
+    "hospital_name": "जीवन ज्योति अस्पताल (Jeevan Jyoti Hospital)",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 2,
+    "patient_header": "Patient Name: Rekha Gupta | Phone: 9812233445 | UHID: JJH-511",
+    "lines": [
+      {
+        "raw_text": "पित्त की थैली का ऑपरेशन",
+        "qty": 1,
+        "unit_price": 38000.0,
+        "total": 38000.0,
+        "expected_canonical_id": "TERM_PKG_LAP_CHOLE",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "पेट की सोनोग्राफी",
+        "qty": 1,
+        "unit_price": 800.0,
+        "total": 800.0,
+        "expected_canonical_id": "TERM_RAD_USG_ABDOMEN",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_023_HINDI_SURGERY.png",
+    "pdf_file": null,
+    "ocr_text": "जीवन ज्योति अस्पताल (Jeevan Jyoti Hospital)\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 2\nPatient Name: Rekha Gupta | Phone: 9812233445 | UHID: JJH-511\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nपित्त की थैली का ऑपरेशन | 1 | Rs. 38000.00 | Rs. 38000.00\nपेट की सोनोग्राफी | 1 | Rs. 800.00 | Rs. 800.00\nGrand Total: Rs. 38800.00"
+  },
+  {
+    "bill_id": "BILL_024_HINDI_MATERNITY",
+    "title": "Hindi Caesarean Delivery Bill",
+    "category": "hindi",
+    "hospital_name": "मातृ छाया हॉस्पिटल (Matri Chhaya Hospital)",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 3,
+    "patient_header": "Patient Name: Neha Sharma | Phone: 9818877665 | UHID: MCH-709",
+    "lines": [
+      {
+        "raw_text": "सिजेरियन डिलीवरी",
+        "qty": 1,
+        "unit_price": 20700.0,
+        "total": 20700.0,
+        "expected_canonical_id": "TERM_PKG_LSCS",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "सीबीसी जांच",
+        "qty": 1,
+        "unit_price": 300.0,
+        "total": 300.0,
+        "expected_canonical_id": "TERM_LAB_CBC",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_024_HINDI_MATERNITY.png",
+    "pdf_file": null,
+    "ocr_text": "मातृ छाया हॉस्पिटल (Matri Chhaya Hospital)\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 3\nPatient Name: Neha Sharma | Phone: 9818877665 | UHID: MCH-709\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nसिजेरियन डिलीवरी | 1 | Rs. 20700.00 | Rs. 20700.00\nसीबीसी जांच | 1 | Rs. 300.00 | Rs. 300.00\nGrand Total: Rs. 21000.00"
+  },
+  {
+    "bill_id": "BILL_025_HINDI_EYE",
+    "title": "Hindi Cataract Surgery Bill",
+    "category": "hindi",
+    "hospital_name": "नेत्र ज्योति केंद्र (Netra Jyoti Kendra)",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 1,
+    "patient_header": "Patient Name: Ram Prakash | Phone: 9958112233 | UHID: NJK-104",
+    "lines": [
+      {
+        "raw_text": "मोतियाबिंद का ऑपरेशन",
+        "qty": 1,
+        "unit_price": 24000.0,
+        "total": 24000.0,
+        "expected_canonical_id": "TERM_PKG_CATARACT",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "ईसीजी जांच",
+        "qty": 1,
+        "unit_price": 175.0,
+        "total": 175.0,
+        "expected_canonical_id": "TERM_CARD_ECG",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_025_HINDI_EYE.png",
+    "pdf_file": null,
+    "ocr_text": "नेत्र ज्योति केंद्र (Netra Jyoti Kendra)\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 1\nPatient Name: Ram Prakash | Phone: 9958112233 | UHID: NJK-104\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nमोतियाबिंद का ऑपरेशन | 1 | Rs. 24000.00 | Rs. 24000.00\nईसीजी जांच | 1 | Rs. 175.00 | Rs. 175.00\nGrand Total: Rs. 24175.00"
+  },
+  {
+    "bill_id": "BILL_026_HANDWRITTEN_CLINIC",
+    "title": "Small Nursing Home Handwritten-Style Fever Bill",
+    "category": "handwritten",
+    "hospital_name": "Shanti Devi Nursing Home",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "general",
+    "stay_days": 2,
+    "patient_header": "Patient Name: Mohan Das | Phone: 9810987654 | UHID: SDNH-42",
+    "lines": [
+      {
+        "raw_text": "General Ward",
+        "qty": 2,
+        "unit_price": 1500.0,
+        "total": 3000.0,
+        "expected_canonical_id": "TERM_ROOM_GENERAL",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Dengue NS1",
+        "qty": 1,
+        "unit_price": 400.0,
+        "total": 400.0,
+        "expected_canonical_id": "TERM_LAB_DENGUE_NS1",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Paracetamol IV",
+        "qty": 2,
+        "unit_price": 135.0,
+        "total": 270.0,
+        "expected_canonical_id": "TERM_DRUG_PARACETAMOL_IV",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_026_HANDWRITTEN_CLINIC.png",
+    "pdf_file": null,
+    "ocr_text": "Shanti Devi Nursing Home\nState: DL | City Tier: X | Ward: general | Stay Days: 2\nPatient Name: Mohan Das | Phone: 9810987654 | UHID: SDNH-42\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nGeneral Ward | 2 | Rs. 1500.00 | Rs. 3000.00\nDengue NS1 | 1 | Rs. 400.00 | Rs. 400.00\nParacetamol IV | 2 | Rs. 135.00 | Rs. 270.00\nGrand Total: Rs. 3670.00"
+  },
+  {
+    "bill_id": "BILL_027_HANDWRITTEN_ORTHO",
+    "title": "Orthopaedic Knee Implant Handwritten Memo",
+    "category": "handwritten",
+    "hospital_name": "Bone & Joint Ortho Clinic",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 4,
+    "patient_header": "Patient Name: Savitri Devi | Phone: 9811334455 | UHID: BJOC-88",
+    "lines": [
+      {
+        "raw_text": "Knee Implant",
+        "qty": 1,
+        "unit_price": 85000.0,
+        "total": 85000.0,
+        "expected_canonical_id": "TERM_IMPLANT_KNEE_PRIMARY",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "Total Knee Replacement",
+        "qty": 1,
+        "unit_price": 69000.0,
+        "total": 69000.0,
+        "expected_canonical_id": "TERM_PKG_TKR",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_027_HANDWRITTEN_ORTHO.png",
+    "pdf_file": null,
+    "ocr_text": "Bone & Joint Ortho Clinic\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 4\nPatient Name: Savitri Devi | Phone: 9811334455 | UHID: BJOC-88\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nKnee Implant | 1 | Rs. 85000.00 | Rs. 85000.00\nTotal Knee Replacement | 1 | Rs. 69000.00 | Rs. 69000.00\nGrand Total: Rs. 154000.00"
+  },
+  {
+    "bill_id": "BILL_028_HANDWRITTEN_PHARMA",
+    "title": "Pharmacy Handwritten Cash Memo (Overcharged Antibiotics)",
+    "category": "handwritten",
+    "hospital_name": "LifeCare In-House Pharmacy",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 1,
+    "patient_header": "Patient Name: Imran Khan | Phone: 9891223344 | UHID: LCIP-19",
+    "lines": [
+      {
+        "raw_text": "Inj Meropenem 1g",
+        "qty": 2,
+        "unit_price": 1800.0,
+        "total": 3600.0,
+        "expected_canonical_id": "TERM_DRUG_MEROPENEM_1G",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "Inj Pantoprazole 40mg",
+        "qty": 2,
+        "unit_price": 150.0,
+        "total": 300.0,
+        "expected_canonical_id": "TERM_DRUG_PANTOPRAZOLE_INJ",
+        "expected_flagged": true
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_028_HANDWRITTEN_PHARMA.png",
+    "pdf_file": null,
+    "ocr_text": "LifeCare In-House Pharmacy\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 1\nPatient Name: Imran Khan | Phone: 9891223344 | UHID: LCIP-19\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nInj Meropenem 1g | 2 | Rs. 1800.00 | Rs. 3600.00\nInj Pantoprazole 40mg | 2 | Rs. 150.00 | Rs. 300.00\nGrand Total: Rs. 3900.00"
+  },
+  {
+    "bill_id": "BILL_029_HANDWRITTEN_DIAG",
+    "title": "Diagnostic Centre Handwritten Receipt",
+    "category": "handwritten",
+    "hospital_name": "Accurate PathLab & Imaging",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 1,
+    "patient_header": "Patient Name: Ritu Verma | Phone: 9811667788 | UHID: APLI-77",
+    "lines": [
+      {
+        "raw_text": "Thyroid Profile",
+        "qty": 1,
+        "unit_price": 450.0,
+        "total": 450.0,
+        "expected_canonical_id": "TERM_LAB_THYROID",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Lipid Profile",
+        "qty": 1,
+        "unit_price": 490.0,
+        "total": 490.0,
+        "expected_canonical_id": "TERM_LAB_LIPID",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "HbA1c",
+        "qty": 1,
+        "unit_price": 750.0,
+        "total": 750.0,
+        "expected_canonical_id": "TERM_LAB_HBA1C",
+        "expected_flagged": true
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_029_HANDWRITTEN_DIAG.png",
+    "pdf_file": null,
+    "ocr_text": "Accurate PathLab & Imaging\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 1\nPatient Name: Ritu Verma | Phone: 9811667788 | UHID: APLI-77\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nThyroid Profile | 1 | Rs. 450.00 | Rs. 450.00\nLipid Profile | 1 | Rs. 490.00 | Rs. 490.00\nHbA1c | 1 | Rs. 750.00 | Rs. 750.00\nGrand Total: Rs. 1690.00"
+  },
+  {
+    "bill_id": "BILL_030_HANDWRITTEN_EMERGENCY",
+    "title": "Emergency Observation Ward Bill",
+    "category": "handwritten",
+    "hospital_name": "City Trauma & Emergency Centre",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 1,
+    "patient_header": "Patient Name: Arjun Kapoor | Phone: 9873344556 | UHID: CTEC-55",
+    "lines": [
+      {
+        "raw_text": "CT Scan Brain",
+        "qty": 1,
+        "unit_price": 2600.0,
+        "total": 2600.0,
+        "expected_canonical_id": "TERM_RAD_CT_HEAD",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "ECG",
+        "qty": 1,
+        "unit_price": 175.0,
+        "total": 175.0,
+        "expected_canonical_id": "TERM_CARD_ECG",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Consultation",
+        "qty": 1,
+        "unit_price": 350.0,
+        "total": 350.0,
+        "expected_canonical_id": "TERM_CONSULT_OPD",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_030_HANDWRITTEN_EMERGENCY.png",
+    "pdf_file": null,
+    "ocr_text": "City Trauma & Emergency Centre\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 1\nPatient Name: Arjun Kapoor | Phone: 9873344556 | UHID: CTEC-55\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nCT Scan Brain | 1 | Rs. 2600.00 | Rs. 2600.00\nECG | 1 | Rs. 175.00 | Rs. 175.00\nConsultation | 1 | Rs. 350.00 | Rs. 350.00\nGrand Total: Rs. 3125.00"
+  },
+  {
+    "bill_id": "BILL_031_MULTIPAGE_ICU_SEPSIS",
+    "title": "Multi-Page Critical Care Sepsis IPD Bill (6 Line Items)",
+    "category": "multipage",
+    "hospital_name": "Medanta Crest Super Speciality Hospital",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 4,
+    "patient_header": "Patient Name: K. L. Narayanan | Phone: 9811445566 | UHID: MCSS-4001",
+    "lines": [
+      {
+        "raw_text": "ICU Charges",
+        "qty": 2,
+        "unit_price": 8500.0,
+        "total": 17000.0,
+        "expected_canonical_id": "TERM_ROOM_ICU",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "Semi-Private Ward",
+        "qty": 2,
+        "unit_price": 3000.0,
+        "total": 6000.0,
+        "expected_canonical_id": "TERM_ROOM_SEMI_PRIVATE",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Inj Meropenem 1g",
+        "qty": 4,
+        "unit_price": 975.0,
+        "total": 3900.0,
+        "expected_canonical_id": "TERM_DRUG_MEROPENEM_1G",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "HRCT Chest",
+        "qty": 1,
+        "unit_price": 2000.0,
+        "total": 2000.0,
+        "expected_canonical_id": "TERM_RAD_HRCT_CHEST",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Complete Blood Count (CBC)",
+        "qty": 2,
+        "unit_price": 300.0,
+        "total": 600.0,
+        "expected_canonical_id": "TERM_LAB_CBC",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Kidney Function Test (KFT)",
+        "qty": 2,
+        "unit_price": 900.0,
+        "total": 1800.0,
+        "expected_canonical_id": "TERM_LAB_KFT",
+        "expected_flagged": true
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_031_MULTIPAGE_ICU_SEPSIS.png",
+    "pdf_file": "data/golden_bills/BILL_031_MULTIPAGE_ICU_SEPSIS.pdf",
+    "ocr_text": "Medanta Crest Super Speciality Hospital\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 4\nPatient Name: K. L. Narayanan | Phone: 9811445566 | UHID: MCSS-4001\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nICU Charges | 2 | Rs. 8500.00 | Rs. 17000.00\nSemi-Private Ward | 2 | Rs. 3000.00 | Rs. 6000.00\nInj Meropenem 1g | 4 | Rs. 975.00 | Rs. 3900.00\nHRCT Chest | 1 | Rs. 2000.00 | Rs. 2000.00\nComplete Blood Count (CBC) | 2 | Rs. 300.00 | Rs. 600.00\nKidney Function Test (KFT) | 2 | Rs. 900.00 | Rs. 1800.00\nGrand Total: Rs. 31300.00"
+  },
+  {
+    "bill_id": "BILL_032_MULTIPAGE_CARDIAC_FULL",
+    "title": "Multi-Page Cardiac Intervention & Ward Stay Bill",
+    "category": "multipage",
+    "hospital_name": "Asian Heart & Multispeciality Hospital",
+    "state": "MH",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 3,
+    "patient_header": "Patient Name: Sharad Kulkarni | Phone: 9820112233 | UHID: AHMH-991",
+    "lines": [
+      {
+        "raw_text": "Coronary Angiography",
+        "qty": 1,
+        "unit_price": 13225.0,
+        "total": 13225.0,
+        "expected_canonical_id": "TERM_PROC_CAG",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Coronary Angioplasty (PTCA)",
+        "qty": 1,
+        "unit_price": 57500.0,
+        "total": 57500.0,
+        "expected_canonical_id": "TERM_PKG_PTCA",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Drug Eluting Stent",
+        "qty": 1,
+        "unit_price": 38933.0,
+        "total": 38933.0,
+        "expected_canonical_id": "TERM_IMPLANT_STENT_DES",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "2D Echocardiography",
+        "qty": 1,
+        "unit_price": 2800.0,
+        "total": 2800.0,
+        "expected_canonical_id": "TERM_CARD_2DECHO",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "Inj Enoxaparin 40mg",
+        "qty": 3,
+        "unit_price": 425.0,
+        "total": 1275.0,
+        "expected_canonical_id": "TERM_DRUG_ENOXAPARIN_40",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_032_MULTIPAGE_CARDIAC_FULL.png",
+    "pdf_file": "data/golden_bills/BILL_032_MULTIPAGE_CARDIAC_FULL.pdf",
+    "ocr_text": "Asian Heart & Multispeciality Hospital\nState: MH | City Tier: X | Ward: semi_private | Stay Days: 3\nPatient Name: Sharad Kulkarni | Phone: 9820112233 | UHID: AHMH-991\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nCoronary Angiography | 1 | Rs. 13225.00 | Rs. 13225.00\nCoronary Angioplasty (PTCA) | 1 | Rs. 57500.00 | Rs. 57500.00\nDrug Eluting Stent | 1 | Rs. 38933.00 | Rs. 38933.00\n2D Echocardiography | 1 | Rs. 2800.00 | Rs. 2800.00\nInj Enoxaparin 40mg | 3 | Rs. 425.00 | Rs. 1275.00\nGrand Total: Rs. 113733.00"
+  },
+  {
+    "bill_id": "BILL_033_MULTIPAGE_GASTRO_IPD",
+    "title": "Multi-Page Gastroenterology Inpatient Bill",
+    "category": "multipage",
+    "hospital_name": "Apollo Gastro & Liver Hospital",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 3,
+    "patient_header": "Patient Name: Vinod Khanna | Phone: 9811778899 | UHID: AGLH-502",
+    "lines": [
+      {
+        "raw_text": "Semi-Private Ward",
+        "qty": 3,
+        "unit_price": 3000.0,
+        "total": 9000.0,
+        "expected_canonical_id": "TERM_ROOM_SEMI_PRIVATE",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Upper GI Endoscopy",
+        "qty": 1,
+        "unit_price": 1984.0,
+        "total": 1984.0,
+        "expected_canonical_id": "TERM_PROC_ENDOSCOPY",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Ultrasound Whole Abdomen",
+        "qty": 1,
+        "unit_price": 1800.0,
+        "total": 1800.0,
+        "expected_canonical_id": "TERM_RAD_USG_ABDOMEN",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "Liver Function Test",
+        "qty": 1,
+        "unit_price": 500.0,
+        "total": 500.0,
+        "expected_canonical_id": "TERM_LAB_LFT",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Inj Pantoprazole 40mg",
+        "qty": 3,
+        "unit_price": 56.0,
+        "total": 168.0,
+        "expected_canonical_id": "TERM_DRUG_PANTOPRAZOLE_INJ",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_033_MULTIPAGE_GASTRO_IPD.png",
+    "pdf_file": "data/golden_bills/BILL_033_MULTIPAGE_GASTRO_IPD.pdf",
+    "ocr_text": "Apollo Gastro & Liver Hospital\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 3\nPatient Name: Vinod Khanna | Phone: 9811778899 | UHID: AGLH-502\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nSemi-Private Ward | 3 | Rs. 3000.00 | Rs. 9000.00\nUpper GI Endoscopy | 1 | Rs. 1984.00 | Rs. 1984.00\nUltrasound Whole Abdomen | 1 | Rs. 1800.00 | Rs. 1800.00\nLiver Function Test | 1 | Rs. 500.00 | Rs. 500.00\nInj Pantoprazole 40mg | 3 | Rs. 56.00 | Rs. 168.00\nGrand Total: Rs. 13452.00"
+  },
+  {
+    "bill_id": "BILL_034_MULTIPAGE_RESPIRATORY",
+    "title": "Multi-Page Respiratory Pneumonia IPD Bill",
+    "category": "multipage",
+    "hospital_name": "Maximos Chest & Critical Care Hospital",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "private",
+    "stay_days": 3,
+    "patient_header": "Patient Name: Sudha Murthy | Phone: 9845112233 | UHID: MCCC-312",
+    "lines": [
+      {
+        "raw_text": "Private Ward",
+        "qty": 3,
+        "unit_price": 4500.0,
+        "total": 13500.0,
+        "expected_canonical_id": "TERM_ROOM_PRIVATE",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "HRCT Chest",
+        "qty": 1,
+        "unit_price": 2000.0,
+        "total": 2000.0,
+        "expected_canonical_id": "TERM_RAD_HRCT_CHEST",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "RT-PCR",
+        "qty": 1,
+        "unit_price": 1084.0,
+        "total": 1084.0,
+        "expected_canonical_id": "TERM_LAB_RTPCR",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Inj Ceftriaxone 1g",
+        "qty": 6,
+        "unit_price": 68.5,
+        "total": 411.0,
+        "expected_canonical_id": "TERM_DRUG_CEFTRIAXONE_1G",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "PPE Kit",
+        "qty": 4,
+        "unit_price": 1200.0,
+        "total": 4800.0,
+        "expected_canonical_id": "TERM_CONS_PPE_GLOVES",
+        "expected_flagged": true
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_034_MULTIPAGE_RESPIRATORY.png",
+    "pdf_file": "data/golden_bills/BILL_034_MULTIPAGE_RESPIRATORY.pdf",
+    "ocr_text": "Maximos Chest & Critical Care Hospital\nState: DL | City Tier: X | Ward: private | Stay Days: 3\nPatient Name: Sudha Murthy | Phone: 9845112233 | UHID: MCCC-312\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nPrivate Ward | 3 | Rs. 4500.00 | Rs. 13500.00\nHRCT Chest | 1 | Rs. 2000.00 | Rs. 2000.00\nRT-PCR | 1 | Rs. 1084.00 | Rs. 1084.00\nInj Ceftriaxone 1g | 6 | Rs. 68.50 | Rs. 411.00\nPPE Kit | 4 | Rs. 1200.00 | Rs. 4800.00\nGrand Total: Rs. 21795.00"
+  },
+  {
+    "bill_id": "BILL_035_MULTIPAGE_RENAL_ICU",
+    "title": "Multi-Page Acute Kidney Injury & Dialysis Bill",
+    "category": "multipage",
+    "hospital_name": "Kaveri Kidney & Multispeciality Hospital",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 3,
+    "patient_header": "Patient Name: T. Subramanian | Phone: 9840112233 | UHID: KKMH-719",
+    "lines": [
+      {
+        "raw_text": "ICU Charges",
+        "qty": 2,
+        "unit_price": 5400.0,
+        "total": 10800.0,
+        "expected_canonical_id": "TERM_ROOM_ICU",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Hemodialysis",
+        "qty": 2,
+        "unit_price": 1610.0,
+        "total": 3220.0,
+        "expected_canonical_id": "TERM_PROC_HEMODIALYSIS",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Kidney Function Test",
+        "qty": 2,
+        "unit_price": 500.0,
+        "total": 1000.0,
+        "expected_canonical_id": "TERM_LAB_KFT",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Complete Haemogram",
+        "qty": 1,
+        "unit_price": 650.0,
+        "total": 650.0,
+        "expected_canonical_id": "TERM_LAB_CBC",
+        "expected_flagged": true
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_035_MULTIPAGE_RENAL_ICU.png",
+    "pdf_file": "data/golden_bills/BILL_035_MULTIPAGE_RENAL_ICU.pdf",
+    "ocr_text": "Kaveri Kidney & Multispeciality Hospital\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 3\nPatient Name: T. Subramanian | Phone: 9840112233 | UHID: KKMH-719\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nICU Charges | 2 | Rs. 5400.00 | Rs. 10800.00\nHemodialysis | 2 | Rs. 1610.00 | Rs. 3220.00\nKidney Function Test | 2 | Rs. 500.00 | Rs. 1000.00\nComplete Haemogram | 1 | Rs. 650.00 | Rs. 650.00\nGrand Total: Rs. 15670.00"
+  },
+  {
+    "bill_id": "BILL_036_MULTIPAGE_NEURO_STROKE",
+    "title": "Multi-Page Acute Stroke Evaluation IPD Bill",
+    "category": "multipage",
+    "hospital_name": "Apex Neuro & Vascular Centre",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 2,
+    "patient_header": "Patient Name: G. S. Gill | Phone: 9815011223 | UHID: ANVC-205",
+    "lines": [
+      {
+        "raw_text": "MRI Brain",
+        "qty": 1,
+        "unit_price": 3000.0,
+        "total": 3000.0,
+        "expected_canonical_id": "TERM_RAD_MRI_BRAIN",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "CT Scan Brain",
+        "qty": 1,
+        "unit_price": 1035.0,
+        "total": 1035.0,
+        "expected_canonical_id": "TERM_RAD_CT_HEAD",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "2D Echocardiography",
+        "qty": 1,
+        "unit_price": 1475.0,
+        "total": 1475.0,
+        "expected_canonical_id": "TERM_CARD_2DECHO",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Lipid Profile",
+        "qty": 1,
+        "unit_price": 490.0,
+        "total": 490.0,
+        "expected_canonical_id": "TERM_LAB_LIPID",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Semi-Private Ward",
+        "qty": 2,
+        "unit_price": 5000.0,
+        "total": 10000.0,
+        "expected_canonical_id": "TERM_ROOM_SEMI_PRIVATE",
+        "expected_flagged": true
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_036_MULTIPAGE_NEURO_STROKE.png",
+    "pdf_file": "data/golden_bills/BILL_036_MULTIPAGE_NEURO_STROKE.pdf",
+    "ocr_text": "Apex Neuro & Vascular Centre\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 2\nPatient Name: G. S. Gill | Phone: 9815011223 | UHID: ANVC-205\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nMRI Brain | 1 | Rs. 3000.00 | Rs. 3000.00\nCT Scan Brain | 1 | Rs. 1035.00 | Rs. 1035.00\n2D Echocardiography | 1 | Rs. 1475.00 | Rs. 1475.00\nLipid Profile | 1 | Rs. 490.00 | Rs. 490.00\nSemi-Private Ward | 2 | Rs. 5000.00 | Rs. 10000.00\nGrand Total: Rs. 16000.00"
+  },
+  {
+    "bill_id": "BILL_037_PKG_LAP_CHOLE_UNBUNDLED",
+    "title": "Laparoscopic Cholecystectomy Package with Unbundled PPE & Nursing",
+    "category": "package_bill",
+    "hospital_name": "Columbia Surgical Institute",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 2,
+    "patient_header": "Patient Name: Rohini Iyer | Phone: 9821122334 | UHID: CSI-801",
+    "lines": [
+      {
+        "raw_text": "Laparoscopic Cholecystectomy",
+        "qty": 1,
+        "unit_price": 25300.0,
+        "total": 25300.0,
+        "expected_canonical_id": "TERM_PKG_LAP_CHOLE",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "PPE Kit",
+        "qty": 2,
+        "unit_price": 750.0,
+        "total": 1500.0,
+        "expected_canonical_id": "TERM_CONS_PPE_GLOVES",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "Nursing Charges",
+        "qty": 2,
+        "unit_price": 1000.0,
+        "total": 2000.0,
+        "expected_canonical_id": "TERM_PROC_NURSING_RMO",
+        "expected_flagged": true
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_037_PKG_LAP_CHOLE_UNBUNDLED.png",
+    "pdf_file": null,
+    "ocr_text": "Columbia Surgical Institute\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 2\nPatient Name: Rohini Iyer | Phone: 9821122334 | UHID: CSI-801\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nLaparoscopic Cholecystectomy | 1 | Rs. 25300.00 | Rs. 25300.00\nPPE Kit | 2 | Rs. 750.00 | Rs. 1500.00\nNursing Charges | 2 | Rs. 1000.00 | Rs. 2000.00\nGrand Total: Rs. 28800.00"
+  },
+  {
+    "bill_id": "BILL_038_PKG_APPENDICECTOMY",
+    "title": "Appendicectomy Surgery Package Bill (Overcharged Package)",
+    "category": "package_bill",
+    "hospital_name": "Prime Care Surgical Hospital",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 2,
+    "patient_header": "Patient Name: Karan Malhotra | Phone: 9810334455 | UHID: PCSH-412",
+    "lines": [
+      {
+        "raw_text": "Appendicectomy",
+        "qty": 1,
+        "unit_price": 36000.0,
+        "total": 36000.0,
+        "expected_canonical_id": "TERM_PKG_APPENDICECTOMY",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "Ultrasound Whole Abdomen",
+        "qty": 1,
+        "unit_price": 800.0,
+        "total": 800.0,
+        "expected_canonical_id": "TERM_RAD_USG_ABDOMEN",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_038_PKG_APPENDICECTOMY.png",
+    "pdf_file": null,
+    "ocr_text": "Prime Care Surgical Hospital\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 2\nPatient Name: Karan Malhotra | Phone: 9810334455 | UHID: PCSH-412\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nAppendicectomy | 1 | Rs. 36000.00 | Rs. 36000.00\nUltrasound Whole Abdomen | 1 | Rs. 800.00 | Rs. 800.00\nGrand Total: Rs. 36800.00"
+  },
+  {
+    "bill_id": "BILL_039_PKG_HERNIA",
+    "title": "Inguinal Hernioplasty with Mesh Package Bill",
+    "category": "package_bill",
+    "hospital_name": "Metro Hernia & Laparoscopy Centre",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 2,
+    "patient_header": "Patient Name: Devendra Fadnavis | Phone: 9822998877 | UHID: MHLC-118",
+    "lines": [
+      {
+        "raw_text": "Hernia Repair",
+        "qty": 1,
+        "unit_price": 28500.0,
+        "total": 28500.0,
+        "expected_canonical_id": "TERM_PKG_HERNIA",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "Complete Blood Count (CBC)",
+        "qty": 1,
+        "unit_price": 300.0,
+        "total": 300.0,
+        "expected_canonical_id": "TERM_LAB_CBC",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_039_PKG_HERNIA.png",
+    "pdf_file": null,
+    "ocr_text": "Metro Hernia & Laparoscopy Centre\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 2\nPatient Name: Devendra Fadnavis | Phone: 9822998877 | UHID: MHLC-118\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nHernia Repair | 1 | Rs. 28500.00 | Rs. 28500.00\nComplete Blood Count (CBC) | 1 | Rs. 300.00 | Rs. 300.00\nGrand Total: Rs. 28800.00"
+  },
+  {
+    "bill_id": "BILL_040_PKG_HYSTERECTOMY",
+    "title": "Total Laparoscopic Hysterectomy (TLH) Package Bill",
+    "category": "package_bill",
+    "hospital_name": "Women's Wellness & Surgical Hospital",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 3,
+    "patient_header": "Patient Name: Asha Bhonsle | Phone: 9820556677 | UHID: WWSH-605",
+    "lines": [
+      {
+        "raw_text": "Total Laparoscopic Hysterectomy",
+        "qty": 1,
+        "unit_price": 42000.0,
+        "total": 42000.0,
+        "expected_canonical_id": "TERM_PKG_HYSTERECTOMY",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "ECG",
+        "qty": 1,
+        "unit_price": 175.0,
+        "total": 175.0,
+        "expected_canonical_id": "TERM_CARD_ECG",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_040_PKG_HYSTERECTOMY.png",
+    "pdf_file": null,
+    "ocr_text": "Women's Wellness & Surgical Hospital\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 3\nPatient Name: Asha Bhonsle | Phone: 9820556677 | UHID: WWSH-605\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nTotal Laparoscopic Hysterectomy | 1 | Rs. 42000.00 | Rs. 42000.00\nECG | 1 | Rs. 175.00 | Rs. 175.00\nGrand Total: Rs. 42175.00"
+  },
+  {
+    "bill_id": "BILL_041_PKG_CABG_BYPASS",
+    "title": "Coronary Artery Bypass Graft (CABG) Package Bill",
+    "category": "package_bill",
+    "hospital_name": "National Heart Institute",
+    "state": "DL",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 6,
+    "patient_header": "Patient Name: Satyapal Malik | Phone: 9811229900 | UHID: NHI-707",
+    "lines": [
+      {
+        "raw_text": "Coronary Artery Bypass Graft",
+        "qty": 1,
+        "unit_price": 161000.0,
+        "total": 161000.0,
+        "expected_canonical_id": "TERM_PKG_CABG",
+        "expected_flagged": false
+      },
+      {
+        "raw_text": "2D Echocardiography",
+        "qty": 1,
+        "unit_price": 1475.0,
+        "total": 1475.0,
+        "expected_canonical_id": "TERM_CARD_2DECHO",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_041_PKG_CABG_BYPASS.png",
+    "pdf_file": null,
+    "ocr_text": "National Heart Institute\nState: DL | City Tier: X | Ward: semi_private | Stay Days: 6\nPatient Name: Satyapal Malik | Phone: 9811229900 | UHID: NHI-707\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nCoronary Artery Bypass Graft | 1 | Rs. 161000.00 | Rs. 161000.00\n2D Echocardiography | 1 | Rs. 1475.00 | Rs. 1475.00\nGrand Total: Rs. 162475.00"
+  },
+  {
+    "bill_id": "BILL_042_PKG_MJPJAY_MH",
+    "title": "Maharashtra State MJPJAY & CGHS Dual Comparator Surgery Bill",
+    "category": "package_bill",
+    "hospital_name": "Sahyadri Lotus Multispeciality Hospital",
+    "state": "MH",
+    "city_tier": "X",
+    "nabh_accredited": true,
+    "ward_type": "semi_private",
+    "stay_days": 3,
+    "patient_header": "Patient Name: Ganesh Deshpande | Phone: 9823011223 | UHID: SLMH-990",
+    "lines": [
+      {
+        "raw_text": "Laparoscopic Cholecystectomy",
+        "qty": 1,
+        "unit_price": 34000.0,
+        "total": 34000.0,
+        "expected_canonical_id": "TERM_PKG_LAP_CHOLE",
+        "expected_flagged": true
+      },
+      {
+        "raw_text": "Drug Eluting Stent",
+        "qty": 1,
+        "unit_price": 38933.0,
+        "total": 38933.0,
+        "expected_canonical_id": "TERM_IMPLANT_STENT_DES",
+        "expected_flagged": false
+      }
+    ],
+    "png_file": "data/golden_bills/BILL_042_PKG_MJPJAY_MH.png",
+    "pdf_file": null,
+    "ocr_text": "Sahyadri Lotus Multispeciality Hospital\nState: MH | City Tier: X | Ward: semi_private | Stay Days: 3\nPatient Name: Ganesh Deshpande | Phone: 9823011223 | UHID: SLMH-990\n------------------------------------------------------------\nDescription | Qty | Unit Price | Total\nLaparoscopic Cholecystectomy | 1 | Rs. 34000.00 | Rs. 34000.00\nDrug Eluting Stent | 1 | Rs. 38933.00 | Rs. 38933.00\nGrand Total: Rs. 72933.00"
+  }
+]

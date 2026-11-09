@@ -1,0 +1,3235 @@
+
+
+<!doctype html>
+		<html class="no-js" lang="en">
+		<head>
+			<meta charset="UTF-8">
+			<meta http-equiv="x-ua-compatible" content="ie=edge">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+			<meta name="description" content="Central Government Health Scheme Ministry of Health &amp; Family Welfare Government of India">
+			<meta name="author" content="CDAC">
+			<meta name="keywords" content="CGHS,Central Government Health Scheme,Ministry of Health & Family Welfare,mohfw,HMIS,cdac">
+			<title>Central Government Health Scheme</title>
+				<meta name="viewport" content="width=device-width, initial-scale=1">
+			<link rel="shortcut icon" href="/AHIMSG5/hissso/portal/images/favicon.ico">
+			<!--  CSS Files -->
+			<link href="/AHIMSG5/hissso/portal/css/bootstrap-min.css" rel="stylesheet">
+			<link rel="stylesheet" href="/AHIMSG5/hissso/portal/css/accessibility/accesibility-style-v2.1.css">
+			<link href="/AHIMSG5/hissso/portal/css/empt-faq.css" rel="stylesheet">
+			<link href="/AHIMSG5/hissso/portal/css/portal-X.css" rel="stylesheet">
+			<link href="/AHIMSG5/hissso/portal/fontawesome/css/all.min.css" rel="stylesheet">
+			
+			<link href="/AHIMSG5/hissso/portal/css/style-newdesign.css" rel="stylesheet">
+			<link href="/AHIMSG5/hissso/portal/css/advanced-search.css" rel="stylesheet">
+			<!-- <link href="/AHIMSG5/hissso/portal/css/menu-newdesign.css"
+	rel="stylesheet"> -->
+			<link href="/AHIMSG5/hissso/portal/css/responsive-newdesign.css" rel="stylesheet">
+			<link href="/AHIMSG5/hissso/portal/css/owl.carousel.min.css" rel="stylesheet">
+			<link href="/AHIMSG5/hissso/portal/css/datatables.css" rel="stylesheet">
+			<link href="/AHIMSG5/hissso/portal/css/datatables.min.css" rel="stylesheet">
+
+
+			<script src="/AHIMSG5/hisglobal/js/commonUtil.js"></script>
+			<script src="/AHIMSG5/hislogin/js/alert.js"></script>
+			<link href="/AHIMSG5/hislogin/css/alert.css" rel="stylesheet">
+			<style>
+				/* Base style for highlighted menu items */
+				.cghs-highlight {
+					border-radius: 6px;
+					padding: 8px 12px;
+					transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+					text-decoration: none;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+				}
+
+				/* Apply for CGHS Card */
+				.cghs-apply-card {
+					background: linear-gradient(to left, #3e8ced 0%, #0072ff 61%, #3e8ced 100%);
+					 animation: pulse 1.2s infinite ease-in-out; 
+					z-index: 9;
+				}
+
+				.cghs-apply-card:hover {
+					background: #0056b3;
+					transform: translateY(-5px);
+				}
+
+				/* Empaneled Hospitals and Labs */
+				.cghs-hospitals-labs {
+					background: #62ac5f !important;
+				}
+
+				.cghs-hospitals-labs:hover {
+					background-color: #1e7e34;
+					transform: translateY(-5px);
+				}
+
+				/* Book Online Appointment */
+				.cghs-book-appointment {
+					background-color: #ffc107 !important;
+					color: #212529;
+				}
+
+				.cghs-book-appointment:hover {
+					background-color: #e0a800;
+					transform: translateY(-5px);
+				}
+
+				.uat-warning {
+					position: absolute;
+					bottom: 270px;
+					background: rgba(255, 0, 0, 255);
+					color: #fff;
+					padding: 6px 12px;
+					font-weight: bold;
+					border-radius: 4px;
+					font-size: 20px;
+					transform: translateX(4%);
+					
+				}
+				
+				@media (min-width: 992px) {
+					.handlingdivwidth {
+						display: flex !important;
+						flex-wrap: nowrap !important;
+					}
+					.handlingdivwidth > .col {
+						min-width: 0 !important;
+					}
+					.handlingdivwidth > .col:nth-child(1) {
+						flex: 2.5 1 20.8333% !important;
+						max-width: 20.8333% !important;
+					}
+					.handlingdivwidth > .col:nth-child(2) {
+						flex: 7 1 58.3333% !important;
+						max-width: 58.3333% !important;
+					}
+					.handlingdivwidth > .col:nth-child(3) {
+						flex: 2.5 1 20.8333% !important;
+						max-width: 20.8333% !important;
+					}
+				}
+				@media (max-width: 991px) {
+					.uat-warning {
+						font-size: 13px;
+						bottom: 20px;
+						padding: 4px 8px;
+						transform: none;
+						left: 10px;
+						right: 10px;
+						text-align: center;
+					}
+				}
+				/* Center Banner Carousel Styles */
+				#cghsMainCarousel {
+					width: 100%;
+					position: relative;
+					overflow: hidden;
+				}
+				#cghsMainCarousel .carousel-inner {
+					width: 100%;
+					position: relative;
+					overflow: hidden;
+				}
+				#cghsMainCarousel .carousel-item {
+					width: 100%;
+					transition: transform 0.5s ease-in-out;
+				}
+				#cghsMainCarousel .carousel-item img {
+					width: 100%;
+					height: auto;
+					display: block;
+					object-fit: cover;
+				}
+				#cghsMainCarousel .carousel-control-prev,
+				#cghsMainCarousel .carousel-control-next {
+					position: absolute;
+					top: 50%;
+					transform: translateY(-50%);
+					width: 38px;
+					height: 38px;
+					background: rgba(255, 255, 255, 0.85);
+					color: #1e1f90;
+					border-radius: 50%;
+					border: none;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					font-size: 16px;
+					box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+					opacity: 0;
+					transition: all 0.3s ease;
+					z-index: 5;
+				}
+				#cghsMainCarousel:hover .carousel-control-prev,
+				#cghsMainCarousel:hover .carousel-control-next {
+					opacity: 0.9;
+				}
+				#cghsMainCarousel .carousel-control-prev:hover,
+				#cghsMainCarousel .carousel-control-next:hover {
+					background: #1e1f90;
+					color: #fff;
+					opacity: 1;
+				}
+				#cghsMainCarousel .carousel-control-prev {
+					left: 12px;
+				}
+				#cghsMainCarousel .carousel-control-next {
+					right: 12px;
+				}
+				#cghsMainCarousel .carousel-indicators {
+					margin-bottom: 8px;
+					z-index: 5;
+				}
+				#cghsMainCarousel .carousel-indicators [data-bs-target] {
+					width: 8px;
+					height: 8px;
+					border-radius: 50%;
+					margin: 0 4px;
+					background-color: rgba(255, 255, 255, 0.7);
+					border: none;
+					opacity: 0.7;
+					transition: all 0.3s ease;
+				}
+				#cghsMainCarousel .carousel-indicators .active {
+					background-color: #007bff;
+					width: 22px;
+					border-radius: 6px;
+					opacity: 1;
+				}
+
+				.pulse {
+					animation: pulse 2s infinite;
+				}
+
+
+
+				@keyframes pulse {
+
+					0%,
+					100% {
+						transform: scale(1);
+					}
+
+					50% {
+						transform: scale(1.1);
+					}
+				}
+
+				.pulse-badge {
+					font-size: 12px;
+					font-weight: 900;
+					color: white;
+					letter-spacing: 1px;
+					text-transform: uppercase;
+					position: absolute;
+					top: 10px;
+					right: 0px;
+					padding: 6px 14px;
+					border-radius: 8px;
+					transform-origin: center;
+					animation: pulse 3.2s infinite ease-in-out;
+					margin-right: 205px;
+					z-index: 999;
+					background-color: blue;
+				}
+
+				@keyframes scroll-left {
+					0% {
+						transform: translateX(0);
+					}
+
+					100% {
+						transform: translateX(-100%);
+					}
+				}
+			</style>
+
+			<style>
+				/* List Item Style */
+				.official-menu-item {
+					list-style: none;
+					margin: 6px 0;
+					padding: 8px 12px;
+					border-bottom: 1px solid #e0e0e0;
+				}
+
+				/* Link Style */
+				.official-link {
+					display: block;
+					padding: 10px 12px;
+					color: #333;
+					font-size: 16px;
+					font-weight: 500;
+					text-decoration: none;
+					border-radius: 6px;
+					transition: background-color 0.3s, color 0.3s;
+				}
+
+				/* Hover effect */
+				.official-link:hover {
+					background-color: #f0f0f0;
+					color: #007BFF;
+				}
+
+				/* Responsive font size */
+				@media (max-width : 768px) {
+					.official-link {
+						font-size: 14px;
+						padding: 8px 10px;
+					}
+				}
+
+				/* Chat Bot  */
+				.chat-launcher {
+					background-color: #1937B2 !important;
+					color: white;
+				}
+
+				#sahaayak_logo {
+					width: 32px;
+					height: 32px;
+					display: inline-block;
+					vertical-align: middle;
+				}
+
+
+				/* Refined Stacked Fixed Headers */
+
+				/* Global Search Results Styles */
+				.search-results-list {
+					max-height: calc(100vh - 300px);
+					overflow-y: auto;
+					scrollbar-width: thin;
+					scrollbar-color: #1565c0 #f1f1f1;
+				}
+
+				.search-results-list::-webkit-scrollbar {
+					width: 8px;
+				}
+
+				.search-results-list::-webkit-scrollbar-track {
+					background: #f1f1f1;
+					border-radius: 4px;
+				}
+
+				.search-results-list::-webkit-scrollbar-thumb {
+					background: #1565c0;
+					border-radius: 4px;
+				}
+
+				.search-result-item:hover {
+					background-color: #f8fbff !important;
+					border-color: #1565c0 !important;
+				}
+
+				.search-result-path {
+					font-size: 0.8rem;
+					color: #6c757d;
+				}
+
+				.search-result-title {
+					font-size: 1.1rem;
+					color: #1565c0;
+				}
+
+				.search-result-desc {
+					font-size: 0.85rem;
+					color: #495057;
+				}
+
+				#submenu-content1 {
+					background-color: #fff;
+					border-radius: 12px;
+					box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+					margin-top: 20px;
+				}
+			</style>
+
+			<style>
+				/* Tabs (Desktop) */
+				.nav-tabs .nav-link {
+					background: #2c2c2c;
+					color: #ccc;
+					border: none;
+					transition: background 0.3s, color 0.3s;
+				}
+
+				.nav-tabs .nav-link.active,
+				.nav-tabs .nav-link:hover {
+					/* background: #ff416c; */
+					color: #fff;
+				}
+
+				/* Accordion Button (Mobile) */
+				.accordion-button {
+					background: #2c2c2c;
+					color: #fff;
+				}
+
+				.accordion-button:not(.collapsed) {
+					
+					
+				}
+
+				/* List Scrollbar */
+				/* .container-fluid::-webkit-scrollbar {
+  width: 6px;
+}
+.container-fluid::-webkit-scrollbar-thumb {
+  background-color: #ff4b2b;
+  border-radius: 10px;
+}
+.container-fluid::-webkit-scrollbar-track {
+  background: #333;
+} */
+
+				/* View More */
+				.view-more:hover {
+					background: #ff416c;
+					color: #fff;
+					transition: background 0.4s;
+				}
+
+				/* Animation */
+				.tab-pane,
+				.accordion-body {
+					animation: fadeIn 0.6s ease;
+				}
+
+				@keyframes fadeIn {
+					0% {
+						opacity: 0;
+						transform: translateY(20px);
+					}
+
+					100% {
+						opacity: 1;
+						transform: translateY(0);
+					}
+				}
+
+				/* Responsive Adjustment */
+				@media (max-width : 767px) {
+					#pdfsection .nav-tabs {
+						display: none;
+					}
+
+
+					/* .container-fluid {
+						height: 400px;
+					} */
+				}
+
+				@media (min-width : 768px) {
+					
+				}
+			</style>
+
+			<style>
+				@keyframes popupFadeIn {
+					0% {
+						opacity: 0;
+						transform: translate(-50%, -50%) scale(0.8);
+					}
+
+					100% {
+						opacity: 1;
+						transform: translate(-50%, -50%) scale(1);
+					}
+				}
+
+				#sharePopup button:hover {
+					background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+					transform: scale(1.05);
+				}
+
+				#sharePopup a:hover {
+					transform: scale(1.2);
+				}
+
+				#sharePopup button:last-child:hover {
+					background: #444;
+				}
+
+				/* styles for pdf pop up modal */
+
+				#closeModalBtn:hover {
+					transform: rotate(90deg);
+				}
+
+				@media (max-width : 768px) {
+					#pdfModal {
+						width: 95%;
+						height: 85vh;
+					}
+				}
+
+				@media (max-width : 480px) {
+					#pdfModal {
+						width: 98%;
+						height: 80vh;
+					}
+
+					#pdfModal h2 {
+						font-size: 16px;
+					}
+
+					#closeModalBtn {
+						font-size: 20px;
+					}
+				}
+			</style>
+
+
+			<style>
+				/* --- Breadcrumb Styling --- */
+
+
+				/* PDF Toolbar Styling */
+				.pdf-toolbar {
+					background: #f1f3f4;
+					padding: 10px;
+					border-radius: 6px;
+					margin-bottom: 10px;
+					border: 1px solid #dadce0;
+					display: block !important;
+					/* Force visibility */
+				}
+
+				.pdf-sort-btn {
+					cursor: pointer;
+					padding: 4px 10px;
+					border-radius: 20px;
+					background: #fff;
+					border: 1px solid #ccc;
+					margin-right: 5px;
+					font-size: 0.75rem;
+					display: inline-block;
+				}
+
+				.pdf-sort-btn.active {
+					background-color: #0b57d0;
+					color: white;
+					border-color: #0b57d0;
+				}
+			</style>
+
+			<style>
+				.custom-popup {
+					display: none;
+					/* hidden by default */
+					position: fixed;
+					z-index: 1000;
+					left: 0;
+					top: 0;
+					width: 100vw;
+					height: 100vh;
+					background-color: rgba(0, 0, 0, 0.6);
+					backdrop-filter: blur(4px);
+					justify-content: center;
+					align-items: center;
+					animation: fadeIn 0.3s ease-in-out;
+				}
+
+				.popup-content {
+					background: white;
+					padding: 20px;
+					border-radius: 16px;
+					max-width: 90%;
+					width: 500px;
+					text-align: center;
+					position: relative;
+					box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+					animation: slideIn 0.4s ease;
+					display: flex;
+					flex-direction: column;
+					gap: 20px;
+				}
+
+				.popup-img {
+					width: 100%;
+					max-height: 200px;
+					object-fit: contain;
+				}
+
+				.close-btn {
+					position: absolute;
+					top: 10px;
+					right: 15px;
+					font-size: 24px;
+					cursor: pointer;
+					color: #333;
+				}
+
+				/*to let the important links scroll work */
+				.custom-popup-content .content {
+					max-height: 48vh;
+				}
+
+				@keyframes fadeIn {
+					from {
+						opacity: 0;
+					}
+
+					to {
+						opacity: 1;
+					}
+
+				}
+
+				@keyframes slideIn {
+					from {
+						transform: translateY(-50px);
+						opacity: 0;
+					}
+
+					to {
+						transform: translateY(0);
+						opacity: 1;
+					}
+
+				}
+
+				@media (max-width : 600px) {
+					.popup-content {
+						width: 90%;
+						padding: 16px;
+					}
+				}
+
+				/* Add Unique Styling for Each Popup (Example) */
+				.popup1 .popup-content {
+					background-color: #f8f9fa;
+				}
+
+				.popup2 .popup-content {
+					background-color: #e9ecef;
+				}
+
+				.popup3 .popup-content {
+					background-color: #f1f3f5;
+				}
+			</style>
+
+			<style>
+				.animated-btn {
+					padding: 10px 20px;
+					font-size: 16px;
+					background: linear-gradient(45deg, #ff6b81, #f06595);
+					border: none;
+					border-radius: 50px;
+					color: white;
+					text-transform: uppercase;
+					cursor: pointer;
+					transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.4s ease;
+					box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+					display: inline-flex;
+					align-items: center;
+					justify-content: center;
+					font-weight: bold;
+					letter-spacing: 1px;
+					outline: none;
+					animation: bounce 1s infinite;
+				}
+
+				/* Button Hover Animation */
+				.animated-btn:hover {
+					transform: translateY(-5px);
+					box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.3);
+					background: linear-gradient(45deg, #f06595, #ff6b81);
+				}
+
+				/* Button Focus Animation */
+				.animated-btn:focus {
+					outline: none;
+					transform: translateY(-5px);
+					box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+				}
+
+				/* Adding a subtle bounce effect */
+				@keyframes bounce {
+
+					0%,
+					100% {
+						transform: translateY(0);
+					}
+
+					50% {
+						transform: translateY(-10px);
+					}
+				}
+
+				/* Optional: Adding a "pulse" effect when hovered */
+				.animated-btn:active {
+					animation: pulse 0.6s forwards;
+				}
+			</style>
+
+			<style>
+				.popup-img-container {
+					text-align: center;
+					/* Center the images and descriptions */
+					margin-bottom: 20px;
+				}
+
+				.popup-img {
+					width: 100%;
+					max-width: 300px;
+					/* Limit the image width */
+					height: auto;
+					object-fit: contain;
+					border-radius: 8px;
+					box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+					/* Add a subtle shadow to the image */
+				}
+
+				.img-description {
+					font-size: 14px;
+					color: #333;
+					margin-top: 10px;
+					font-weight: bold;
+					text-align: center;
+					padding: 0 20px;
+					line-height: 1.5;
+					font-style: italic;
+					max-width: 90%;
+					margin-left: auto;
+					margin-right: auto;
+				}
+
+				.popup-content {
+					background: white;
+					padding: 20px;
+					border-radius: 16px;
+					max-width: 90%;
+					width: 500px;
+					text-align: center;
+					position: relative;
+					box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+					display: flex;
+					flex-direction: column;
+					gap: 20px;
+				}
+
+				.custom-popup-wrapper {
+					position: fixed;
+					inset: 0;
+					background: rgba(0, 0, 0, 0.75);
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					z-index: 10000;
+					padding: 20px;
+					box-sizing: border-box;
+				}
+
+				.custom-popup-box {
+					position: relative;
+					/* For close button positioning */
+					max-width: 450px;
+					/* width: 90%; */
+					max-height: 70vh;
+					/* NO overflow hidden here */
+				}
+
+				/* Wrapper for image only, to keep border radius and overflow hidden */
+				.image-wrapper {
+					border-radius: 10px;
+					max-height: 90vh;
+				}
+
+				/* Image fills the wrapper */
+				.popup-full-image {
+					display: block;
+					height: 100%;
+					object-fit: cover;
+				}
+
+				/* Close button positioned at top-right edge of the popup box */
+				.custom-close-btn {
+					position: absolute;
+					top: -15px;
+					right: -15px;
+					width: 38px;
+					height: 38px;
+					font-size: 26px;
+					color: black;
+					background: white;
+					border-radius: 50%;
+					cursor: pointer;
+					line-height: 38px;
+					text-align: center;
+					box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+					transition: all 0.3s ease;
+					z-index: 10001;
+				}
+
+				.custom-close-btn:hover {
+					background: #ff4444;
+					transform: scale(1.1) rotate(90deg);
+				}
+
+				/* ===== NeSDA 2025 Citizen Survey launch popup ===== */
+				.custom-popup-box.survey-popup-box {
+					width: 90%;
+					max-width: 900px;
+					max-height: none;
+					animation: surveyPopupIn 0.4s ease forwards;
+				}
+				@keyframes surveyPopupIn {
+					0% { opacity: 0; transform: scale(0.9); }
+					100% { opacity: 1; transform: scale(1); }
+				}
+				.survey-popup-box .image-wrapper {
+					overflow: hidden;
+					background: #f6f7f9;
+					box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+				}
+				.survey-popup-box .popup-full-image {
+					width: 100%;
+					height: auto;
+					max-height: 75vh;
+					object-fit: contain;
+				}
+				.survey-popup-actions {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					gap: 12px;
+					flex-wrap: wrap;
+					padding: 14px 16px;
+					background: #fff;
+				}
+				.survey-popup-actions .btn-survey {
+					background: #0a84d0;
+					color: #fff;
+					font-weight: 700;
+					padding: 10px 26px;
+					border-radius: 6px;
+					text-decoration: none;
+				}
+				.survey-popup-actions .btn-survey:hover,
+				.survey-popup-actions .btn-survey:focus {
+					background: #06639c;
+					color: #fff;
+				}
+				.survey-popup-actions .btn-later {
+					background: transparent;
+					border: 1px solid #999;
+					color: #333;
+					padding: 9px 20px;
+					border-radius: 6px;
+				}
+				.survey-popup-actions .btn-later:hover {
+					background: #eee;
+				}
+
+				/* Responsive */
+				@media (max-width : 600px) {
+					.custom-popup-box {
+						width: 100%;
+					}
+
+					.custom-close-btn {
+						width: 32px;
+						height: 32px;
+						font-size: 22px;
+						top: -12px;
+						right: -12px;
+						line-height: 32px;
+					}
+				}
+
+			</style>
+			
+			<style>
+									.dataTables_wrapper .dt-buttons {
+										float: right;
+										margin-bottom: 10px;
+									}
+
+									.dataTables_wrapper .dt-buttons .btn {
+										margin-left: 5px;
+										padding: 5px 15px;
+										border-radius: 4px;
+									}
+
+									.dataTables_wrapper .dataTables_paginate {
+										float: right;
+										margin-top: 10px;
+										padding-top: 0.25em;
+									}
+
+									.dataTables_wrapper .dataTables_paginate .paginate_button {
+										padding: 0.5em 1em;
+										margin-left: 2px;
+										border-radius: 4px;
+										cursor: pointer;
+									}
+
+									.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+										background: #0d6efd;
+										color: white !important;
+										border: 1px solid #0d6efd;
+									}
+
+									.dataTables_wrapper .dataTables_filter {
+										float: left;
+										text-align: left;
+										margin-top: 10px;
+									}
+
+									.dataTables_wrapper .dataTables_filter input {
+										margin-left: 0;
+										margin-right: 0.5em;
+									}
+
+									/* Sticky Header for scrollable table */
+									.dataTables_scrollHead {
+										position: sticky !important;
+										top: 0;
+										z-index: 10;
+										background: white;
+									}
+
+									div.dataTables_wrapper div.dataTables_processing {
+										position: absolute;
+										top: 50%;
+										left: 50%;
+										width: 200px;
+										margin-left: -100px;
+										margin-top: -26px;
+										text-align: center;
+										padding: 1em 0;
+									}
+								</style>
+
+			<!-- JavaScript -->
+
+			<script>
+				/* NeSDA 2025 Citizen Survey launch popup
+				   - shows once per browser session (sessionStorage)
+				   - stops showing automatically after the last date (15 Nov 2026) */
+				window.addEventListener("load", function () {
+					var overlay = document.getElementById("customLaunchOverlay");
+					if (!overlay) {
+						return;
+					}
+
+					var SURVEY_END = new Date(2026, 10, 15, 23, 59, 59); // month is 0-based: 10 = November
+					var SEEN_KEY = "nesdaSurveyPopupSeen";
+					var alreadySeen = false;
+					try {
+						alreadySeen = sessionStorage.getItem(SEEN_KEY) === "1";
+					} catch (e) { /* storage blocked - just show it */ }
+
+					if (new Date() > SURVEY_END || alreadySeen) {
+						return;
+					}
+
+					function closeSurveyPopup() {
+						overlay.style.display = "none";
+						document.removeEventListener("keydown", onEsc);
+						try {
+							sessionStorage.setItem(SEEN_KEY, "1");
+						} catch (e) { }
+					}
+					function onEsc(e) {
+						if (e.key === "Escape" || e.keyCode === 27) {
+							closeSurveyPopup();
+						}
+					}
+
+					overlay.style.display = "flex";
+					document.addEventListener("keydown", onEsc);
+
+					// close on X, "Maybe later", backdrop click, or after clicking through to the survey
+					document.getElementById("btnDismissPopup").addEventListener("click", closeSurveyPopup);
+					var laterBtn = document.getElementById("btnSurveyLater");
+					if (laterBtn) {
+						laterBtn.addEventListener("click", closeSurveyPopup);
+					}
+					overlay.addEventListener("click", function (e) {
+						if (e.target === overlay) {
+							closeSurveyPopup();
+						}
+					});
+					var links = overlay.querySelectorAll("a.survey-link");
+					for (var i = 0; i < links.length; i++) {
+						links[i].addEventListener("click", closeSurveyPopup);
+					}
+				});
+			</script>
+			<script>
+				function openPopup(popupId, contentId) {
+					document.getElementById(popupId).style.display = 'flex';
+				}
+
+				function closePopup(popupId) {
+					document.getElementById(popupId).style.display = 'none';
+				}
+			</script>
+
+		</head>
+
+		<body>
+			<!-- ===== NeSDA 2025 Citizen Survey launch popup (shown on page load via script in <head>) ===== -->
+			<div id="customLaunchOverlay" class="custom-popup-wrapper" style="display: none;"
+				role="dialog" aria-modal="true" aria-label="NeSDA 2025 Citizen Survey">
+				<div class="custom-popup-box survey-popup-box">
+					<div class="image-wrapper">
+						<a href="https://nesda.gov.in/wayforward/citizen-survey" target="_blank" rel="noopener noreferrer"
+							class="survey-link" title="Take the NeSDA 2025 Citizen Survey (opens in a new tab)">
+							<img src="/AHIMSG5/hissso/portal/images/slider/nesda-citizen-survey-popup.webp"
+								alt="NeSDA 2025 Citizen Survey - Help assess and improve government online services. Last date for submission: 15th November 2026"
+								class="popup-full-image img-fluid">
+						</a>
+						<div class="survey-popup-actions">
+							<a href="https://nesda.gov.in/wayforward/citizen-survey" target="_blank" rel="noopener noreferrer"
+								class="btn-survey survey-link">Take the Survey Now</a>
+							<button type="button" id="btnSurveyLater" class="btn-later">Maybe Later</button>
+						</div>
+					</div>
+					<span id="btnDismissPopup" class="custom-close-btn" role="button" tabindex="0" aria-label="Close">&times;</span>
+				</div>
+			</div>
+
+			<!-- Previous launch popup (Bharatkosh) - kept for reference
+			<div id="customLaunchOverlay_old" class="custom-popup-wrapper">
+  <div class="custom-popup-box">
+    <div class="image-wrapper">
+      <img src="/AHIMSG5/hissso/portal/images/cghs_bharatkosh.png" alt="Popup Image" class="popup-full-image img-fluid">
+    </div>
+    <span id="btnDismissPopup" class="custom-close-btn">&times;</span>
+  </div>
+</div>  -->
+
+			<form method='post'>
+				<input type='hidden' name='tokenCode'
+					value='TW9uIE5vdiAwOSAxNzozOToxOCBJU1QgMjAyNg=='>
+			</form>
+			
+			<div class="search-suggestions-container" id="homeSearchSuggestions"></div>
+
+
+			<header>
+				<div id="topbar" class="container-fluid">
+					<div class="row d-flex align-items-center">
+						<div class="col-12 col-md-4 d-md-block d-none">
+							<div class="d-flex align-items-center">
+
+								<p class="fw-semibold mb-0 ms-1 tollfree d-flex align-items-center">
+										<i class="fa-solid fa-phone me-2"></i>
+
+								<p data-lang-key='HelpLine' class="m-0">24 X 7 Helpline
+									number: 1800-208-8900</p>
+
+							</div>
+						</div>
+						<div
+							class="col-12 col-lg-8 col-md-8 d-flex align-items-center justify-content-end loginbtn rightarea p-1">
+
+
+
+							<!-- <div
+						class="search border-start border-end border-1 border-white border-opacity-25 px-xl-2 pt-1 d-none d-md-block">
+					<a href="#myInput" style="color: inherit;"><span class="material-symbols-outlined"> search </span></a>
+					</div> -->
+
+							<a class="text-decoration-none text-white ms-1 d-flex align-items-center fw-regular loginbuttton"
+								href="/AHIMSG5/hissso/benLogin" data-lang-key='CGHSBenLogin'><span
+									class="material-symbols-outlined me-1">login</span>Beneficiary
+								Login</a> <a
+								class="text-decoration-none text-white ms-1 d-flex align-items-center fw-regular loginbuttton"
+								href="/AHIMSG5/hissso/cghsLogin" data-lang-key='CGHSLogin'><span
+									class="material-symbols-outlined me-1">login</span>CGHS Login</a>
+
+						 	<!-- <div class="search ps-xl-1 d-none d-md-block">
+								<div class="home-search-wrapper" id="homeSearchWrapper">
+									<i id="searchButton" class="fa-solid fa-magnifying-glass"
+										style="color: black; font-size: 18px; line-height: 1;"> </i>
+									<input type="text" id="homeSearchInput" placeholder="Search CGHS..." autocomplete="off">
+								</div>
+							</div>  -->
+							
+							 <button id="adwancedSearch" type="button" class="text-decoration-none text-white ms-1 d-flex align-items-center fw-regular loginbuttton"
+								 ><span
+									class="material-symbols-outlined me-1"></span>Advanced Search</button>
+							
+									
+								
+					
+<!-- 					data-lang-key='adwancedSearch'
+ -->					
+
+
+							<div class="language">
+								<select required id='lang' name="lang" aria-label="Language selection"
+									onchange="languageChange();" class="ms-1 form-select">
+									 <option value="">-- Select Language --</option>
+									<option value="en" selected="selected">English</option>
+																	<option value="hi">Hindi</option>	
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container-fluid">
+					<div class="row p-0 d-flex align-items-center">
+						<div class="col-sm-10 col-12 col-md-4 col-lg-4 d-flex align-items-center">
+							<div class="logo position-relative pe-1 pt-md-0 pt-2">
+								<div class="d-flex align-items-center ">
+									<a href="/AHIMSG5/hissso/Login"> <img src="/AHIMSG5/hissso/portal/images/logo.jpg"
+											width="45" alt="CGHS Logo" title="CGHS Logo">
+									</a> <a href="/AHIMSG5/hissso/Login" style="text-decoration: none; color: inherit;">
+										<div class="ps-1">
+											<h1 class="fw-bold mb-1 pt-1" data-lang-key='cghsFullName'>
+												Central Government Health Scheme</h1>
+											<h2 class="mb-0 fw-regular" data-lang-key='MinistryofHealthFamilyWelfare'>
+												Ministry of
+												Health & Family Welfare</h2>
+											<h3 class="fw-bold pb-1" data-lang-key='GovernmentOfIndia'>
+												Government of India</h3>
+										</div>
+									</a>
+								</div>
+							</div>
+
+						</div>
+						<div class="col-lg-8 d-flex justify-content-end">
+							<div class="all-logins d-lg-flex align-items-center d-none d-sm-none d-md-none">
+
+
+								
+									
+								
+										
+										 <!-- <a class="cghs-highlight cghs-apply-card mx-2"
+                                                       href="javascript:openFrame('deprtmntLogin');"><i
+                                                        class="fa-solid fa-id-card"></i>
+                                                        <p  class="mb-0">Apply for Departmental User</p></a> -->
+									 <!-- <a class="cghs-highlight cghs-apply-card mx-2"
+                                                        href="javascript:openFrame('changedapplycardnew');"><i
+                                                        class="fa-solid fa-id-card"></i>
+                                                        <p  class="mb-0">Apply for CGHS card(New)</p></a> -->
+                                                        
+                                                        
+                                                    
+									
+									<a href="javascript:openFrame('applycard');"
+										class="cghs-apply-card cghs-highlight mx-2"><i class="fa-solid fa-id-card"></i>
+										<p data-lang-key='applyForCGHSCard' class="mb-0">Apply for
+											CGHS card</p>
+									</a>
+									<!-- <a href="#" onclick="event.preventDefault(); renderEmpanelledHospitalsView();"
+										class="cghs-hospitals-labs cghs-highlight mx-2">
+
+										<span class="d-inline-flex align-items-center">
+											<i class="fa-solid fa-hospital-user"></i>
+
+											<span class="ms-2 d-inline-flex align-items-center">
+												<span class="spinner-grow spinner-grow-sm text-danger"></span>
+												<span class="badge bg-danger ms-1 fs-10">Beta</span>
+											</span>
+										</span>
+
+										<p class="mb-0 d-inline-flex align-items-center" data-lang-key="EmpaneledHospitals">
+											Empaneled Hospitals and Labs
+										</p>
+
+									</a> -->									
+									<a href="javascript:void(0)" 
+   onclick="renderEmpanelledHospitalsView(); return false;" 
+   class="cghs-hospitals-labs cghs-highlight mx-2">
+   <i class="fa-solid fa-hospital-user"></i>
+   <p data-lang-key="EmpaneledHospitals" class="mb-0">
+      Empaneled Hospitals and Labs
+   </p>
+</a>
+									<a class="cghs-book-appointment cghs-highlight mx-2"
+										href="javascript:openFrame('appointment');"><i
+											class="fa-solid fa-calendar-check"></i>
+										<p data-lang-key='BookOnlineAppointment' class="mb-0">Book
+											Online Appointment</p>
+									</a>
+									<div class="logos d-flex align-items-center">
+										<img src="/AHIMSG5/hissso/portal/images/satyamev.jpg" class="pe-0" alt="Government of India" title="Government of India"> <img
+											src="/AHIMSG5/hissso/portal/images/digital-india.jpg" class="" alt="Digital India" title="Digital India">
+									</div>
+
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+
+
+
+
+
+
+				<div class="container-fluid main-menu py-1">
+					<div class="row">
+						<div
+							class="col-12 col-sm-12 col-md-12 col-lg-12 d-flex align-items-center justify-content-between">
+							<nav class="navbar navbar-expand-lg position-relative p-0">
+								<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+									data-bs-target="#navbarWithDropdown" aria-controls="navbarWithDropdown"
+									aria-expanded="false" aria-label="Toggle navigation">
+									<span class="navbar-toggler-icon"></span> <span
+										class="close-icon text-white border-0">X</span>
+									<!-- Close Icon -->
+								</button>
+								<!-- Collapsible Navbar Content -->
+								<div class="collapse navbar-collapse" id="navbarWithDropdown">
+									<div class="all-logins d-lg-flex d-block align-items-center d-lg-none d-block mt-4">
+										<!--<a class="text-decoration-none text-white px-md-2 px-lg-1 px-xl-1 px-xxl-2 px-3 border-start-0 d-flex align-items-center fw-semibold justify-content-center"
+											href="javascript:openFrame('deprtmntLogin');"><span
+												class="material-symbols-outlined me-1"> badge </span>
+											<p data-lang-key='departmntlogin' class="mb-0">
+												Apply for<br> Departmental User
+											</p>
+										</a>--> <a
+											class="text-decoration-none text-white px-md-2 px-lg-1 px-xl-1 px-xxl-2 px-3 border-start-0 d-flex align-items-center fw-semibold justify-content-center"
+											href="javascript:openFrame('applycard');"><span
+												class="material-symbols-outlined me-1"> badge </span>
+											<p data-lang-key='applyForCGHSCard' class="mb-0">
+												Apply for<br> CGHS card
+											</p>
+										</a> <a href=""
+											class="text-decoration-none text-white px-md-2 px-lg-1 px-xl-1 px-xxl-2 px-0 d-flex align-items-center fw-semibold justify-content-center">
+											<span class="material-symbols-outlined me-1">home_health</span>
+											<p data-lang-key="EmpaneledHospitals" class="mb-0">
+												Empaneled Hospitals<br> and Labs
+											</p>
+										</a> <a
+											class="text-decoration-none text-white px-md-2 px-lg-1 px-xl-1 px-xxl-2 px-3 d-flex align-items-center fw-semibold justify-content-center"
+											href="javascript:openFrame('appointment');"><span
+												class="material-symbols-outlined me-md-1 me-0">
+												book_online </span>
+											<p data-lang-key='BookOnlineAppointment' class="mb-0">
+												Book Online<br> Appointment
+											</p>
+										</a>
+									</div>
+
+
+									<ul class="navbar-nav" id="menu">
+									 
+									</ul>
+								</div>
+
+							</nav>
+
+
+						</div>
+					</div>
+
+				</div>
+
+			</header>
+
+			<div id="pdfContainer">
+				<!-- Datalist will be dynamically created based on groupId -->
+			</div>
+
+
+			<div id="sharePopupOverlay"
+				style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9998;"
+				onclick="closeSharePopup()"></div>
+
+			<div id="sharePopup"
+				style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); background: #1f1f1f; border-radius: 16px; padding: 35px 25px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7); z-index: 9999; width: 420px; max-width: 90%; animation: popupFadeIn 0.4s ease forwards; color: #e0e0e0;">
+				<h3 id="sharePopupTitle"
+					style="margin-top: 0; margin-bottom: 20px; color: #ffffff; font-size: 22px; font-weight: bold; text-align: center;">Share This Page</h3>
+
+				<input id="sharePopupInput" type="text" readonly
+					style="width: 100%; padding: 14px 16px; font-size: 15px; margin-bottom: 20px; border: 1px solid #333; border-radius: 10px; background: #2c2c2c; color: #ccc; box-sizing: border-box;">
+
+				<div style="text-align: center;">
+					<button onclick="copyShareLink()"
+						style="padding: 12px 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; border: none; border-radius: 50px; cursor: pointer; font-size: 15px; font-weight: 600; transition: background 0.3s, transform 0.3s;">Copy
+						Link</button>
+				</div>
+
+				<div style="display: flex; justify-content: center; gap: 25px; margin: 25px 0;">
+					<!-- WhatsApp Share -->
+					<a href="https://wa.me/?text=" id="whatsappLink" target="_blank"
+						style="color: #25D366; font-size: 26px; transition: transform 0.3s;">
+						<i class="fa-brands fa-whatsapp"></i>
+					</a>
+					<!-- Facebook Share -->
+					<a href="https://www.facebook.com/sharer/sharer.php?u=" id="facebookLink" target="_blank"
+						style="color: #1877F2; font-size: 26px; transition: transform 0.3s;">
+						<i class="fa-brands fa-facebook"></i>
+					</a>
+					<!-- Email Share -->
+					<a href="mailto:?subject=Checkthislink&body=" id="emailLink" target="_blank"
+						style="color: #FF6B6B; font-size: 26px; transition: transform 0.3s;">
+						<i class="fa-solid fa-envelope"></i>
+					</a>
+				</div>
+
+				<div style="text-align: center;">
+					<button onclick="closeSharePopup()"
+						style="padding: 10px 18px; background: #333; color: #ddd; border: none; border-radius: 50px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background 0.3s, transform 0.3s;">Close</button>
+				</div>
+			</div>
+			<!-- Carousel Start -->
+			<div class="container-fluid" id="slider">
+				<div class="row d-flex handlingdivwidth">
+					<div class="col box p-0 order-2 order-lg-1" style="flex: 2.5;">
+						<section id="pdfsection" class="">
+							<!-- Tab Navigation -->
+							<ul class="nav nav-tabs px-2 border-0" id="myTab" role="tablist">
+								<li class="nav-item w-100 px-lg-1 px-xl-3 pt-2" role="presentation">
+									<div class="d-flex align-items-center justify-content-between border-bottom border-1 py-1">
+    <button
+        class="nav-link p-0 active d-flex align-items-center justify-content-start fw-semibold border-0 bg-transparent"
+        id="currentIssuesId"
+        data-bs-toggle="tab"
+        data-bs-target="#currentIssuesId-pane"
+        type="button"
+        role="tab"
+        aria-controls="currentIssuesId-pane"
+        aria-selected="true"
+        onclick="displayCircularDetails(21)"
+        data-lang-key="LatestNewsUpdates">
+        <i class="fa-solid fa-square me-2"></i>
+        Latest News & Updates
+    </button>
+
+    <div id="newsUpdatesLoadedCount"
+     class="text-muted ms-1"
+     style="font-size: 0.7rem;">
+</div>
+</div>
+								</li>
+								<!-- Add other tab buttons if needed -->
+							</ul>
+
+							<div class="tab-content accordion" id="myTabContent">
+								<!-- News and Updates Section -->
+								<div class="tab-pane fade show active accordion-item" id="currentIssuesId-pane"
+									role="tabpanel" aria-labelledby="currentIssuesId" tabindex="0">
+
+									<!-- Accordion Header (Mobile) -->
+									<h2 class="accordion-header d-none" id="headingOne">
+										<button class="accordion-button collapsed" type="button"
+											data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+											aria-controls="collapseOne">
+											Current Issues</button>
+									</h2>
+
+									<!-- Accordion Body -->
+									<div id="collapseOne" class="accordion-collapse collapse show d-lg-block"
+										role="region" aria-labelledby="headingOne" data-bs-parent="#myTabContent">
+										<div class="accordion-body py-1 pe-2 ps-lg-1 ps-xl-4">
+
+											<!-- Search Input -->
+											<input type="text" id="myInput" onkeyup="mySearchFunction()" onkeydown="mySearchInputKeydown(event)"
+												placeholder="Search News & Updates..." data-lang-key="searchNewsUpdates"
+												class="form-control my-1 searchnews pt-xl-2 pt-lg-1 mb-lg-2 mb-xl-3 px-2">
+
+											<!-- No-match Advanced Search suggestion -->
+											<div id="newsSearchNoMatchHint" class="small mb-2" style="display:none;">
+												No matches in the loaded list.
+												<a href="javascript:void(0)" id="newsSearchAdvancedLink" class="fw-semibold text-decoration-underline">
+													Search in Advanced Search
+												</a>
+											</div>
+
+											<!-- List Container -->
+											<div class="container-fluid p-0 scroll">
+												<ul id="datalistId1" class="datalist p-0 m-0" style="list-style: none;">
+													<!-- <div class="view-more text-center text-white p-2 position-relative"
+														style="cursor: pointer;">
+														
+														
+													</div> -->
+												</ul>
+											</div>
+
+										</div>
+									</div>
+
+								</div>
+
+								<!-- Other Tabs (Press Releases, Empanelment, Tenders, etc.) -->
+								<!-- You can duplicate the same structure here -->
+
+							</div>
+						</section>
+					</div>
+										<div class="col p-0 box order-1 order-lg-2" style="flex: 7; min-width: 0; overflow: hidden;">
+						<div class="position-relative w-100 overflow-hidden">
+
+							<div id="cghsMainCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500" data-bs-pause="hover">
+								<!-- Indicators -->
+								<div class="carousel-indicators">
+									<button type="button" data-bs-target="#cghsMainCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1 - NeSDA Citizen Survey"></button>
+									<button type="button" data-bs-target="#cghsMainCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+									<button type="button" data-bs-target="#cghsMainCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+									<button type="button" data-bs-target="#cghsMainCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+									<button type="button" data-bs-target="#cghsMainCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+								</div>
+
+								<!-- Slides -->
+								<div class="carousel-inner w-100">
+									<!-- Slide 0: NeSDA 2025 Citizen Survey (last date 15 Nov 2026 - remove this slide + its indicator after that) -->
+									<div class="carousel-item active">
+										<a href="https://nesda.gov.in/wayforward/citizen-survey" target="_blank" rel="noopener noreferrer"
+											title="Take the NeSDA 2025 Citizen Survey (opens in a new tab)">
+											<img class="d-block w-100" src="/AHIMSG5/hissso/portal/images/slider/nesda-citizen-survey-banner.webp"
+												alt="NeSDA 2025 Citizen Survey - Take the survey now. Last date for submission: 15th November 2026">
+										</a>
+									</div>
+
+									<!-- Slide 1 (Language Responsive Banner) -->
+									<div class="carousel-item">
+										<img id="bannerImage" class="d-block w-100 cghs-lang-banner" src="/AHIMSG5/hissso/portal/images/slider/cghs-english-banner.webp" alt="CGHS English Banner">
+									</div>
+
+									<!-- Slide 2: myCGHS 2.0 User Engagement Initiative -->
+									<div class="carousel-item">
+										<img class="d-block w-100" src="/AHIMSG5/hissso/portal/images/slider/mycghs-user-engagement.webp" alt="myCGHS 2.0 User Engagement Initiative">
+									</div>
+
+									<!-- Slide 3: Review Meeting for Additional Directors -->
+									<div class="carousel-item">
+										<img class="d-block w-100" src="/AHIMSG5/hissso/portal/images/slider/review-meeting-ad-banner.webp" alt="Review Meeting for Additional Directors">
+									</div>
+
+									<!-- Slide 4: CGHS Activities & Medical Camps -->
+									<div class="carousel-item">
+										<img class="d-block w-100" src="/AHIMSG5/hissso/portal/images/slider/cghs-activities-banner.webp" alt="CGHS Activities and Health Camps">
+									</div>
+
+									<!-- ========================================================
+									     TO ADD MORE IMAGES:
+									     Simply copy and paste the block below with your new image path:
+									     <div class="carousel-item">
+									         <img class="d-block w-100" src="/AHIMSG5/hissso/portal/images/slider/your-image.webp" alt="Banner Description">
+									     </div>
+									     ======================================================== -->
+								</div>
+
+								<!-- Controls -->
+								<button class="carousel-control-prev" type="button" data-bs-target="#cghsMainCarousel" data-bs-slide="prev" aria-label="Previous">
+									<i class="fa-solid fa-angle-left"></i>
+								</button>
+								<button class="carousel-control-next" type="button" data-bs-target="#cghsMainCarousel" data-bs-slide="next" aria-label="Next">
+									<i class="fa-solid fa-angle-right"></i>
+								</button>
+							</div>
+
+						
+
+						</div>
+					</div>
+					
+					<div class="col p-0 box order-3 order-lg-3"
+						style="flex: 2.5; align-self: stretch; display: flex; flex-direction: column; overflow: hidden;">
+						<div style="display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: hidden;">
+							<!-- Empanelled Units Card -->
+							<div class="border border-secondary shadow-sm bg-white"
+								style="flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center;">
+
+<div class="card-body py-3 text-center position-relative text-white"
+     style="background: url('/AHIMSG5/hissso/portal/images/empt_doc.jpg') center/cover no-repeat; cursor: pointer;"
+     onclick="renderEmpanelledHospitalsView();">
+     
+   <!-- Dark Overlay -->
+   <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+
+   <!-- Content Wrapper -->
+   <div class="position-relative">
+      <div class="border-top border-light border-3 w-25 mx-auto mb-3"></div>
+      <div class="display-6 fw-bold">
+         <span id="hospitalCountSpan"></span>
+      </div>
+      <div class="text-uppercase fw-semibold mt-1" data-lang-key="totalEmpanelledHospitals">
+         Total Number of CGHS Empanelled Hospitals
+      </div>
+      <div class="small mt-1" data-lang-key="clickMoreDetails">
+         Click here for more details
+      </div>
+   </div>
+</div>
+							</div>
+
+							<div id="searchempanneled"
+								class="searchempanneled position-relative bg-light border border-secondary shadow-sm"
+								style="flex: 1; overflow: hidden; display: flex; flex-direction: column;">
+
+								<!-- Header -->
+								<div class="text-center py-2 px-3 bg-primary">
+									<!-- Title with Inline NEW Badge -->
+									<h3 class="text-white fw-bold mb-0 text-uppercase d-flex align-items-center justify-content-center gap-2"
+										style="letter-spacing: 0.5px;" data-lang-key="cghsRateList1">
+										<!-- <span class="badge bg-danger text-white fw-bold px-2 py-1"
+											style="font-size: 0.7rem; animation: blink 1s infinite;">NEW</span> -->
+										CGHS Rate List
+									</h3>
+								</div>
+
+								<!-- Form Section -->
+								<form id="filterForm" class="mt-3 px-3 position-relative">
+
+									<!-- Tier Selection -->
+									<div class="mb-2">
+										<label for="tierSelect" class="form-label visually-hidden" data-lang-key="selectTier">
+    Select Tier
+</label>
+
+<select id="tierSelect" name="tier" required
+        class="form-select border-secondary rounded-0 bg-white">
+
+    <option value="" selected data-lang-key="selectTier">Select Tier</option>
+    <option value="tier_i" data-lang-key="tier1">Tier I</option>
+    <option value="tier_ii" data-lang-key="tier2">Tier II</option>
+    <option value="tier_iii" data-lang-key="tier3">Tier III</option>
+
+</select>
+									</div>
+
+									<!-- Facility Selection -->
+									<div class="mb-2">
+
+    <label for="spacialitySelect"
+           class="form-label visually-hidden"
+           data-lang-key="selectFacility">
+        Select Facility
+    </label>
+
+    <select id="spacialitySelect" name="spaciality_type"
+            class="form-select border-secondary rounded-0 bg-white">
+
+        <option value="" selected data-lang-key="selectFacility">
+            Select Facility
+        </option>
+
+        <option value="nabh" data-lang-key="facilityNabh">
+            NABH
+        </option>
+
+        <option value="non_nabh" data-lang-key="facilityNonNabh">
+            NON-NABH
+        </option>
+
+        <option value="superspeciality" data-lang-key="facilitySuperSpeciality">
+            SUPER SPECIALITY
+        </option>
+
+    </select>
+
+</div>
+
+									<!-- Ward Selection -->
+									<div class="mb-4">
+
+    <label for="wardSelect"
+           class="form-label visually-hidden"
+           data-lang-key="selectWardType">
+        Select Ward Type
+    </label>
+
+    <select id="wardSelect" name="ward_type"
+            class="form-select border-secondary rounded-0 bg-white">
+
+        <option value="" selected data-lang-key="selectWard">
+            Select Ward
+        </option>
+
+        <option value="general_ward" data-lang-key="generalWard">
+            General Ward
+        </option>
+
+        <option value="semi_private_ward" data-lang-key="semiPrivateWard">
+            Semi-Private Ward
+        </option>
+
+        <option value="private_ward" data-lang-key="privateWard">
+            Private Ward
+        </option>
+
+    </select>
+
+</div>
+
+									<!-- Submit Button -->
+									<button type="button" id="submitRateFWDBtn"
+										class="btn btn-primary w-100 fw-bold  bottom-0 start-0 end-0 rounded-0"
+										style="height: 40px; background-color: #0d3b66; border: none;"
+										data-lang-key="Submit">
+										Submit
+									</button>
+
+								</form>
+
+							</div>
+
+
+
+							<div id="qrcodeSection"
+								class="position-relative bg-light border border-secondary shadow-sm p-3"
+								style="flex: 1; overflow: hidden; display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 12px;">
+
+								<!-- QR Image (Left) -->
+								<img src="/AHIMSG5/hissso/portal/images/adr_qr_code.jpg" alt="QR Code" class="img-fluid"
+									style="flex-shrink: 0; width: 40%; max-width: 130px; object-fit: contain;">
+
+								<!-- Right Side Text -->
+								<div class="d-flex flex-column justify-content-center text-start"
+									style="flex: 1; min-width: 0;">
+
+									<!-- PvPI Header -->
+									<div class="d-flex align-items-center gap-2 mb-2">
+
+										<!-- Phone Icon -->
+										<span style="font-size: 1.8rem; color: #1565c0; flex-shrink: 0;">
+											&#128222;
+										</span>
+
+										<div>
+											<div class="fw-bold mb-1"
+												style="color: #1565c0; font-size: 0.95rem; line-height: 1.2;"
+												data-lang-key="pvpiToll">
+												PvPI Toll Free Number
+											</div>
+
+											<div class="fw-bold"
+												style="color: #e6b800; font-size: 1.4rem; letter-spacing: 1px;">
+												1800 180 3024
+											</div>
+										</div>
+									</div>
+
+									<!-- Caption -->
+									<div class="fw-semibold fst-italic" style="color: #c0392b; font-size: 0.9rem;"
+										data-lang-key="scanADRqr">
+										Scan this QR code to report suspected ADR
+									</div>
+
+								</div>
+							</div>
+						</div><!-- end flex column wrapper -->
+					</div><!-- end order-3 col -->
+
+				</div>
+			</div>
+
+
+
+
+
+
+
+			<div class="container-fluid p-0" id="hideforotherpages">
+				<div class="row d-flex align-items-top">
+					<div class="col-3 p-0"></div>
+					<div class="col-9 p-0 d-flex align-items-top"></div>
+				</div>
+
+
+				<div id="page">
+					<div class="page banner text-center py-5 position-relative" id="submenu-banner"
+						style="display: none;">
+						<h2 id="submenu-header" class="text-white" aria-label="Submenu Header">
+						 <span class="sr-only">Submenu Header</span>
+						</h2>
+						<div class="image position-absolute end-0 bottom-0">
+							<img src="/AHIMSG5/hissso/portal/images/banner-image.png" alt="CGHS Banner" title="CGHS Banner">
+						</div>
+
+						<div class="breadcrumb p-0 m-0  d-flex align-items-center justify-content-center"
+							style="font-size: 25px;" id="submenu-breadcrumb">
+							<div class="search-container position-relative w-50">
+								<input type="text" class="form-control search-input" id="myInputMain"
+									placeholder="Type to search across CGHS">
+								<!-- <button id="searchButton1"
+							style="background: none; border: none; cursor: pointer;">
+							<span class="material-symbols-outlined position-absolute"
+								style="top: 6px; right: 15px"> search </span>
+						</button> -->
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
+				<div id="submenu-content" class="container-fluid scrollable-div "
+					style="display: none; height: 600px; width: 1200px;">
+
+					<div class="row">
+						<div class="col-md-12">
+							<div id="content-display" class="p-4"></div>
+						</div>
+					</div>
+				</div>
+
+				<div id="submenu-content1" class="container-fluid scrollable-div "
+					style="height: fit-content; width: 1200px; display: none">
+
+					<div class="row">
+						<div class="col-md-12">
+							<div id="content-display1" class="p-4">
+								<h2 style="text-align: center; margin-top: 30px; margin-bottom: 30px;">Enter a keyword
+									above to view search results.</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--  Started Inner Pages design with Left and Right Panel; -->
+				<div class="container-fluid px-md-0" id="innerpages">
+					<section id="bannersection">
+						<div class="page banner position-relative py-4">
+							<div class="row px-3" id="breadcrumbHelper" style="display:none;">
+								<div class="col-md-6">
+									<div class="title">
+										<h2 id="panelHeading" aria-label="Panel Heading">
+										 <span class="sr-only">Panel Heading</span>
+										</h2>
+									</div>
+								</div>
+								<div class="col-md-6 d-flex justify-content-end">
+									<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+										<ol class="breadcrumb mb-0" id="dynamicBreadcrumb" style="font-weight: 500;">
+										</ol>
+									</nav>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<div class="contentarea position-relative mt-3 mb-2 container-fluid px-md-3">
+						<div class="content px-xl-3 px-lg-3 px-md-1 mt-4">
+							<div class="row" id="splitPanelContainer" style="display:none;">
+
+								<div class="col-md-5 col-xxl-3 col-xl-3 col-lg-3">
+									<div class="" id="level2Panel"></div>
+									<div class="" id="level3Panel" style="display:none;"></div>
+								</div>
+
+								<div class="col-md-7 col-xxl-9 col-xl-9 col-lg-9" id="rightColumnWrapper"
+									style="display:none;">
+									<div id="listingpdf">
+
+										<div id="rightPanel"></div>
+
+									</div>
+								</div>
+
+
+							</div>
+
+							<!-- FAQ Panel Container (Hidden by default) -->
+							<div class="row" id="faqPanelContainer" style="display:none;">
+								<div class="col-12">
+									<div class="bg-white py-2 px-1 px-md-2 px-lg-3 my-1">
+
+										<div class="searcharea bg-light pt-3 px-3">
+											<div class="row">
+												<div class="col-md-6">
+													<div class="row mb-3 faqsearch">
+														<div class="col-md-6  mb-md-0 mb-1" id="divSpacialitySelection">
+															<!-- Search Input   -->
+															<div class=" position-relative"><i
+																	class="fa-solid fa-magnifying-glass position-absolute"></i>
+																<input type="text" class="form-control text-start ps-5"
+																	id="Search" placeholder="Search any keyword... ">
+															</div>
+
+
+														</div>
+														<!-- Ward Selection -->
+														<div class="col-md-6 p-md-0 " id="divWardSelection">
+															<label for="wardSelect" class="visually-hidden">Select Ward
+																Type</label>
+															<select id="faqSelect" name="faq_type" class="form-control">
+																<option value="0" selected>All</option>
+																<option value="9">Joining CGHS & Getting a CGHS Card
+																</option>
+																<option value="10">Appointments and consultations in
+																	CGHS Wellness Centre
+																</option>
+																<option value="11">Medicines & Tests</option>
+																<option value="12">Referrals, Hospitalisation &
+																	Emergency Treatment
+																</option>
+																<option value="13">Reimbursement of Medical Claims
+																</option>
+																<option value="14">Pensioner - specific & other common
+																	issues</option>
+																<option value="15">Digital services & Online Platforms
+																</option>
+																<option value="14">others</option>
+															</select>
+														</div>
+													</div>
+
+
+												</div>
+												<div class="col-md-6">
+													<div
+														class="sorting mb-3 d-flex align-items-center justify-content-end">
+														<span class="me-2 fw-semibold">Sort By</span>
+
+														<div class="d-flex align-items-center me-2 ">
+															<input type="radio" name="sortFaq" value="latest" checked>
+															<label class="ms-2">Latest </label>
+														</div>
+
+
+														<div class="d-flex align-items-center me-2"> <input type="radio"
+																name="sortFaq" value="oldest"> <label class="ms-2">
+
+																Oldest
+															</label></div>
+
+
+														<div class="d-flex align-items-center me-2"> <input type="radio"
+																name="sortFaq" value="az">
+															<label class="ms-2">A &rarr; Z</label>
+														</div>
+
+
+														<div class="d-flex align-items-center me-2"> <input type="radio"
+																name="sortFaq" value="za">
+															<label class="ms-2"> Z &rarr; A </label>
+														</div>
+
+
+													</div>
+												</div>
+											</div>
+
+
+										</div>
+
+										<div class="row mt-3">
+
+
+
+											<div class="accordion px-2 py-2 mb-5 innerpagescontainer 	"
+												id="accordionPanelsStayOpenExample">
+												<!-- Dynamic Accordion Items will be inserted here -->
+											</div>
+										</div>
+
+
+									</div>
+								</div>
+							</div>
+
+							<!-- Know Your Wellness Center Panel -->
+							<div class="row" id="kywcPanelContainer" style="display:none;">
+								<div class="col-12">
+														<div class="bg-white py-2 px-1 px-md-2 px-lg-3 my-1">
+										<div class="searcharea bg-light pt-3 px-3">
+											<div id="kywcFiltersRow" class="mb-2">
+												<div class="kywc-filter-field">
+													<label for="kywcCitySelect" class="form-label fw-semibold">AD City / Zone</label>
+													<select id="kywcCitySelect" class="form-select">
+														<option value="">-- Select AD City / Zone --</option>
+													</select>
+												</div>
+												<div class="kywc-filter-field">
+													<label for="kywcTypeSelect" class="form-label fw-semibold">Wellness Centre Type</label>
+													<select id="kywcTypeSelect" class="form-select">
+														<option value="0">All Types</option>
+													</select>
+												</div>
+												<div class="kywc-filter-field">
+													<label for="kywcHospitalSelect" class="form-label fw-semibold">Wellness Centre</label>
+													<select id="kywcHospitalSelect" class="form-select">
+														<option value="">-- Select Wellness Centre --</option>
+													</select>
+												</div>
+												<div class="kywc-filter-field kywc-filter-view">
+													<label class="form-label fw-semibold d-none d-md-block">&nbsp;</label>
+													<button type="button" id="kywcViewBtn" class="btn btn-primary w-100" disabled>View</button>
+												</div>
+											</div>
+											<div id="kywcSearchRow" class="mb-3">
+												<div id="kywcListSearchGroup" class="row g-2 align-items-end">
+												<div class="col-12 col-md-5">
+													<label for="kywcNameSearch" class="form-label fw-semibold">Search Wellness Centre</label>
+													<input type="text" id="kywcNameSearch" class="form-control" placeholder="Type to search by wellness centre name..." autocomplete="off">
+												</div>
+												<div class="col-4 col-md-2">
+													<label class="form-label fw-semibold d-none d-md-block">&nbsp;</label>
+													<button type="button" id="kywcHasLabBtn" class="btn btn-outline-success w-100 d-flex align-items-center justify-content-center gap-1" aria-pressed="false">
+													<i class="fa-solid fa-flask"></i>
+													<span>Has Lab</span>
+													</button>
+												</div>
+												<!-- <div class="col-4 col-md-3">
+													<label class="form-label fw-semibold d-none d-md-block">&nbsp;</label>
+													<button type="button" id="kywcHasPharmacyBtn" class="btn btn-outline-success w-100 d-flex align-items-center justify-content-center gap-1" aria-pressed="false">
+													<i class="fa-solid fa-pills"></i>
+													<span>Has Pharmacy</span>
+													</button>
+												</div> -->
+												<div class="col-4 col-md-2">
+													<label class="form-label fw-semibold d-none d-md-block">&nbsp;</label>
+													<button type="button" id="kywcResetBtn" class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center gap-1">
+													<i class="fa-solid fa-rotate-left"></i>
+													<span>Reset</span>
+													</button>
+												</div>
+												</div>
+												<div id="kywcDetailBackGroup" class="text-end" style="display:none;">
+													<button type="button" id="kywcBackToListBtn" class="btn btn-outline-primary"><i class="fa-solid fa-arrow-left me-1"></i> Back to list</button>
+												</div>
+											</div>
+										</div>
+										<div id="kywcServiceLegend"></div>
+										<div id="kywcCardsGrid" class="px-2 pb-3"></div>
+										<div id="kywcDetailsContainer" class="px-2 py-2 mb-5" style="display:none;"></div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Advanced Search Panel -->
+							<div class="row" id="advancedSearchPanelContainer" style="display:none;">
+								<div class="col-12">
+									<div class="bg-white py-2 px-1 px-md-2 px-lg-3 my-1" id="advancedSearchPanelInner">
+
+										<!-- ===== STICKY FILTER BAR ===== -->
+										<div id="advancedSearchFilterBar" class="bg-light rounded-3 px-3 px-md-4 py-3 mb-3" style="flex-shrink:0;border:1px solid #dee2e6;">
+
+											<!-- Date Range + Search row -->
+											<div class="row g-3">
+											
+											<div class="col-12 col-md-6">
+													<label for="advancedSearchInput" class="form-label fw-semibold small mb-1">Search CGHS</label>
+													<div class="input-group input-group-sm">
+														<span class="input-group-text bg-white"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+														<input type="text" id="advancedSearchInput" class="form-control"
+															placeholder="Search across pages, circulars, news and updates..." autocomplete="off">
+														<button type="button" id="advancedSearchResetBtn"
+															class="btn btn-outline-secondary d-flex align-items-center gap-1">
+															<i class="fa-solid fa-rotate-left"></i>
+															<span class="d-none d-sm-inline">Reset</span>
+														</button>
+													</div>
+												</div>
+												<div class="col-6 col-md-3">
+													<label for="advancedSearchDateFrom" class="form-label fw-semibold small mb-1">Date from</label>
+													<input type="date" id="advancedSearchDateFrom" class="form-control form-control-sm">
+												</div>
+												<div class="col-6 col-md-3">
+													<label for="advancedSearchDateTo" class="form-label fw-semibold small mb-1">Date to</label>
+													<input type="date" id="advancedSearchDateTo" class="form-control form-control-sm">
+												</div>
+												<!-- <div class="col-12 col-md-6">
+													<label for="advancedSearchInput" class="form-label fw-semibold small mb-1">Search CGHS</label>
+													<div class="input-group input-group-sm">
+														<span class="input-group-text bg-white"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+														<input type="text" id="advancedSearchInput" class="form-control"
+															placeholder="Search across pages, circulars, news and updates..." autocomplete="off">
+														<button type="button" id="advancedSearchResetBtn"
+															class="btn btn-outline-secondary d-flex align-items-center gap-1">
+															<i class="fa-solid fa-rotate-left"></i>
+															<span class="d-none d-sm-inline">Reset</span>
+														</button>
+													</div>
+												</div> -->
+											</div>
+
+											<!-- Category (Group) Filter -->
+											<div class="mt-3">
+												<div class="fw-semibold small mb-2 text-muted text-uppercase" style="font-size:0.72rem;letter-spacing:.04em;">Category</div>
+												<div class="d-flex flex-wrap gap-2" id="advancedSearchGroupFilters" role="group" aria-label="Filter by category">
+													<button type="button" class="btn btn-sm advanced-search-toggle" data-group-id="10">CGHS at a Glance</button>
+													<button type="button" class="btn btn-sm advanced-search-toggle" data-group-id="11">Beneficiary Corner</button>
+													<button type="button" class="btn btn-sm advanced-search-toggle" data-group-id="12">Contact Us</button>
+													<button type="button" class="btn btn-sm advanced-search-toggle" data-group-id="14">Circulars</button>
+													<button type="button" class="btn btn-sm advanced-search-toggle" data-group-id="15">Citizen Charter and RTI</button>
+												    <button type="button" class="btn btn-sm advanced-search-toggle" data-group-id="16">Publications</button>	
+												</div>
+											</div>
+										</div>
+										<!-- ===== END STICKY FILTER BAR ===== -->
+
+										<!-- ===== RESULT TABS ===== -->
+										<ul class="nav nav-tabs advanced-search-tabs" id="advancedSearchTabs" role="tablist">
+											<li class="nav-item" role="presentation">
+												<button class="nav-link active" id="advancedSearchNewsTabBtn" data-bs-toggle="tab"
+													data-bs-target="#advancedSearchNewsPane" type="button" role="tab"
+													aria-controls="advancedSearchNewsPane" aria-selected="true">
+													<span id="advancedSearchResultsHeading">News &amp; Updates</span>
+													<span class="badge rounded-pill ms-2" id="advancedSearchNewsBadge">0</span>
+												</button>
+											</li>
+											<li class="nav-item d-none" id="advancedSearchSiteTabItem" role="presentation">
+												<button class="nav-link" id="advancedSearchSiteTabBtn" data-bs-toggle="tab"
+													data-bs-target="#advancedSearchSitePane" type="button" role="tab"
+													aria-controls="advancedSearchSitePane" aria-selected="false">
+													Other Matching Pages &amp; Documents
+													<span class="badge rounded-pill ms-2" id="advancedSearchSiteBadge">0</span>
+												</button>
+											</li>
+										</ul>
+
+										<div id="advancedSearchResultsCount" class="text-muted small mb-2 mt-2"></div>
+
+										<div class="tab-content advanced-search-tab-content" id="advancedSearchTabsContent">
+											<!-- ===== NEWS & UPDATES PANE ===== -->
+											<div class="tab-pane fade show active" id="advancedSearchNewsPane" role="tabpanel" aria-labelledby="advancedSearchNewsTabBtn">
+												<div id="advancedSearchResultsWrapper" class="px-1 pt-3" style="overflow-y:auto;max-height:55vh;">
+													<div id="advancedSearchResultsContainer" class="px-0 pb-2"></div>
+												</div>
+												<nav class="d-flex justify-content-center py-2" aria-label="News and updates pagination">
+													<ul class="pagination pagination-sm mb-0" id="advancedSearchNewsPagination"></ul>
+												</nav>
+											</div>
+
+											<!-- ===== SITE RESULTS PANE ===== -->
+											<div class="tab-pane fade" id="advancedSearchSitePane" role="tabpanel" aria-labelledby="advancedSearchSiteTabBtn">
+												<div id="advancedSearchSiteResultsWrapper" class="px-1 pt-3" style="overflow-y:auto;max-height:55vh;">
+													<div id="advancedSearchSiteResultsContainer" class="px-0 pb-2"></div>
+												</div>
+												<nav class="d-flex justify-content-center py-2" aria-label="Site results pagination">
+													<ul class="pagination pagination-sm mb-0" id="advancedSearchSitePagination"></ul>
+												</nav>
+											</div>
+										</div>
+										<!-- ===== END RESULT TABS ===== -->
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+
+				</div>
+
+				<!--  End of Inner Pages design with Left and Right Panel; -->
+				<!-- Carousel End -->
+
+
+				<section class="my-2 my-md-3 my-lg-5 pb-3" id="aboutsection">
+					<div class="container-fluid " id="newsSection">
+						<div class="row">
+							<div class="col-md-12 col-lg-3 col-12">
+								<div class="heading">
+									<span class="line"></span> <small class="d-block text-uppercase pt-1"
+										data-lang-key='ExploreMore'>Get
+										to Know Us</small>
+									<h2 class="fw-bold mb-3" data-lang-key='LatestNews'>User Manuals</h2>
+									<ul class="list-unstyled" style="
+      max-height:350px;
+      overflow-y:auto;
+      padding-right:6px;
+      scrollbar-width:none;          /* Firefox */
+      -ms-overflow-style:none;       /* IE/Edge */
+    " onscroll="this.style.scrollbarWidth='none';">
+										<li><i class="fa-solid fa-check me-2"></i>
+											<a class="level3 text-black" href="#"
+												data-url="/AHIMSG5/hislogin/fetchCircularDetailsLgnFtr?groupId=5&subGroupId=101"
+												onclick="handleLevel3Click(this)" data-lang-key="MRC_User_Manual">MRC
+												User Manual</a>
+										</li>
+
+										<li><i class="fa-solid fa-check me-2"></i>
+											<a class="level3 text-black" href="#"
+												data-url="/AHIMSG5/hislogin/fetchCircularDetailsLgnFtr?groupId=5&subGroupId=102"
+												onclick="handleLevel3Click(this)"
+												data-lang-key="User_Manual_for_OPD">User Manual for OPD</a>
+										</li>
+
+										<li><i class="fa-solid fa-check me-2"></i>
+											<a class="level3 text-black" href="#"
+												data-url="/AHIMSG5/hislogin/fetchCircularDetailsLgnFtr?groupId=5&subGroupId=103"
+												onclick="handleLevel3Click(this)"
+												data-lang-key="Beneficiary_unlock_user_manual">Beneficiary unlock user
+												manual</a>
+										</li>
+
+										<li><i class="fa-solid fa-check me-2"></i>
+											<a class="level3 text-black" href="#"
+												data-url="/AHIMSG5/hislogin/fetchCircularDetailsLgnFtr?groupId=5&subGroupId=104"
+												onclick="handleLevel3Click(this)"
+												data-lang-key="User_Management_Manual">User Management Manual</a>
+										</li>
+
+										<li><i class="fa-solid fa-check me-2"></i>
+											<a class="level3 text-black" href="#"
+												data-url="/AHIMSG5/hislogin/fetchCircularDetailsLgnFtr?groupId=5&subGroupId=105"
+												onclick="handleLevel3Click(this)" data-lang-key="Lab_User_Manual">Lab
+												User Manual</a>
+										</li>
+
+										<li><i class="fa-solid fa-check me-2"></i>
+											<a class="level3 text-black" href="#"
+												data-url="/AHIMSG5/hislogin/fetchCircularDetailsLgnFtr?groupId=5&subGroupId=106"
+												onclick="handleLevel3Click(this)"
+												data-lang-key="Registration_user_manual">Registration user manual</a>
+										</li>
+
+										<li><i class="fa-solid fa-check me-2"></i>
+											<a class="level3 text-black" href="#"
+												data-url="/AHIMSG5/hislogin/fetchCircularDetailsLgnFtr?groupId=5&subGroupId=107"
+												onclick="handleLevel3Click(this)" data-lang-key="MSD_User_Manual">MSD
+												User Manual</a>
+										</li>
+
+										<li><i class="fa-solid fa-check me-2"></i>
+											<a class="level3 text-black" href="#"
+												data-url="/AHIMSG5/hislogin/fetchCircularDetailsLgnFtr?groupId=5&subGroupId=108"
+												onclick="handleLevel3Click(this)"
+												data-lang-key="Grievance_User_Manual">Grievance User Manual</a>
+										</li>
+
+										<li><i class="fa-solid fa-check me-2"></i>
+											<a class="level3 text-black" href="#"
+												data-url="/AHIMSG5/hislogin/fetchCircularDetailsLgnFtr?groupId=5&subGroupId=109"
+												onclick="handleLevel3Click(this)" data-lang-key="ALC_User_Manual">ALC
+												User Manual</a>
+										</li>
+
+										<li><i class="fa-solid fa-check me-2"></i>
+											<a class="level3 text-black" href="#"
+												data-url="/AHIMSG5/hislogin/fetchCircularDetailsLgnFtr?groupId=5&subGroupId=110"
+												onclick="handleLevel3Click(this)"
+												data-lang-key="Drug_Delivery_Counter_User_Manual">Drug Delivery Counter
+												User Manual</a>
+										</li>
+
+										<li><i class="fa-solid fa-check me-2"></i>
+											<a class="level3 text-black" href="#"
+												data-url="/AHIMSG5/hislogin/fetchCircularDetailsLgnFtr?groupId=5&subGroupId=111"
+												onclick="handleLevel3Click(this)"
+												data-lang-key="Store_Incharge_User_Manual">Store Incharge User
+												Manual</a>
+										</li>
+
+										<li><i class="fa-solid fa-check me-2"></i>
+											<a class="level3 text-black" href="#"
+												data-url="/AHIMSG5/hislogin/fetchCircularDetailsLgnFtr?groupId=5&subGroupId=112"
+												onclick="handleLevel3Click(this)"
+												data-lang-key="Applicant_CGHS_Card_User_Manual">Applicant CGHS Card User
+												Manual</a>
+										</li>
+
+										<li><i class="fa-solid fa-check me-2"></i>
+											<a class="level3 text-black" href="#"
+												data-url="/AHIMSG5/hislogin/fetchCircularDetailsLgnFtr?groupId=5&subGroupId=113"
+												onclick="handleLevel3Click(this)"
+												data-lang-key="FAQ_How_to_Retrieve_Medical_History">(FAQ) How to
+												Retrieve Medical History</a>
+										</li>
+
+									</ul>
+								</div>
+
+
+
+							</div>
+							<div class="col-md-12 col-lg-9 col-xl-9 col-12 p-md-0">
+								<div class="aboutsection pe-md-5 pe-0" id="CGHSIntroduction">
+
+									<p class="fw-regular mb-2" data-lang-key='CGHSIntroduction'>For
+										the last six decades Central Government Health Scheme is
+										providing comprehensive medical care to the Central Government
+										employees and pensioners enrolled under the scheme. In fact CGHS
+										caters to the healthcare needs of eligible beneficiaries
+										covering all four pillars of democratic set up in India namely
+										Legislature, Judiciary, Executive and Press. Presently
+										approximately 42 lakh beneficiaries are covered by CGHS in 80
+										cities all over India and the endeavour is to include more
+										cities to improve the accessibility of the services.</p>
+
+
+
+									<div class="mission mt-4 d-flex align-items-center justify-content-center">
+										<div class="row mt-1">
+											<div
+												class="col-xl-4 col-xxl-3 col-lg-4 col-md-4 col-sm-12 col-12 me-md-0 me-xxl-4 me-xl-0">
+												<div class="box mb-4 position-relative "
+													>
+
+													<div class="image d-flex align-items-center justify-content-center">
+														<img src="/AHIMSG5/hissso/portal/images/vision.webp"
+     class="img-fluid d-flex align-items-center justify-content-center"
+     width="310" height="153" alt="Vision">
+													</div>
+													<div class="text px-3">
+														<h3 class="mt-3 mb-2 fw-bold" data-lang-key='CGHSVision'>Vision
+														</h3>
+														<p data-lang-key='CGHSVisionInfo'>To be the first choice
+															in providing quality healthcare services and ensuring
+															holistic well being across clients' entire life span.</p>
+													</div>
+												</div>
+												
+											</div>
+											<div
+												class="col-xl-4 col-xxl-3 col-lg-4 col-md-4  col-sm-12 col-12 me-md-0 me-xxl-4 me-xl-0">
+												<div class="box position-relative " >
+
+													<div
+														class="image  d-flex align-items-center justify-content-center">
+														<img src="/AHIMSG5/hissso/portal/images/mission.webp"
+     class="img-fluid d-flex align-items-center justify-content-center" width="310" height="153" alt="Mission">
+													</div>
+													<div class="text px-3">
+														<h3 class="mt-3 mb-2 fw-bold" data-lang-key='CGHSMission'>
+															Mission</h3>
+														<p data-lang-key='CGHSMissionInfo'>Preventive, promotive
+															and curative health and wellness services that are
+															responsive, accountable and cost effective, providing
+															financial risk protection and ensuring healthy lives.</p>
+													</div>
+
+												</div>
+											</div>
+											<div class="col-md-4 bg-gradient">
+												<div class="online-support box p-4">
+													<div
+														class="heading d-flex align-items-center justify-content-between">
+														<h4 class="text-black mb-2 fw-bold" data-lang-key="Moreinfo">
+															More
+															Info</h4>
+
+														<i class="fa-solid fa-info"></i>
+													</div>
+
+
+													<p data-lang-key="Moreinfomessage">Presently
+														approximately 42 lakh beneficiaries are covered by CGHS in
+														80 cities all over India and the endeavour is to include
+														more cities to improve the accessibility of the services.</p>
+													<div class="important">
+														<div
+															class="item d-flex align-items-center  mb-3 mb-md-3 mb-xl-3">
+															<div class="icon ">
+																<i class="fa-regular fa-building me-2"></i>
+																
+															</div>
+															<div class="fw-semibold">
+																<p data-lang-key='CGHSCoveredCities' class="mb-0">CGHS
+																	Covered Cities</p>
+																<a class="text-decoration-underline d-block fw-regularlevel3"
+																	href="javascript:void(0)"
+																	onclick="openCustomPopup('content11')"
+																	data-lang-key='ClickHere'> click here </a>
+															</div>
+														</div>
+
+														<div class="item d-flex align-items-center "
+															>
+															<div class="icon">
+																<i class="fa-solid fa-house-medical me-2"></i>
+															</div>
+															<div class="fw-semibold">
+																<p data-lang-key='FacilitiesUnderCGHS' class="mb-0">
+																	Facilities
+																	available under CGHS</p>
+
+																<a class="text-decoration-underline d-block fw-regularlevel3"
+																	href="javascript:void(0)"
+																	onclick="openCustomPopup('content10')"
+																	data-lang-key='ClickHere'> click here </a>
+															</div>
+														</div>
+
+
+
+													</div>
+
+
+												</div>
+											</div>
+
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+
+				</section>
+			</div>
+			<!--Link Carousel-->
+
+			<!-- Toll Free Number Div starts  -->
+
+			<!-- Toll Free Number Div ends  -->
+
+
+
+			<!-- c Hospitals Panel Container -->
+			<div id="empanelledHospitalsPanel" class="container-fluid px-md-5 mb-5" style="display: none;">
+				<div class="container-fluid px-md-5">
+					<div class="row">
+						<div class="col-12">
+							<!-- Filter Section -->
+							<div class="card shadow-sm mb-4">
+								<div class="card-body pt-1 pb-3">
+									<div class="row g-3 align-items-end">
+										<div class="col-md-2">
+											<label for="stateSelect" class="form-label fw-semibold">State</label>
+											<select id="stateSelect" class="form-select">
+												<option value="">Select State</option>
+											</select>
+										</div>
+										<div class="col-md-2">
+											<label for="citySelect" class="form-label fw-semibold">City</label>
+											<select id="citySelect" class="form-select" disabled>
+												<option value="">Select City</option>
+											</select>
+										</div>
+										<div class="col-md-2">
+											<label for="statusSelect" class="form-label fw-semibold">Status</label>
+											<select id="statusSelect">
+												<option value="0">All</option>
+												<option value="1" selected>Empanelled</option>
+												<option value="3">De-Empanelled</option>
+												<option value="4">Suspended</option>
+												<option value="5">Withdrawal Completed</option>
+												<option value="6">Blacklisted</option>
+												<option value="7">Suspension Revoked</option>
+												<option value="8">Re-Empanelled</option>
+												<option value="9">Revoke Suspension</option>
+											</select>
+										</div>
+										<div class="col-md-2">
+											<label for="tierSelect" class="form-label fw-semibold">Tier</label>
+											<select id="tierSelectE" class="form-select">
+												<option value="0">-- All Tiers --</option>
+												<option value="Tier 1">Tier 1</option>
+												<option value="Tier 2">Tier 2</option>
+												<option value="Tier 3">Tier 3</option>
+											</select>
+										</div>
+										<div class="col-md-2">
+											<button id="moreFiltersBtn" class="btn btn-outline-secondary w-100"
+												type="button">
+												<i class="fas fa-filter"></i> More Filters
+											</button>
+										</div>
+										<div class=" col-md-2">
+											<button id="resetBtn" class="btn btn-secondary w-100" type="button">
+												<i class="fas fa-undo"></i> Reset
+											</button>
+										</div>
+									</div>
+
+									<!-- Date Filters Section (Initially Hidden) -->
+									<div id="dateFiltersSection" class="row g-3 mt-2" style="display: none;">
+										<div class="col-md-5">
+											<label for="validityFrom" class="form-label fw-semibold">Validity
+												From</label>
+											<input type="date" id="validityFrom" class="form-control">
+										</div>
+										<div class="col-md-5">
+											<label for="validityTo" class="form-label fw-semibold">Validity To</label>
+											<input type="date" id="validityTo" class="form-control">
+										</div>
+										<div class="col-md-2 d-flex align-items-end">
+											<div class="text-muted small w-100 text-center">Date Range Filter</div>
+										</div>
+
+										<div class="col-md-2">
+											<label for="statusSelect" class="form-label fw-semibold">Accredition</label>
+											<select id="accSelect">
+												<option value="0" selected>Both</option>
+												<option value="1">NABH</option>
+												<option value="2">QCI</option>
+
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Table Container -->
+							<div id="hospitalTableContainer" class="">
+								<div class="card-body py-1">
+
+									<!-- Loading Spinner -->
+									<div id="hospitalLoading" class="text-center p-3">
+										<i class="fas fa-spinner fa-spin fa-2x text-secondary"></i>
+										<p class="mt-2 mb-0">Loading hospitals...</p>
+									</div>
+
+									<!-- Status Legend -->
+									<div id="statusLegend" class="d-none mb-3 p-2 border rounded bg-light">
+										<div class="d-flex flex-wrap gap-3 justify-content-center align-items-center">
+											<span class="fw-semibold me-2">Legend:</span>
+											<div class="d-flex align-items-center gap-1">
+												<span class="badge bg-success"
+													style="width: 20px; height: 10px; padding: 0;">&nbsp;</span>
+												<small>Empanelled</small>
+											</div>
+											<div class="d-flex align-items-center gap-1">
+												<span class="badge bg-warning"
+													style="width: 20px; height: 10px; padding: 0;">&nbsp;</span>
+												<small>Suspended</small>
+											</div>
+											<div class="d-flex align-items-center gap-1">
+												<span class="badge bg-danger"
+													style="width: 20px; height: 10px; padding: 0;">&nbsp;</span>
+												<small>Expired / Blacklisted / De-empanelled</small>
+											</div>
+										</div>
+									</div>
+
+									<!-- Table will be injected here dynamically -->
+									<div id="hospitalTableWrapper" class="d-none" style="padding: 20px;">
+										<table id="hospTable"
+											class="table table-bordered table-striped table-hover w-100">
+											<thead class="table-light">
+												<tr>
+													<th>HFR ID</th>
+													<th>Hospital Name</th>
+													<th>Accreditation</th>
+													<th>Address</th>
+													<th>HCO Nodal Contact</th>
+													<th>Specialities</th>
+													<th>Current Status</th>
+													<th>Valid from & validity to</th>
+													<th>Map</th>
+												</tr>
+											</thead>
+											<tbody>
+												<!-- Data will be populated via JS -->
+											</tbody>
+										</table>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Empanelled Hospitals Panel Container -->
+
+			<!-- Rate List Panel Container -->
+			<div id="rateListPanel" class="container-fluid" style="display: none;">
+				<div class="container-fluid px-md-5">
+					<div class="row">
+						<div class="col-12 ">
+							<!-- Filter Section -->
+							<div class="mb-4 ">
+								<div class="card bg-light">
+									<div class="row  card-body g-3 d-flex align-items-center justify-content-center">
+										<!-- Tier Selection -->
+										<div class="col-md-4">
+											<label for="rateList_tierSelect" class="form-label fw-semibold">Select
+												Tier</label>
+											<select id="rateList_tierSelect" class="form-select">
+												<option value="tier_i">Tier I</option>
+												<option value="tier_ii">Tier II</option>
+												<option value="tier_iii">Tier III</option>
+											</select>
+										</div>
+
+										<!-- Spaciality Selection -->
+										<div class="col-md-4" id="rateList_divSpacialitySelection">
+											<label for="rateList_spacialitySelect" class="form-label fw-semibold">Select
+												Specialty</label>
+											<select id="rateList_spacialitySelect" class="form-select">
+												<option value="nabh">NABH</option>
+												<option value="non_nabh">NON-NABH</option>
+												<option value="superspeciality">SUPER_SPECIALITY</option>
+											</select>
+										</div>
+										<!-- Ward Selection -->
+										<div class="col-md-4" id="rateList_divWardSelection">
+											<label for="rateList_wardSelect" class="form-label fw-semibold">Select Ward
+												Type</label>
+											<select id="rateList_wardSelect" class="form-select">
+												<option value="general_ward">General Ward</option>
+												<option value="semi_private_ward">Semi-Private Ward</option>
+												<option value="private_ward">Private Ward</option>
+											</select>
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+							<!-- Table Container -->
+							<div id="rateList_tableContainer" class="">
+								<div class="">
+									<div id="rateList_tableWrapper">
+										<table id="rateList_hospitalTable"
+											class="table table-bordered table-striped table-hover w-100"
+											style="margin-bottom: 0; table-layout: fixed; width: 100%;">
+											<thead>
+												<tr class="table-light">
+													<th style="width: 5%;">SNo.</th>
+													<th style="width: 25%;">Procedure Name</th>
+													<th style="width: 10%;">Speciality Classification</th>
+													<th style="width: 10%;">Tier</th>
+													<th style="width: 10%;">Facility</th>
+													<th style="width: 15%;">Ward</th>
+													<th style="width: 15%;">Cghs Code No.</th>
+													<th style="width: 10%;">Rate (&#x20B9;)</th>
+												</tr>
+											</thead>
+											<tbody>
+												<!-- Dynamic content via JS -->
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Rate List Panel Container -->
+
+			<!-- CGHS Units Panel Container -->
+			<div id="cghsUnitsPanel" class="container-fluid" style="display: none;">
+				<div class="container-fluid px-md-5">
+					<div class="row">
+						<div class="col-12">
+							<!-- Filter Section -->
+							<div class="card bg-light mb-4">
+								<div class="card-body">
+									<div class="row g-3 align-items-end">
+										<div class="col-md-5">
+											<label for="cghsUnits_citySelect" class="form-label fw-semibold">Select
+												City</label>
+											<select id="cghsUnits_citySelect" class="form-select">
+												<option value="">--Select City--</option>
+											</select>
+										</div>
+										<div class="col-md-5">
+											<label for="cghsUnits_typeSelect" class="form-label fw-semibold">Wellness
+												Center Type</label>
+											<select id="cghsUnits_typeSelect" class="form-select">
+												<option value="0">All</option>
+												<option value="1">Allopathy</option>
+												<option value="2">Ayurveda</option>
+												<option value="3">Homeopathy</option>
+												<option value="4">Unani</option>
+												<option value="5">Siddha</option>
+											</select>
+										</div>
+										<div class="col-md-2">
+											<button type="button" class="btn btn-secondary w-100"
+												onclick="resetCghsFilters()" title="Reset Filters">
+												<i class="fas fa-undo"></i> Reset
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Table Container -->
+							<div id="cghsUnits_tableContainer"
+								class="card shadow-sm animate__animated animate__fadeInUp animate__faster">
+								<div class="card-body py-1">
+									<!-- <h4 id="cghsUnits_tableHeader" class=""></h4> -->
+									<div id="cghsUnits_tableWrapper">
+										<table id="cghsUnits_hospitalTable"
+											class="table table-bordered table-striped table-hover w-100"
+											style="margin-bottom: 0;">
+											<thead>
+												<tr class="table-light">
+													<th>S.No</th>
+													<th>Hospital Name</th>
+													<th>Short Name</th>
+													<th>Address</th>
+													<th>Phone</th>
+													<th>Email</th>
+												</tr>
+											</thead>
+											<tbody>
+												<!-- Dynamic content via JS -->
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Restricted Medicine Panel Container -->
+			<div id="restrictedMedicinePanel" class="container-fluid" style="display: none;">
+				<div class="container">
+					<div class="row">
+						<div class="col-12 text-center">
+							<!-- 	<h2 class="fw-bold">Restricted Medicine</h2> -->
+						</div>
+					</div>
+					<div class="row justify-content-center mb-4">
+						<div class="col-md-6">
+							<div class="btn-group w-100 d-flex align-items-center bg-light rounded p-1 shadow-sm">
+								<button id="stcId" type="button" class="btn btn-outline-info flex-grow-1 active"
+									onclick="fetchRestrictedMedicine(2)">
+									STC
+								</button>
+								<button id="nonStcId" type="button" class="btn btn-outline-info flex-grow-1"
+									onclick="fetchRestrictedMedicine(1)">
+									NON STC
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<!-- Table Container -->
+							<div id="restrictedMedicine_tableContainer"
+								class="card animate__animated animate__fadeInUp animate__faster">
+								<div class="card-body py-1">
+									<!-- <h4 id="restrictedMedicine_tableHeader" class="mb-3"></h4> -->
+									<div id="restrictedMedicine_tableWrapper">
+										<table id="restrictedMedicine_hospitalTable"
+											class="table table-bordered table-striped table-hover w-100"
+											style="margin-bottom: 0;">
+											<thead class="table-dark">
+												<tr>
+													<th style="width: 70%;">Name of Restricted Medicine</th>
+													<th style="width: 30%;">Dosage type</th>
+												</tr>
+											</thead>
+											<tbody>
+												<!-- Dynamic content via JS -->
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Restricted Medicine Panel Container -->
+
+
+			<div id="pdfModal"
+				style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.95); background: #1f1f1f; border-radius: 16px; width: 90%; width: 1100px; min-width: 400px; min-height: 400px; height: 90vh; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6); overflow: hidden; z-index: 10000; animation: popupFadeIn 0.4s ease forwards; color: #fff; resize: both;">
+
+				<!-- Modal Header -->
+				<div
+					style="background: #272727; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 2;">
+					<h2 id="pdfModalHeading" style="margin: 0; font-size: 18px; font-weight: bold;">PDF
+						Preview</h2>
+
+					<div style="display: flex; align-items: center; gap: 15px;">
+						<button id="copyModalLinkBtn" onclick="copyPdfLink()"
+							style="background: #4facfe; border: none; color: #fff; padding: 5px 12px; border-radius: 5px; font-size: 14px; cursor: pointer; transition: background 0.3s; display: flex; align-items: center; gap: 5px;">
+							<i class="fa-solid fa-link"></i> Copy Link
+						</button>
+
+						<button id="closeModalBtn"
+							style="background: transparent; border: none; color: #fff; font-size: 22px; cursor: pointer; transition: transform 0.3s;">
+							<i class="fa-solid fa-xmark"></i>
+						</button>
+					</div>
+				</div>
+
+				<!-- Modal Content -->
+				<div style="padding: 0; height: calc(100% - 60px);">
+					<iframe id="pdfIframe" 
+						style="width: 100%; height: 100%;  border: none; border-radius: 0 0 16px 16px; background: #000;"></iframe>
+				</div>
+
+			</div>
+
+
+
+			<!--     <div id="pdfContainer" style="display:none;">
+        <iframe id="pdfViewer" width="100%" height="600px"></iframe>
+    </div> -->
+
+			<!-- Copyright Start -->
+
+			<footer>
+				<div class="container">
+					<div
+						class="logo-carousel owl-carousel  logos d-lg-flex align-items-center justify-content-end border-bottom border-light border-opacity-25 py-5 owl-loaded owl-drag">
+						<div class="item mx-md-3 mx-0 text-center">
+							<a href="https://www.india.gov.in/national-health-portal?page=1" target="_blank"><img
+									src="/AHIMSG5/hissso/portal/images/logos/nhp.png" alt="nhp" title="nhp"></a>
+						</div>
+						<div class="item mx-md-3 mx-0 text-center">
+							<a href="https://www.mygov.in/" target="_blank"><img
+									src="/AHIMSG5/hissso/portal/images/logos/mygov.png" alt="Mygov" title="Mygov"></a>
+						</div>
+						<div class="item mx-md-3 mx-0 text-center">
+							<a href="https://www.digilocker.gov.in/" target="_blank"> <img
+									src="/AHIMSG5/hissso/portal/images/logos/digilocker.png" alt="Digilocker" title="Digilocker"></a>
+						</div>
+						<div class="item mx-md-3 mx-0 text-center">
+							<a href="https://rti.gov.in/" target="_blank"> <img
+									src="/AHIMSG5/hissso/portal/images/logos/rti.png" alt="RTI" title="RTI"></a>
+						</div>
+						<div class="item mx-md-3 mx-0 text-center">
+							<a href="https://pmnrf.gov.in/en/" target="_blank"> <img
+									src="/AHIMSG5/hissso/portal/images/logos/national-relief-fund.png" alt="National Relief Fund" title="National Relief Fund"></a>
+						</div>
+					</div>
+
+					<div class="row mt-5 mb-3">
+						<div class="col-md-8 col-xl-8">
+							<div class="footer-links">
+								<h3 class="" data-lang-key='ImportantLinks'>Important Links</h3>
+								<ul
+									class="list-unstyled pt-3 pb-1 d-lg-flex d-block flex-wrap align-items-md-center justify-content-start footer-linkscon">
+									<li class=""><a href="javascript:void(0)" onclick="openCustomPopup('content1')"
+											data-lang-key='PrivacyPolicy'>Privacy Policy</a></li>
+									<li class=""><a href="javascript:void(0)" onclick="openCustomPopup('content2')"
+											data-lang-key='Disclaimer'>Disclaimer</a></li>
+									<li class=""><a href="javascript:void(0)" onclick="openCustomPopup('content3')"
+											data-lang-key='HyperLinkingPolivy'>Hyper Linking Policy</a></li>
+									<li class=""><a href="javascript:void(0)" onclick="openCustomPopup('content4')"
+											data-lang-key='Copyright'>CopyRight
+											Policy</a></li>
+									<li class=""><a href="javascript:void(0)" onclick="openCustomPopup('content5')"
+											data-lang-key='ContentReviewPolicy'>Content Review Policy</a></li>
+									<li class=""><a href="javascript:void(0)" onclick="openCustomPopup('content6')"
+											data-lang-key='ContentContribution'>Content Contribution</a></li>
+									<li class=""><a href="javascript:void(0)" onclick="openCustomPopup('content7')"
+											data-lang-key='ContentArchivalPolicy'>Content Archival
+											Policy</a></li>
+									<li class=""><a href="javascript:void(0)" onclick="openCustomPopup('content8')"
+											data-lang-key='PasswordAuthPolicy'>CGHS Password and
+											Authentication Policy</a></li>
+									<li class=""><a href="javascript:void(0)" onclick="openCustomPopup('content9')"
+											data-lang-key='AccessibilityStatement'>Accessibility
+											Statement</a></li>
+									<li class=""><a href="javascript:void(0)" onclick="openCustomPopup('content10')"
+											data-lang-key='WebInformation'>The Web Information Manager Policy</a></li>
+
+								</ul>
+
+							</div>
+							<div class="mt-3 d-flex align-items-center">
+				
+    <a href="#">
+        <img style="border:0;width:88px;height:31px" src="https://jigsaw.w3.org/css-validator/images/vcss" alt="Valid CSS!">
+    </a>
+
+
+<a href="#"> <img src="https://www.w3.org/Icons/valid-html401" alt="Valid HTML" class="ms-1">
+</a>
+     
+							</div>
+						</div>
+						<div class="col-md-4 col-xl-4">
+							<div class="box ">
+								<p class="m-0 fw-semibold text-white mb-3 ps-2" data-lang-key='AlsoAvailableOn'>Also
+									Available On</p>
+								<div class="icon flex-wrap flex-md-nowrap d-flex align-items-top  text-center d-flex justify-content-between"
+									style="flex-basis: auto;">
+
+									<div class="android mb-2">
+										<a href="https://play.google.com/store/apps/details?id=com.cdac.cghsmobileapp"
+											target="_blank"><img
+												src="/AHIMSG5/hissso/portal/images/google-playstore.png"
+												class="mb-2" alt="Google Playstore"></a> <img
+											src="/AHIMSG5/hissso/portal/images/android_qr.png" alt="Android QR Code"
+											width="100" height="95">
+
+									</div>
+									<div class="ios mb-2">
+										<a href="https://apps.apple.com/in/app/mycghs/id6744057914" target="_blank"><img
+												src="/AHIMSG5/hissso/portal/images/apple-store.png" class="mb-2" alt="IOS App"></a>
+										<img src="/AHIMSG5/hissso/portal/images/ios_qr.png" alt="iOS QR Code"
+											width="100" height="95">
+
+									</div>
+
+									<div class="connect  mb-2"
+										style="visibility: visible; animation-name: fadeInRight;">
+										<div class="d-flex align-items-center mb-2">
+											<a class="mb-1 fw-semibold me-2 text-white" data-lang-key="ConnectWithUs"
+												href="https://www.youtube.com/@cghsindia" target="_blank"></a>
+											<a href="https://www.youtube.com/@cghsindia" target="_blank">
+												<img src='/AHIMSG5/hissso/portal/images/youtube.gif' alt="Youtube">
+											</a>
+										</div>
+
+
+										<img src="/AHIMSG5/hissso/portal/images/youtube_qr.png" alt="Youtube QR Code"
+											width="100" height="95">
+									</div>
+								</div>
+							</div>
+
+
+
+						</div>
+
+
+					</div>
+				</div>
+
+
+
+				<!-- Add this inside your page to support the animation -->
+
+				<div class="container-fluid copyright">
+					<div class="best-viewed text-white text-center py-2">
+						<p class="fst-italic p-0 m-0" data-lang-key="BestViewedNote">
+							<strong>Note:</strong> Best viewed on the latest versions of <strong>Mozilla
+								Firefox (v125+)</strong> or <strong>Google Chrome (v124+)</strong>,
+							preferably in <em>Incognito/Private Mode</em> for optimal security
+							and performance.
+						</p>
+						<div class="p-0 m-0" data-lang-key="ScreenResolutionNote">
+							Recommended screen resolution: <strong>1366 x 768 pixels</strong>
+							or higher. | Last Updated: <strong>20/06/2025 12:30 PM </strong>
+							&nbsp;
+						</div>
+
+						<span data-lang-key="Visitors">Visitors:</span> <strong class="website-counter"></strong>
+
+
+					</div>
+					<div class="row py-2" style="background: #1e1f90">
+						<div class="col-md-12 text-center mb-md-0 p-0">
+							<div class="disclaimer text-center" data-lang-key="DisclaimerNote">
+								Disclaimer: Website content managed by Ministry of Health and
+								Family Welfare, GOI Design, Developed and Hosted by Center for
+								Development of Advanced Computing <a href="https://cdac.in/"
+									class="fw-bold text-decoration-none text-white" target="_blank">(C-DAC)</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</footer>
+
+
+			<div id="custom-popup-overlay" class="custom-popup-overlay scrollbar-always">
+
+				<div class="custom-popup-content">
+					<span class="custom-close-btn d-flex align-items-center justify-content-center"
+						onclick="closeCustomPopup()"><i class="fa-solid fa-xmark"></i></span>
+					<div id="custom-popup-content"></div>
+				</div>
+			</div>
+
+
+
+			<div class="modal modalIframe" id="modalFullScreen" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-fullscreen">
+					<div class="modal-content">
+						<div class="modal-header" style="padding: 0;">
+							<div class="container-fluid" style="padding: 3px;">
+								<div class="row">
+									<div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 col-11" style="padding-left: 25px;">
+										<img src='/HIS/hisglobal/images/cghs_logo_big.png'
+											style='height: 50px;' alt="CGHS" title="CGHS">
+									</div>
+									<div class="col-lg-8 col-xl-8 col-md-4 col-sm-4 col-12"
+										style="padding-left: 25px; text-align: right;">
+										<button type="button" id='closeFullScreenModal'
+											class="float-end mt-2 btn btn-sm btn-danger" data-bs-toggle="modal"
+											data-bs-target="#modalFullScreen"
+											onclick="closeFullScreenModal();">Close</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-body">
+							<iframe src="about:blank" id="iframeModalFullScreen" style="width: 100%; height: 100%"></iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a id="button" style="margin-bottom: 80px;"><i class="fa-solid fa-arrow-up"></i></a>
+			<!-- Copyright End -->
+			<!-- Back to Top -->
+
+
+
+			<!--  Toll Free Number start -->
+			<a href="tel:18002088900"
+				class="chat-launcher uw-widget-custom-trigger d-flex align-items-center text-decoration-none rounded-pill"
+				style="position: fixed; bottom: 90px !important; right: 20px; z-index: 0; background-color: #1937B2 !important; color: white !important; font-weight: 500; font-family: 'Roboto', sans-serif; box-shadow: 0 4px 12px rgba(0,0,0,0.2); border: none !important; cursor: pointer;">
+				<i class="fas fa-phone ms-2" style="font-size: 20px;"></i>
+				<span style="font-size: 14px; white-space: nowrap; margin-left: 10px;">Toll Free: 1800-208-8900</span>
+			</a>
+			<!--  Toll Free Number end -->
+
+			<!-- <button id="chat-launcher"
+				class="chatbot-chat-launcher"
+				data-bs-toggle="modal" data-bs-target="#chatbotModal" data-bs-placement="bottom" title="Get instant help with our AI assistant">
+				
+			<span class="stage">
+      <span class="chat-slide" id="s1">
+        <img src="/AHIMSG5/hissso/portal/images/chaticon-one-new.png" alt="Hello I am Daksh">
+      </span>
+      <span class="chat-slide" id="s2">
+        <img src="/AHIMSG5/hissso/portal/images/chaticon-two.png" alt="How May I help You">
+      </span>
+
+    <span class="typing" id="typing" style="margin-top:4px; margin-left: 10px;">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </span></span>
+     		
+			</button>  -->
+			
+			
+    
+   
+			<!--  Chat Bot Option and panel End -->
+
+			<!-- accessibility panel -->
+			<div class="uwaw uw-light-theme gradient-head uwaw-initial paid_widget" id="uw-main" style="z-index: 99999">
+				<div class="relative second-panel">
+					<h3>Accessibility Options</h3>
+					<div class="uwaw-close" onclick="closeMain()"></div>
+				</div>
+				<div class="uwaw-body">
+					<div class="h-scroll">
+						<div class="uwaw-features">
+							<div class="uwaw-features__item reset-feature" id="featureItem_sp">
+								<button id="speak" class="uwaw-features__item__i" 
+									data-uw-reader-content="Enable the UserWay screen reader"
+									aria-label="Enable the UserWay screen reader" aria-pressed="false">
+									<span class="uwaw-features__item__icon"> <span class="ux4g-icon icon-speaker">
+										</span>
+									</span> <span class="uwaw-features__item__name">Text To Speech</span> <span
+										class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon_sp"
+										style="display: none"> </span>
+								</button>
+							</div>
+							<div class="uwaw-features__item reset-feature" id="featureItem">
+								<button id="btn-s9" class="uwaw-features__item__i"
+									data-uw-reader-content="Enable the UserWay screen reader"
+									aria-label="Enable the UserWay screen reader" aria-pressed="false">
+									<span class="uwaw-features__item__icon"> <span class="ux4g-icon icon-bigger-text">
+										</span>
+									</span><span class="uwaw-features__item__name">Bigger Text</span>
+									<span class="uwaw-features__item__steps reset-steps" id="featureSteps">
+										<!-- Steps span tags will be dynamically added here -->
+									</span>
+									<span class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon"
+										style="display: none"> </span>
+								</button>
+							</div>
+							<div class="uwaw-features__item reset-feature" id="featureItem-st">
+								<button id="btn-small-text" class="uwaw-features__item__i"
+									data-uw-reader-content="Enable the UserWay screen reader"
+									aria-label="Enable the UserWay screen reader" aria-pressed="false">
+									<span class="uwaw-features__item__icon"> <span class="ux4g-icon icon-small-text">
+										</span>
+									</span><span class="uwaw-features__item__name">Small Text</span>
+									<span class="uwaw-features__item__steps reset-steps" id="featureSteps-st">
+										<!-- Steps span tags will be dynamically added here -->
+									</span>
+									<span class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon-st"
+										style="display: none"> </span>
+								</button>
+							</div>
+							<div class="uwaw-features__item reset-feature" id="featureItem-lh">
+								<button id="btn-s12" class="uwaw-features__item__i"
+									data-uw-reader-content="Enable the UserWay screen reader"
+									aria-label="Enable the UserWay screen reader" aria-pressed="false">
+									<span class="uwaw-features__item__icon"> <span class="ux4g-icon icon-line-hight">
+										</span>
+									</span> <span class="uwaw-features__item__name">Line Height</span>
+									<span class="uwaw-features__item__steps reset-steps" id="featureSteps-lh">
+										<!-- Steps span tags will be dynamically added here -->
+									</span>
+									<span class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon-lh"
+										style="display: none"> </span>
+								</button>
+							</div>
+							<div class="uwaw-features__item reset-feature" id="featureItem-ht">
+								<button id="btn-s10" onclick="highlightLinks()" class="uwaw-features__item__i"
+									data-uw-reader-content="Enable the UserWay screen reader"
+									aria-label="Enable the UserWay screen reader" aria-pressed="false">
+									<span class="uwaw-features__item__icon"> <span
+											class="ux4g-icon icon-highlight-links"> </span>
+									</span> <span class="uwaw-features__item__name">Highlight Links</span> <span
+										class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon-ht"
+										style="display: none"> </span>
+								</button>
+							</div>
+							<div class="uwaw-features__item reset-feature" id="featureItem-ts">
+								<button id="btn-s13" onclick="increaseAndReset()" class="uwaw-features__item__i"
+									data-uw-reader-content="Enable the UserWay screen reader"
+									aria-label="Enable the UserWay screen reader" aria-pressed="false">
+									<span class="uwaw-features__item__icon"> <span class="ux4g-icon icon-text-spacing">
+										</span>
+									</span> <span class="uwaw-features__item__name">Text Spacing</span>
+									<span class="uwaw-features__item__steps reset-steps" id="featureSteps-ts">
+										<!-- Steps span tags will be dynamically added here -->
+									</span>
+									<span class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon-ts"
+										style="display: none"> </span>
+								</button>
+							</div>
+							<div class="uwaw-features__item reset-feature" id="featureItem-df">
+								<button id="btn-df" onclick="toggleFontFeature()" class="uwaw-features__item__i"
+									data-uw-reader-content="Enable the UserWay screen reader"
+									aria-label="Enable the UserWay screen reader" aria-pressed="false">
+									<span class="uwaw-features__item__icon"> <span class="ux4g-icon icon-dyslexia-font">
+										</span>
+									</span> <span class="uwaw-features__item__name">Dyslexia Friendly</span>
+									<span class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon-df"
+										style="display: none"> </span>
+								</button>
+							</div>
+							<div class="uwaw-features__item reset-feature" id="featureItem-hi">
+								<button id="btn-s11" onclick="toggleImages()" class="uwaw-features__item__i"
+									data-uw-reader-content="Enable the UserWay screen reader"
+									aria-label="Enable the UserWay screen reader" aria-pressed="false">
+									<span class="uwaw-features__item__icon"> <span class="ux4g-icon icon-hide-images">
+										</span>
+									</span> <span class="uwaw-features__item__name">Hide Images</span> <span
+										class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon-hi"
+										style="display: none"> </span>
+								</button>
+							</div>
+							<div class="uwaw-features__item reset-feature" id="featureItem-Cursor">
+								<button id="btn-cursor" onclick="toggleCursorFeature()" class="uwaw-features__item__i"
+									data-uw-reader-content="Enable the UserWay screen reader"
+									aria-label="Enable the UserWay screen reader" aria-pressed="false">
+									<span class="uwaw-features__item__icon"> <span class="ux4g-icon icon-cursor">
+										</span>
+									</span> <span class="uwaw-features__item__name">Cursor</span> <span
+										class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon-cursor"
+										style="display: none"> </span>
+								</button>
+							</div>
+							<div class="uwaw-features__item reset-feature" id="featureItem-ht-dark">
+    <div id="dark-btn" class="uwaw-features__item__i">
+        <span class="uwaw-features__item__name">
+            <span class="light_dark_icon">
+                <input type="checkbox" class="light_mode uwaw-featugres__item__i" id="checkbox">
+                <label for="checkbox" class="checkbox-label">
+                    <i class="fas fa-moon-stars">
+                        <span class="ux4g-icon icon-moon"></span>
+                    </i>
+                    <i class="fas fa-sun">
+                        <span class="ux4g-icon icon-sun"></span>
+                    </i>
+                    <span class="ball"></span>
+                </label>
+            </span>
+        </span>
+        <span role="button"
+            tabindex="0"
+            data-uw-reader-content="Enable the UserWay screen reader"
+            aria-label="Enable the UserWay screen reader"
+            aria-pressed="false">
+            <span class="uwaw-features__item__name">Light-Dark</span>
+        </span>
+
+        <span class="tick-active uwaw-features__item__enabled reset-tick"
+            id="tickIcon-ht-dark" style="display: none; pointer-events: none">
+        </span>
+    </div>
+</div>
+							<!-- Invert Colors Widget -->
+							<div class="uwaw-features__item reset-feature" id="featureItem-ic">
+								<button id="btn-invert" class="uwaw-features__item__i"
+									data-uw-reader-content="Enable the UserWay screen reader"
+									aria-label="Enable the UserWay screen reader" aria-pressed="false">
+									<span class="uwaw-features__item__icon"> <span class="ux4g-icon icon-invert">
+										</span>
+									</span> <span class="uwaw-features__item__name">Invert Colors</span> <span
+										class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon-ic"
+										style="display: none"> </span>
+								</button>
+							</div>
+						</div>
+					</div>
+					<!-- Reset Button -->
+				</div>
+				<div class="reset-panel">
+					<!-- copyright accessibility bar -->
+					<div class="copyrights-accessibility">
+						<button class="btn-reset-all" id="reset-all" onclick="resetAll()">
+							<span class="reset-icon"> </span> <span class="reset-btn-text">Reset
+								All Settings</span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<button id="uw-widget-custom-trigger" class="uw-widget-custom-trigger" aria-label="Accessibility Widget" data-uw-trigger="true" aria-haspopup="dialog"><img alt="accessibility-options" title="accessibility-options" src="data:image/svg+xml,%3Csvg%20width=%2732%27%20height=%2732%27%20viewBox=%270%200%2032%2032%27%20fill=%27none%27%20xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cg%20clip-path=%27url(%23clip0_1_1506)%27%3E%3Cpath%20d=%27M16%207C15.3078%207%2014.6311%206.79473%2014.0555%206.41015C13.4799%206.02556%2013.0313%205.47894%2012.7664%204.83939C12.5015%204.19985%2012.4322%203.49612%2012.5673%202.81719C12.7023%202.13825%2013.0356%201.51461%2013.5251%201.02513C14.0146%200.535644%2014.6383%200.202301%2015.3172%200.0672531C15.9961%20-0.0677952%2016.6999%200.00151652%2017.3394%200.266423C17.9789%200.53133%2018.5256%200.979934%2018.9101%201.55551C19.2947%202.13108%2019.5%202.80777%2019.5%203.5C19.499%204.42796%2019.1299%205.31762%2018.4738%205.97378C17.8176%206.62994%2016.928%206.99901%2016%207Z%27%20fill=%27white%27/%3E%3Cpath%20d=%27M27%207.05L26.9719%207.0575L26.9456%207.06563C26.8831%207.08313%2026.8206%207.10188%2026.7581%207.12125C25.595%207.4625%2019.95%209.05375%2015.9731%209.05375C12.2775%209.05375%207.14313%207.67875%205.50063%207.21188C5.33716%207.14867%205.17022%207.09483%205.00063%207.05063C3.81313%206.73813%203.00063%207.94438%203.00063%209.04688C3.00063%2010.1388%203.98188%2010.6588%204.9725%2011.0319V11.0494L10.9238%2012.9081C11.5319%2013.1413%2011.6944%2013.3794%2011.7738%2013.5856C12.0319%2014.2475%2011.8256%2015.5581%2011.7525%2016.0156L11.39%2018.8281L9.37813%2029.84C9.37188%2029.87%209.36625%2029.9006%209.36125%2029.9319L9.34688%2030.0112C9.20188%2031.0206%209.94313%2032%2011.3469%2032C12.5719%2032%2013.1125%2031.1544%2013.3469%2030.0037C13.5813%2028.8531%2015.0969%2020.1556%2015.9719%2020.1556C16.8469%2020.1556%2018.6494%2030.0037%2018.6494%2030.0037C18.8838%2031.1544%2019.4244%2032%2020.6494%2032C22.0569%2032%2022.7981%2031.0162%2022.6494%2030.0037C22.6363%2029.9175%2022.6206%2029.8325%2022.6019%2029.75L20.5625%2018.8294L20.2006%2016.0169C19.9387%2014.3788%2020.1494%2013.8375%2020.2206%2013.7106C20.2225%2013.7076%2020.2242%2013.7045%2020.2256%2013.7013C20.2931%2013.5763%2020.6006%2013.2963%2021.3181%2013.0269L26.8981%2011.0763C26.9324%2011.0671%2026.9662%2011.0563%2026.9994%2011.0438C27.9994%2010.6688%2028.9994%2010.15%2028.9994%209.04813C28.9994%207.94625%2028.1875%206.73813%2027%207.05Z%27%20fill=%27white%27/%3E%3C/g%3E%3Cdefs%3E%3CclipPath%20id=%27clip0_1_1506%27%3E%3Crect%20width=%2732%27%20height=%2732%27%20fill=%27white%27/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E"><span>Accessibility Options</span></button>
+				<input type="hidden" id="baseURL" name="baseURL" value="cghs.mohfw.gov.in">
+				
+
+
+					
+							<!-- accessibility panel end-->
+							
+								<script src="/AHIMSG5/hissso/js/footer_links.js"></script>
+								<script src="/AHIMSG5/hissso/portal/js/jquery-3.7.1.min.js"></script>
+								<script src="/AHIMSG5/hissso/portal/js/bootstrap.bundle.min.js"></script>
+								<script src="/AHIMSG5/hissso/portal/js/weights-v1.js"></script>
+								
+								<script src="/AHIMSG5/hissso/portal/js/scripts.js?v=81f6c9bcf32548d8ec929b631c80cdea"></script>
+								<script src="/AHIMSG5/hissso/portal/js/owl.carousel.min.js"></script>
+								<script src="/AHIMSG5/hissso/portal/js/main.js?v=81f6c9bcf32548d8ec929b631c80cdea"></script>
+								<!--<script src="/AHIMSG5/hissso/portal/js/scripts.js"></script> -->
+								<script src="/AHIMSG5/hissso/js/md5.js"></script>
+								<script src="/AHIMSG5/hissso/js/security.js"></script>
+								<script src="/AHIMSG5/hissso/js/share.js"></script>
+								<script src="/HIS/hisglobal/js/hashFunctions.js"></script>
+								<script src="/HIS/hisglobal/js/util.js"></script>
+								<script src="/AHIMSG5/hissso/portal/js/datatables.min.js"></script>
+								<script src="/AHIMSG5/hissso/portal/js/cghs_wc.js"></script>
+								<script src="/AHIMSG5/hissso/portal/js/portal.js"></script>
+								<script src="/AHIMSG5/hissso/portal/js/faq.js"></script>
+								<script src="/AHIMSG5/hissso/portal/js/know_your_wc.js?v=81f6c9bcf32548d8ec929b631c80cdea"></script>
+<script  src="/AHIMSG5/hissso/portal/js/emp_hspt.js"></script>
+								<script src="/AHIMSG5/hissso/portal/js/emp_hspt_rate_list.js"></script>
+								
+																<script>
+								$(document).ready(function() {
+									var $carousel = $('#cghsMainCarousel');
+									var $slides = $carousel.find('.carousel-item');
+									var $indicators = $carousel.find('.carousel-indicators');
+
+									// Auto-generate indicators dynamically based on number of slides
+									if ($slides.length > 1 && $indicators.length) {
+										$indicators.empty();
+										$slides.each(function(index) {
+											var activeClass = index === 0 ? ' class="active" aria-current="true"' : '';
+											$indicators.append('<button type="button" data-bs-target="#cghsMainCarousel" data-bs-slide-to="' + index + '"' + activeClass + ' aria-label="Slide ' + (index + 1) + '"></button>');
+										});
+									}
+
+									// Initialize Bootstrap 5 Carousel
+									if ($carousel.length && typeof bootstrap !== 'undefined' && bootstrap.Carousel) {
+										new bootstrap.Carousel($carousel[0], {
+											interval: 2500,
+											ride: 'carousel',
+											pause: 'hover',
+											wrap: true
+										});
+									}
+
+									// Keep language banner in sync across slides
+									$('#lang').on('change', function() {
+										var selectedLang = $(this).val();
+										var bannerSrc = (selectedLang === 'hi')
+											? '/AHIMSG5/hissso/portal/images/slider/cghs-hindi-banner.webp'
+											: '/AHIMSG5/hissso/portal/images/slider/cghs-english-banner.webp';
+										$('#bannerImage, .cghs-lang-banner').attr('src', bannerSrc);
+									});
+								});
+								</script>
+								
+
+  <script>
+    const s1 = document.getElementById('s1'),
+          s2 = document.getElementById('s2'),
+          typing = document.getElementById('typing');
+
+    function reset(el) { el.className = 'chat-slide'; }
+
+    function play() {
+      reset(s1); reset(s2); typing.classList.remove('show');
+
+      // Image 1 enters
+      setTimeout(() => s1.classList.add('enter'), 400);
+
+      // Dots appear
+      setTimeout(() => typing.classList.add('show'), 2200);
+
+      // Image 1 exits
+      setTimeout(() => { s1.classList.remove('enter'); s1.classList.add('exit'); }, 2900);
+
+      // Image 2 enters, dots hide
+      setTimeout(() => { reset(s1); typing.classList.remove('show'); s2.classList.add('enter'); }, 3350);
+
+      // Dots appear again
+      setTimeout(() => typing.classList.add('show'), 5400);
+
+      // Image 2 exits
+      setTimeout(() => { s2.classList.remove('enter'); s2.classList.add('exit'); }, 6100);
+
+      // Loop
+      setTimeout(() => { reset(s2); typing.classList.remove('show'); play(); }, 6600);
+    }
+
+    play();
+
+									document.addEventListener("click", function (e) {
+
+										const btn = e.target.closest(".accordion-button");
+										if (!btn) return;
+
+										const targetSelector = btn.getAttribute("data-bs-target");
+										const target = document.querySelector(targetSelector);
+
+										// If already open, manually close and stop Bootstrap default toggle
+										if (target.classList.contains("show")) {
+											e.preventDefault();
+
+											const collapse = bootstrap.Collapse.getOrCreateInstance(target);
+											collapse.hide();
+										}
+
+									});
+								</script>
+
+
+
+								<!-- <script src="/AHIMSG5/hissso/portal/js/jquery-3.7.0.min.js"></script>
+ --> <!-- Bootstrap -->
+
+
+
+
+
+
+
+								
+								<div class="modal" tabindex="-1" id='alertModal' data-bs-backdrop="static" data-bs-keyboard="false">
+	  <div class="modal-dialog modal-lg ">
+	  	<div class="modal-content">
+		  	<div class="modal-header">
+		      <div class="modal-header-icon"><i class="fa-solid fa-bell"></i></div>
+		      <h4>System Alerts</h4>
+		      <span class="badge-count" style="display:none;" id='totalAlertCount'></span>
+		      <a class="close-x" id='close-alert' onclick="ClosePopUp()"><i class="fa-solid fa-xmark"></i></a>
+		    </div>	
+	      <div class="modal-body modal-body-alert" id='alertModalBody'>
+	      </div>	
+	      <div class="modal-footer" style="display:none;" id='alertFooter'>
+	      <span class="footer-left"><i class="fa-solid fa-shield-halved"></i><span id='totalAckAlertCount'></span></span>
+	      <div style="display:flex;gap:8px;">						      
+	        <a class="btn-ack-all"  style="cursor: pointer;z-index:9999" onclick="AcknowledgeAll()"><i class="fa-solid fa-checks"></i>&nbsp;Acknowledge all</a>
+	      </div>
+	    </div>					      
+	    </div>
+	    
+	  </div>						  
+</div>	
+<script>
+
+
+$(document).ready(function() {
+	checkForActiveAlert("1");
+});
+
+</script>
+</body>
+</html>

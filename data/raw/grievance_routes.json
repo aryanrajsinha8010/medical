@@ -1,0 +1,57 @@
+[
+  {
+    "route_id": "GRV_NATIONAL_NCH",
+    "state": "ALL",
+    "authority_name": "National Consumer Helpline (NCH) — Dept. of Consumer Affairs, Govt. of India",
+    "category": "consumer_forum",
+    "toll_free": "1915",
+    "whatsapp_sms": "+91-8800001915",
+    "portal_url": "https://consumerhelpline.gov.in",
+    "legal_basis": "Consumer Protection Act, 2019 (Unfair trade practice / billing dispute pre-litigation)",
+    "verified_at": "2026-11-09T17:54:33Z"
+  },
+  {
+    "route_id": "GRV_IRDAI_BIMA_BHAROSA",
+    "state": "ALL",
+    "authority_name": "IRDAI Bima Bharosa & Council for Insurance Ombudsmen (CIO)",
+    "category": "insurance_ombudsman",
+    "toll_free": "155255 / 1800-4254-732",
+    "whatsapp_sms": null,
+    "portal_url": "https://bimabharosa.irdai.gov.in / https://www.cioins.co.in",
+    "legal_basis": "Insurance Ombudsman Rules, 2017 (Health insurance claim deduction or cashless denial)",
+    "verified_at": "2026-11-09T17:54:33Z"
+  },
+  {
+    "route_id": "GRV_NPPA_PHARMA_JAN_SAMADHAN",
+    "state": "ALL",
+    "authority_name": "NPPA Pharma Jan Samadhan (Stents, Knee Implants & Scheduled Drug Overcharging)",
+    "category": "drug_device_regulator",
+    "toll_free": "1800-111-255",
+    "whatsapp_sms": null,
+    "portal_url": "https://www.nppaindia.nic.in",
+    "legal_basis": "Drugs (Prices Control) Order (DPCO), 2013 under Essential Commodities Act (Legally enforceable ceiling caps)",
+    "verified_at": "2026-11-09T17:54:33Z"
+  },
+  {
+    "route_id": "GRV_PMJAY_NHA_HELPLINE",
+    "state": "ALL",
+    "authority_name": "Ayushman Bharat PM-JAY National Grievance Portal (CGRMS)",
+    "category": "scheme_authority",
+    "toll_free": "14555",
+    "whatsapp_sms": null,
+    "portal_url": "https://cgrms.pmjay.gov.in",
+    "legal_basis": "AB PM-JAY Empanelment Guidelines (For PM-JAY beneficiary balance-billing disputes)",
+    "verified_at": "2026-11-09T17:54:33Z"
+  },
+  {
+    "route_id": "GRV_CEA_NATIONAL_STATE",
+    "state": "ALL",
+    "authority_name": "National / State Council for Clinical Establishments",
+    "category": "clinical_establishment_regulator",
+    "toll_free": "011-23061469",
+    "whatsapp_sms": null,
+    "portal_url": "https://clinicalestablishments.gov.in",
+    "legal_basis": "Clinical Establishments (Registration and Regulation) Act, 2010 — Display of rates & transparency norms",
+    "verified_at": "2026-11-09T17:54:33Z"
+  }
+]

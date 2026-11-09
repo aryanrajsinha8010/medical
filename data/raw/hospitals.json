@@ -1,0 +1,46 @@
+[
+  {
+    "hospital_id": "HOSP_DEL_001",
+    "name": "Indraprastha Metro Super Speciality Hospital",
+    "state": "DL",
+    "city": "New Delhi",
+    "tier": "X",
+    "nabh_accredited": true,
+    "cghs_empanelled": true,
+    "pmjay_empanelled": true,
+    "transparency_score": 84
+  },
+  {
+    "hospital_id": "HOSP_MH_001",
+    "name": "Sahyadri Lotus Multispeciality Hospital",
+    "state": "MH",
+    "city": "Mumbai",
+    "tier": "X",
+    "nabh_accredited": true,
+    "cghs_empanelled": true,
+    "pmjay_empanelled": true,
+    "transparency_score": 78
+  },
+  {
+    "hospital_id": "HOSP_MP_001",
+    "name": "Narmada Care & Heart Institute",
+    "state": "MP",
+    "city": "Bhopal",
+    "tier": "Y",
+    "nabh_accredited": true,
+    "cghs_empanelled": true,
+    "pmjay_empanelled": true,
+    "transparency_score": 88
+  },
+  {
+    "hospital_id": "HOSP_UP_001",
+    "name": "Sunrise City Nursing Home",
+    "state": "UP",
+    "city": "Varanasi",
+    "tier": "Z",
+    "nabh_accredited": false,
+    "cghs_empanelled": false,
+    "pmjay_empanelled": true,
+    "transparency_score": 69
+  }
+]
