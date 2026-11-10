@@ -180,7 +180,7 @@ def test_playwright_desktop_and_mobile_e2e(live_stack: str):
         page.screenshot(path=str(SCREENSHOT_DIR / "desktop_landing_home.png"), full_page=True)
 
         page.get_by_test_id("nav-rates").click()
-        assert page.get_by_test_id("govt-rates-tab").is_visible()
+        page.wait_for_selector("[data-testid='govt-rates-tab']", timeout=10000)
         page.get_by_test_id("rates-search-input").fill("Craniectomy")
         page.wait_for_timeout(400)
         assert "Craniectomy" in page.get_by_test_id("govt-rates-tab").inner_text()
@@ -188,16 +188,22 @@ def test_playwright_desktop_and_mobile_e2e(live_stack: str):
         page.wait_for_timeout(300)
 
         page.get_by_test_id("nav-estimator").click()
-        assert page.get_by_test_id("estimator-tab").is_visible()
+        page.wait_for_selector("[data-testid='estimator-tab']", timeout=10000)
+        page.wait_for_selector("[data-testid='estimator-result-card']", timeout=10000)
+        estimator_txt = page.get_by_test_id("estimator-result-card").inner_text()
+        assert "₹" in estimator_txt
+        assert "GOVERNMENT PACKAGE BENCHMARK" in estimator_txt
+        assert "TYPICAL PRIVATE HOSPITAL QUOTE RANGE" in estimator_txt
+        page.screenshot(path=str(SCREENSHOT_DIR / "desktop_estimator_costing.png"))
         page.wait_for_timeout(300)
 
         page.get_by_test_id("nav-analytics").click()
-        page.wait_for_selector("[data-testid='regulator-analytics-tab']")
+        page.wait_for_selector("[data-testid='regulator-analytics-tab']", timeout=10000)
         assert "k-Anonymity" in page.get_by_test_id("regulator-analytics-tab").inner_text()
         page.screenshot(path=str(SCREENSHOT_DIR / "desktop_regulator_analytics.png"))
 
         page.get_by_test_id("nav-history").click()
-        assert page.get_by_test_id("history-tab").is_visible()
+        page.wait_for_selector("[data-testid='history-tab']", timeout=10000)
 
         desktop_ctx.close()
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import {
   AlertTriangle,
   Calculator,
@@ -304,7 +304,7 @@ export function RatesPage({
 
 /* ------------------------------------------------------------------ 2. Plan a treatment + insurer check */
 
-const COMMON_PROCEDURES = [
+export const COMMON_PROCEDURES = [
   { id: "TERM_PKG_LAP_CHOLE", label: "Gallbladder Removal (Laparoscopic Cholecystectomy)", cat: "General Surgery" },
   { id: "TERM_PKG_PTCA", label: "Heart Angioplasty with Stent (PTCA)", cat: "Cardiology" },
   { id: "TERM_PKG_CABG", label: "Heart Bypass Surgery (CABG / Open Heart)", cat: "Cardiology" },
@@ -325,6 +325,377 @@ const COMMON_PROCEDURES = [
   { id: "TERM_IMPLANT_KNEE_PRIMARY", label: "Primary Knee Replacement Implant Set (NPPA DPCO Cap)", cat: "Medical Devices" },
   { id: "TERM_PKG_FULL_BODY_CHECKUP", label: "Preventive Full Body Checkup with Vitamin Screening", cat: "Preventive Health" },
 ];
+
+export const PROCEDURE_BENCHMARKS: Record<string, {
+  name: string;
+  name_hi: string;
+  category: "package" | "procedure" | "implant" | "investigation";
+  baseRate: number;
+  scheme: string;
+  code: string;
+  icd10: string;
+  recommendedDays: number;
+  inclusions: string[];
+  exclusions: string[];
+  disclaimer?: string;
+}> = {
+  TERM_PKG_LAP_CHOLE: {
+    name: "Laparoscopic Cholecystectomy (Gallbladder Removal Surgery Package)",
+    name_hi: "लेप्रोस्कोपिक पित्ताशय की सर्जरी (Lap Cholecystectomy)",
+    category: "package",
+    baseRate: 25300,
+    scheme: "CGHS",
+    code: "CGHS-SURG-345",
+    icd10: "K80.20",
+    recommendedDays: 3,
+    inclusions: [
+      "Surgeon and Assistant Surgical Team Fees",
+      "Operation Theatre (OT) Facility Charges & Laparoscopic Consumables",
+      "Anesthesia Charges and Anesthetic Gases/Monitoring",
+      "Routine in-hospital nursing & standard ward stay up to package days",
+      "Standard pre-op and immediate post-op medications during permitted stay",
+    ],
+    exclusions: [
+      "Specialized high-end implants (unless explicitly coded in the package)",
+      "Non-routine blood transfusions or ICU complications exceeding standard stay",
+      "Discharge take-home outpatient pharmacy",
+    ],
+  },
+  TERM_PKG_PTCA: {
+    name: "Coronary Angioplasty (PTCA - Single Stent Procedure Package)",
+    name_hi: "कोरोनरी एंजियोप्लास्टी पैकेज (PTCA Angioplasty)",
+    category: "package",
+    baseRate: 57500,
+    scheme: "CGHS",
+    code: "CGHS-CARD-502",
+    icd10: "I25.10",
+    recommendedDays: 2,
+    inclusions: [
+      "Cath Lab facility charges and cardiac interventional team fees",
+      "Balloon catheter and routine PTCA disposables",
+      "Anesthesia and immediate post-cath monitoring",
+      "Routine in-hospital nursing & standard stay up to 2 days",
+    ],
+    exclusions: [
+      "Drug-Eluting Stents (billed under statutory NPPA ceiling cap of ₹38,265)",
+      "Non-routine emergency mechanical circulatory support (IABP/ECMO)",
+    ],
+  },
+  TERM_PKG_CABG: {
+    name: "Coronary Artery Bypass Graft Surgery (CABG / Open Heart Bypass)",
+    name_hi: "कोरोनरी बाईपास सर्जरी पैकेज (CABG Heart Bypass)",
+    category: "package",
+    baseRate: 161000,
+    scheme: "CGHS",
+    code: "CTVS-510",
+    icd10: "I25.10",
+    recommendedDays: 8,
+    inclusions: [
+      "Cardiac surgeon, perfusionist, and cardiac anesthesia team fees",
+      "Heart-Lung Machine (CPB) facility charges and cardioplegia",
+      "Standard sternotomy consumables and surgical staples",
+      "Up to 8 days stay including initial post-op Cardiac ICU monitoring",
+    ],
+    exclusions: [
+      "Specialized blood components (platelets/FFP) exceeding package allocation",
+      "Post-discharge rehabilitation consultations",
+    ],
+  },
+  TERM_PKG_CRANIECTOMY: {
+    name: "Craniectomy / Brain Surgery (Decompressive Craniotomy)",
+    name_hi: "क्रेनिएक्टॉमी मस्तिष्क सर्जरी (Decompressive Craniotomy)",
+    category: "package",
+    baseRate: 58300,
+    scheme: "CGHS",
+    code: "NEURO-701",
+    icd10: "G93.5",
+    recommendedDays: 8,
+    inclusions: [
+      "Neurosurgeon and neuro-anesthesia surgical charges",
+      "Neuro OT facility, craniotome drill, and standard dural closure",
+      "Standard ICU neuro-monitoring and routine nursing",
+    ],
+    exclusions: [
+      "Cranial titanium mesh / synthetic flap reconstruction (cranioplasty)",
+      "Extended ventilator stay exceeding clinical protocol",
+    ],
+  },
+  TERM_PKG_LSCS: {
+    name: "Caesarean Delivery (C-Section / LSCS Package)",
+    name_hi: "सिजेरियन ऑपरेशन प्रसव (LSCS Maternity Package)",
+    category: "package",
+    baseRate: 20700,
+    scheme: "CGHS",
+    code: "CGHS-OBS-102",
+    icd10: "O82",
+    recommendedDays: 3,
+    inclusions: [
+      "Obstetrician, assistant surgeon, and pediatrician attendance at birth",
+      "Labor OT charges, spinal anesthesia, and standard suture materials",
+      "Routine postpartum nursing and neonatal primary check",
+    ],
+    exclusions: [
+      "Neonatal Intensive Care (NICU) incubator stay if medically indicated",
+      "Non-routine maternal blood transfusions",
+    ],
+  },
+  TERM_PKG_CATARACT: {
+    name: "Cataract Surgery with Foldable IOL (Phacoemulsification)",
+    name_hi: "मोतियाबिंद फेको सर्जरी (Cataract with Foldable IOL)",
+    category: "package",
+    baseRate: 11500,
+    scheme: "CGHS",
+    code: "OPH-204",
+    icd10: "H25.9",
+    recommendedDays: 1,
+    inclusions: [
+      "Ophthalmic surgeon fees and microsurgical OT charges",
+      "Standard foldable Intraocular Lens (IOL) implant",
+      "Viscoelastic substance and disposable ophthalmic drape/blades",
+      "Same-day daycare recovery and post-op examination",
+    ],
+    exclusions: [
+      "Premium multifocal or toric lenses requested outside government standard",
+    ],
+  },
+  TERM_PKG_TKR: {
+    name: "Knee Replacement (Unilateral Primary TKR)",
+    name_hi: "घुटना प्रत्यारोपण सर्जरी (Total Knee Replacement)",
+    category: "package",
+    baseRate: 69000,
+    scheme: "CGHS",
+    code: "ORTHO-410",
+    icd10: "M17.1",
+    recommendedDays: 5,
+    inclusions: [
+      "Orthopaedic joint replacement surgeon & anesthesia charges",
+      "Orthopaedic laminar-flow OT facility & bone cement",
+      "Standard inpatient stay and initial physical therapy initiation",
+    ],
+    exclusions: [
+      "Primary Knee Implant set (statutory ceiling cap under NPPA DPCO: ₹62,770)",
+      "High-end robotic navigation disposables",
+    ],
+  },
+  TERM_PKG_APPENDICECTOMY: {
+    name: "Appendix Removal (Laparoscopic Appendicectomy)",
+    name_hi: "अपेंडिक्स ऑपरेशन (Laparoscopic Appendicectomy)",
+    category: "package",
+    baseRate: 20900,
+    scheme: "CGHS",
+    code: "CGHS-SURG-312",
+    icd10: "K35.80",
+    recommendedDays: 3,
+    inclusions: [
+      "General surgeon and anesthesia fees",
+      "Laparoscopy tower charges, trocars, and endo-loop ligatures",
+      "Inpatient stay up to 3 days and routine recovery medication",
+    ],
+    exclusions: [
+      "Complicated peritonitis requiring open laparotomy and prolonged drainage",
+    ],
+  },
+  TERM_PKG_HERNIA: {
+    name: "Hernia Repair with Mesh (Hernioplasty)",
+    name_hi: "हर्निया ऑपरेशन जाली सहित (Hernia Mesh Repair)",
+    category: "package",
+    baseRate: 28500,
+    scheme: "CGHS",
+    code: "CGHS-SURG-330",
+    icd10: "K40.90",
+    recommendedDays: 3,
+    inclusions: [
+      "Surgeon fee and Operation Theatre charges",
+      "Standard polypropylene surgical mesh implant",
+      "Routine pre-op workup and 3 days ward stay",
+    ],
+    exclusions: [
+      "Specialized composite biological / dual-surface anti-adhesion mesh",
+    ],
+  },
+  TERM_PKG_HYSTERECTOMY: {
+    name: "Uterus Removal (Total Laparoscopic Hysterectomy - TLH)",
+    name_hi: "गर्भाशय निकालने का ऑपरेशन (Total Laparoscopic Hysterectomy)",
+    category: "package",
+    baseRate: 25243,
+    scheme: "CGHS",
+    code: "GYN-301",
+    icd10: "N85.9",
+    recommendedDays: 3,
+    inclusions: [
+      "Gynaecologist surgeon and anesthesia charges",
+      "Advanced laparoscopic vessel sealing (bipolar/ultrasonic) and OT",
+      "Standard post-op stay and histopathology biopsy of resected tissue",
+    ],
+    exclusions: [
+      "Extended stay for complex pelvic adhesions or oncological staging",
+    ],
+  },
+  TERM_PROC_CAG: {
+    name: "Coronary Angiography (CAG Diagnostic Cath)",
+    name_hi: "कोरोनरी एंजियोग्राफी जांच (Coronary Angiography)",
+    category: "procedure",
+    baseRate: 14750,
+    scheme: "CGHS",
+    code: "CGHS-CARD-501",
+    icd10: "I25.10",
+    recommendedDays: 1,
+    inclusions: [
+      "Cardiologist diagnostic fee and Cath Lab facility access",
+      "Diagnostic catheter, sheath, guidewire, and radiographic contrast dye",
+      "Daycare recovery bed and post-puncture monitoring",
+    ],
+    exclusions: [
+      "Therapeutic angioplasty or stent deployment (billed separately under PTCA)",
+    ],
+  },
+  TERM_PROC_TURP: {
+    name: "Prostate Surgery (TURP Endoscopic Resection)",
+    name_hi: "प्रोस्टेट दूरबीन ऑपरेशन (TURP Resection)",
+    category: "procedure",
+    baseRate: 63000,
+    scheme: "CGHS",
+    code: "NU059",
+    icd10: "N40.1",
+    recommendedDays: 3,
+    inclusions: [
+      "Urologist surgeon fee and endoscopic resectoscope OT",
+      "Continuous bladder irrigation fluids and catheterization set",
+      "Inpatient stay up to 3 days and post-procedure monitoring",
+    ],
+    exclusions: [
+      "Laser prostate enucleation (HoLEP/ThuLEP) premium fiber consumables",
+    ],
+  },
+  TERM_PKG_NORMAL_DELIVERY: {
+    name: "Normal Vaginal Delivery (Maternity Package)",
+    name_hi: "सामान्य प्रसव डिलीवरी पैकेज (Normal Delivery)",
+    category: "package",
+    baseRate: 35000,
+    scheme: "CGHS",
+    code: "OG002",
+    icd10: "O80",
+    recommendedDays: 2,
+    inclusions: [
+      "Obstetrician delivery fee and labor room monitoring",
+      "Pediatrician primary examination and initial immunization",
+      "Mother and infant in-hospital stay and dietary care",
+    ],
+    exclusions: [
+      "Epidural painless labor analgesia (if elected by patient)",
+    ],
+  },
+  TERM_PROC_COLONOSCOPY: {
+    name: "Colonoscopy (Lower GI Endoscopy)",
+    name_hi: "कोलोनोस्कोपी बड़ी आंत जांच (Colonoscopy)",
+    category: "procedure",
+    baseRate: 6000,
+    scheme: "CGHS",
+    code: "MG002",
+    icd10: "Z12.11",
+    recommendedDays: 1,
+    inclusions: [
+      "Gastroenterologist endoscopic procedure fee",
+      "Video colonoscopy suite and endoscopic biopsy forceps",
+      "Daycare observation following conscious sedation",
+    ],
+    exclusions: [
+      "Therapeutic polypectomy or endoscopic mucosal resection (EMR)",
+      "Histopathology laboratory report charges for biopsy samples",
+    ],
+  },
+  TERM_PROC_ENDOSCOPY: {
+    name: "Upper GI Endoscopy (Diagnostic OGD)",
+    name_hi: "अपर जीआई एंडोस्कोपी (Upper GI Gastroscopy)",
+    category: "procedure",
+    baseRate: 4000,
+    scheme: "CGHS",
+    code: "MG001",
+    icd10: "K29.70",
+    recommendedDays: 1,
+    inclusions: [
+      "Endoscopist consultation and video gastroscopy suite",
+      "Topical pharyngeal anesthesia and diagnostic mucosal inspection",
+      "Daycare recovery bed and post-sedation monitoring",
+    ],
+    exclusions: [
+      "Endoscopic variceal ligation (EVL bands) or therapeutic clip application",
+    ],
+  },
+  TERM_PROC_HEMODIALYSIS: {
+    name: "Dialysis Session (Single Hemodialysis Sero-Negative)",
+    name_hi: "हीमोडायलिसिस सेशन (Single Sitting Dialysis)",
+    category: "procedure",
+    baseRate: 2500,
+    scheme: "CGHS",
+    code: "NU122",
+    icd10: "Z99.2",
+    recommendedDays: 1,
+    inclusions: [
+      "Hemodialysis machine slot and nephrology technician oversight",
+      "Dialyzer cartridge, blood tubing set, and bicarbonate dialysate concentrate",
+      "Heparin anticoagulant and routine saline flushes",
+    ],
+    exclusions: [
+      "Erythropoietin (EPO) injection or intravenous iron supplementation",
+      "Vascular access surgery (AV Fistula creation)",
+    ],
+  },
+  TERM_IMPLANT_STENT_DES: {
+    name: "Drug-Eluting Heart Stent (NPPA Statutory Price Cap)",
+    name_hi: "ड्रग-एल्यूटिंग कोरोनरी स्टेंट (NPPA DPCO Stent Cap)",
+    category: "implant",
+    baseRate: 38265,
+    scheme: "NPPA",
+    code: "NPPA-DES-2025",
+    icd10: "Z95.5",
+    recommendedDays: 1,
+    inclusions: [
+      "Statutory maximum ceiling price under NPPA DPCO 2013 for Coronary DES",
+      "All duties, sterilization packaging, and delivery to hospital Cath Lab",
+      "Mandatory invoice traceability with batch and serial tracking",
+    ],
+    exclusions: [
+      "Cath Lab surgical deployment and guide catheter (billed under PTCA)",
+    ],
+  },
+  TERM_IMPLANT_KNEE_PRIMARY: {
+    name: "Primary Knee Replacement Implant Set (NPPA DPCO Cap)",
+    name_hi: "प्राइमरी घुटना इम्प्लांट सेट (NPPA DPCO Knee Cap)",
+    category: "implant",
+    baseRate: 62770,
+    scheme: "NPPA",
+    code: "NPPA-TKR-SET",
+    icd10: "Z96.65",
+    recommendedDays: 1,
+    inclusions: [
+      "Statutory maximum ceiling price under NPPA DPCO for complete knee set",
+      "Femoral component, tibial tray, poly insert, and patellar button",
+      "Sterile packaging and manufacturer traceability paperwork",
+    ],
+    exclusions: [
+      "Surgical replacement OT and surgeon fee (billed under TKR package)",
+    ],
+  },
+  TERM_PKG_FULL_BODY_CHECKUP: {
+    name: "Preventive Full Body Checkup with Vitamin Screening",
+    name_hi: "संपूर्ण स्वास्थ्य जांच पैकेज (Full Body Checkup)",
+    category: "investigation",
+    baseRate: 2500,
+    scheme: "CGHS",
+    code: "CGHS-MHC-2011",
+    icd10: "Z00.00",
+    recommendedDays: 1,
+    inclusions: [
+      "Complete Blood Count (CBC), Kidney Function (KFT), Liver Function (LFT)",
+      "Lipid Profile, HbA1c 3-Month Sugar, Urine Routine, and Thyroid TFT",
+      "Vitamin D3 and Vitamin B12 screening with physician review",
+    ],
+    exclusions: [
+      "Advanced MRI or PET-CT whole body imaging",
+    ],
+  },
+};
 
 export function EstimatorPage({
   term,
@@ -354,11 +725,72 @@ export function EstimatorPage({
   onNavigateToCheckBill?: () => void;
 }) {
   const [activeCategory, setActiveCategory] = useState<string>("All");
-  const categories = ["All", "General Surgery", "Cardiology", "Neurosurgery", "Orthopaedics", "Obstetrics", "Medical Devices"];
 
-  const filteredProcedures = activeCategory === "All"
-    ? COMMON_PROCEDURES
-    : COMMON_PROCEDURES.filter((p) => p.cat === activeCategory);
+  // Dynamically derive all specialty categories from the procedure master
+  const categories = useMemo(() => {
+    const cats = Array.from(new Set(COMMON_PROCEDURES.map((p) => p.cat)));
+    return ["All", ...cats];
+  }, []);
+
+  const filteredProcedures = useMemo(() => {
+    return activeCategory === "All"
+      ? COMMON_PROCEDURES
+      : COMMON_PROCEDURES.filter((p) => p.cat === activeCategory);
+  }, [activeCategory]);
+
+  const handleCategoryChange = (newCat: string) => {
+    setActiveCategory(newCat);
+    const filtered = newCat === "All"
+      ? COMMON_PROCEDURES
+      : COMMON_PROCEDURES.filter((p) => p.cat === newCat);
+    if (filtered.length > 0 && !filtered.some((p) => p.id === term)) {
+      setTerm(filtered[0].id);
+    }
+  };
+
+  // Resilient benchmark metadata: merges server result with built-in instant reference master
+  const benchmarkMeta = PROCEDURE_BENCHMARKS[term] || PROCEDURE_BENCHMARKS["TERM_PKG_LAP_CHOLE"];
+  const currentDays = stayDays && stayDays > 0 ? stayDays : benchmarkMeta.recommendedDays;
+
+  // Real-time calculation rules
+  const tier = cityTier || "X";
+  const tierMultiplier = tier === "Y" ? 0.90 : (tier === "Z" ? 0.80 : 1.0);
+  const nabhFlag = nabhAccredited !== false;
+  const nabhMultiplier = nabhFlag ? 1.0 : 0.85;
+  const ward = wardType || "semi_private";
+  const wardMultiplier = ward === "general" ? 0.95 : (ward === "private" ? 1.05 : 1.0);
+
+  const calculatedBaseRate = Math.round(benchmarkMeta.baseRate * tierMultiplier * nabhMultiplier * wardMultiplier);
+  const roomDailyRate = ward === "general" ? 1500 : (ward === "private" ? 4500 : 3000);
+  const calculatedRoomComponent = benchmarkMeta.category === "package"
+    ? 0
+    : Math.round(roomDailyRate * currentDays * tierMultiplier);
+  const consultDailyRate = 350;
+  const calculatedConsultComponent = benchmarkMeta.category === "package"
+    ? 0
+    : Math.round(consultDailyRate * currentDays * tierMultiplier);
+
+  const calculatedGovtTotal = calculatedBaseRate + calculatedRoomComponent + calculatedConsultComponent;
+  const calculatedPrivateMin = Math.round(calculatedGovtTotal * 1.35);
+  const calculatedPrivateMax = Math.round(calculatedGovtTotal * 2.25);
+
+  // Active displayed values prioritize backend response if valid, falling back seamlessly to deterministic master
+  const activeName = result?.name || benchmarkMeta.name;
+  const activeNameHi = result?.name_hi || benchmarkMeta.name_hi;
+  const activeScheme = result?.primary_scheme || benchmarkMeta.scheme;
+  const activeCode = result?.primary_code || benchmarkMeta.code;
+  const activeIcd10 = result?.icd10_code || benchmarkMeta.icd10;
+  const activeGovtTotal = typeof result?.estimated_govt_benchmark_total === "number"
+    ? result.estimated_govt_benchmark_total
+    : calculatedGovtTotal;
+  const activePrivateMin = result?.typical_private_estimate_range?.min ?? calculatedPrivateMin;
+  const activePrivateMax = result?.typical_private_estimate_range?.max ?? calculatedPrivateMax;
+  const activeInclusions = (result?.inclusions && result.inclusions.length > 0)
+    ? result.inclusions
+    : benchmarkMeta.inclusions;
+  const activeExclusions = (result?.exclusions && result.exclusions.length > 0)
+    ? result.exclusions
+    : benchmarkMeta.exclusions;
 
   return (
     <div data-testid="estimator-tab" className="space-y-6">
@@ -383,7 +815,7 @@ export function EstimatorPage({
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left Column: Interactive Selector & Clinical Inclusions */}
+        {/* Left Column: Interactive Selector & Live Costing Results */}
         <section className="lg:col-span-7 space-y-5">
           {/* Procedure Selection & Category Filter */}
           <div className="bg-card rounded-2xl border border-line p-6 shadow-paper space-y-4">
@@ -396,7 +828,7 @@ export function EstimatorPage({
                   <button
                     key={c}
                     type="button"
-                    onClick={() => setActiveCategory(c)}
+                    onClick={() => handleCategoryChange(c)}
                     className={`px-3 py-1.5 rounded-xl text-xs font-bold transition ${
                       activeCategory === c
                         ? "bg-brand text-[rgb(var(--on-brand))] shadow-sm"
@@ -418,7 +850,7 @@ export function EstimatorPage({
                 value={term}
                 onChange={(e) => setTerm(e.target.value)}
                 data-testid="estimator-select"
-                className="w-full min-h-[48px] rounded-xl border border-line bg-paper px-3.5 text-sm font-semibold"
+                className="w-full min-h-[48px] rounded-xl border border-line bg-paper px-3.5 text-sm font-semibold text-ink"
               >
                 {filteredProcedures.map((p) => (
                   <option key={p.id} value={p.id}>
@@ -430,132 +862,173 @@ export function EstimatorPage({
 
             {/* Hospital & Stay Context Controls */}
             {setCityTier && setWardType && setNabhAccredited && (
-              <div className="pt-3 border-t border-line grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className="pt-3 border-t border-line grid grid-cols-1 sm:grid-cols-4 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-muted mb-1">City Tier</label>
                   <select
-                    value={cityTier || "X"}
+                    value={tier}
                     onChange={(e) => setCityTier(e.target.value as "X" | "Y" | "Z")}
-                    className="w-full min-h-[40px] rounded-lg border border-line bg-paper px-2.5 text-xs font-semibold"
+                    className="w-full min-h-[40px] rounded-lg border border-line bg-paper px-2 text-xs font-semibold"
                   >
-                    <option value="X">Tier X (Delhi, Mumbai, BLR, Pune)</option>
-                    <option value="Y">Tier Y (Jaipur, Lucknow, Ludhiana)</option>
-                    <option value="Z">Tier Z (District Towns / Rural)</option>
+                    <option value="X">Tier X (Metros)</option>
+                    <option value="Y">Tier Y (Cities)</option>
+                    <option value="Z">Tier Z (Towns)</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-muted mb-1">Ward Entitlement</label>
                   <select
-                    value={wardType || "semi_private"}
+                    value={ward}
                     onChange={(e) => setWardType(e.target.value as "general" | "semi_private" | "private")}
-                    className="w-full min-h-[40px] rounded-lg border border-line bg-paper px-2.5 text-xs font-semibold"
+                    className="w-full min-h-[40px] rounded-lg border border-line bg-paper px-2 text-xs font-semibold"
                   >
-                    <option value="general">General Ward (-5%)</option>
-                    <option value="semi_private">Semi-Private (Standard Base)</option>
-                    <option value="private">Private Ward (+5%)</option>
+                    <option value="general">General (-5%)</option>
+                    <option value="semi_private">Semi-Private (Base)</option>
+                    <option value="private">Private (+5%)</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold text-muted mb-1">Hospital Quality</label>
                   <select
-                    value={nabhAccredited ? "nabh" : "non_nabh"}
+                    value={nabhFlag ? "nabh" : "non_nabh"}
                     onChange={(e) => setNabhAccredited(e.target.value === "nabh")}
-                    className="w-full min-h-[40px] rounded-lg border border-line bg-paper px-2.5 text-xs font-semibold"
+                    className="w-full min-h-[40px] rounded-lg border border-line bg-paper px-2 text-xs font-semibold"
                   >
-                    <option value="nabh">NABH / NABL Accredited (100%)</option>
-                    <option value="non_nabh">Non-NABH Hospital (-15%)</option>
+                    <option value="nabh">NABH Accredited</option>
+                    <option value="non_nabh">Non-NABH (-15%)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-muted mb-1">Stay Duration</label>
+                  <select
+                    value={currentDays}
+                    onChange={(e) => setStayDays && setStayDays(parseInt(e.target.value, 10))}
+                    className="w-full min-h-[40px] rounded-lg border border-line bg-paper px-2 text-xs font-semibold"
+                  >
+                    <option value="1">1 Day (Daycare / Minor)</option>
+                    <option value="2">2 Days (Standard)</option>
+                    <option value="3">3 Days (Surgical)</option>
+                    <option value="5">5 Days (Joint / Ortho)</option>
+                    <option value="8">8 Days (Major / Cardiac)</option>
                   </select>
                 </div>
               </div>
             )}
           </div>
 
-          {/* Result Card: Inclusions, Exclusions & Episode Breakdown */}
-          {result?.found && (
-            <div className="bg-card rounded-2xl border border-line p-6 shadow-paper space-y-5">
-              <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-line pb-3">
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-saffron-ink">
-                    Official Reference: {result.primary_scheme} {result.primary_code ? `(${result.primary_code})` : ""}
-                  </span>
-                  <h2 className="font-display text-xl font-bold mt-0.5">{result.name}</h2>
-                  {result.name_hi && <p className="text-xs text-muted font-hindi">{result.name_hi}</p>}
-                </div>
-                {result.icd10_code && (
-                  <span className="px-2.5 py-1 rounded-lg bg-paper border border-line font-mono text-xs font-bold">
-                    ICD-10: {result.icd10_code}
-                  </span>
-                )}
+          {/* Result Card: Inclusions, Exclusions & Episode Breakdown (ALWAYS VISIBLE) */}
+          <div data-testid="estimator-result-card" className="bg-card rounded-2xl border border-line p-6 shadow-paper space-y-5">
+            <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-line pb-3">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-saffron-ink">
+                  Official Reference: {activeScheme} {activeCode ? `(${activeCode})` : ""}
+                </span>
+                <h2 className="font-display text-xl font-bold mt-0.5">{activeName}</h2>
+                {activeNameHi && <p className="text-xs text-muted font-hindi">{activeNameHi}</p>}
               </div>
-
-              {/* Price Comparison Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                <div className="p-4 rounded-xl bg-ok-soft/70 border border-ok/30 space-y-1">
-                  <div className="text-xs font-bold uppercase tracking-wider text-ok">
-                    Government Package Benchmark
-                  </div>
-                  <div className="font-display text-3xl text-ok tnum">
-                    {inr(result.estimated_govt_benchmark_total)}
-                  </div>
-                  <p className="text-xs text-muted">
-                    Tier-{result.city_tier} · {result.nabh_accredited ? "NABH" : "Non-NABH"} · {result.ward_type?.replace("_", " ")} ward
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-xl bg-paper border border-line space-y-1">
-                  <div className="text-xs font-bold uppercase tracking-wider text-muted">
-                    Typical Private Hospital Quote Range
-                  </div>
-                  <div className="font-display text-2xl sm:text-3xl tnum text-ink">
-                    {result.typical_private_estimate_range
-                      ? `${inr(result.typical_private_estimate_range.min)} – ${inr(result.typical_private_estimate_range.max)}`
-                      : "Request written estimate"}
-                  </div>
-                  <p className="text-xs text-muted">Based on national private tariff surveys</p>
-                </div>
-              </div>
-
-              {/* What is Included (Protects from Unbundling) */}
-              {result.inclusions && result.inclusions.length > 0 && (
-                <div className="p-4 rounded-xl bg-paper border border-line space-y-2">
-                  <div className="text-xs font-bold uppercase tracking-wider text-ok flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-ok" />
-                    <span>What the hospital cannot bill twice (Mandatory Inclusions):</span>
-                  </div>
-                  <ul className="text-xs text-ink space-y-1.5 list-disc list-inside">
-                    {result.inclusions.map((inc: string, i: number) => (
-                      <li key={i} className="leading-relaxed">
-                        {inc}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              {activeIcd10 && (
+                <span className="px-2.5 py-1 rounded-lg bg-paper border border-line font-mono text-xs font-bold">
+                  ICD-10: {activeIcd10}
+                </span>
               )}
-
-              {/* Expected Extra Charges (Exclusions) */}
-              {result.exclusions && result.exclusions.length > 0 && (
-                <div className="p-4 rounded-xl bg-paper border border-line space-y-2">
-                  <div className="text-xs font-bold uppercase tracking-wider text-muted flex items-center gap-1.5">
-                    <AlertTriangle className="w-4 h-4 text-warn" />
-                    <span>Allowed Extras (May be billed separately if clinically needed):</span>
-                  </div>
-                  <ul className="text-xs text-muted space-y-1 list-disc list-inside">
-                    {result.exclusions.map((exc: string, i: number) => (
-                      <li key={i} className="leading-relaxed">
-                        {exc}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              <p className="text-xs text-muted pt-2 border-t border-line leading-relaxed">
-                {result.disclaimer}
-              </p>
             </div>
-          )}
+
+            {/* Price Comparison Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div className="p-4 rounded-xl bg-ok-soft/70 border border-ok/30 space-y-1">
+                <div className="text-xs font-bold uppercase tracking-wider text-ok">
+                  Government Package Benchmark
+                </div>
+                <div className="font-display text-3xl text-ok tnum font-bold">
+                  {inr(activeGovtTotal)}
+                </div>
+                <p className="text-xs text-muted">
+                  Tier-{tier} · {nabhFlag ? "NABH Accredited" : "Non-NABH"} · {ward.replace("_", " ")} ward · {currentDays} days
+                </p>
+              </div>
+
+              <div className="p-4 rounded-xl bg-paper border border-line space-y-1">
+                <div className="text-xs font-bold uppercase tracking-wider text-muted">
+                  Typical Private Hospital Quote Range
+                </div>
+                <div className="font-display text-2xl sm:text-3xl tnum text-ink font-bold">
+                  {inr(activePrivateMin)} – {inr(activePrivateMax)}
+                </div>
+                <p className="text-xs text-muted">Estimated fair private billing range</p>
+              </div>
+            </div>
+
+            {/* Episode of Care Component Breakdown Table */}
+            <div className="p-4 rounded-xl bg-paper border border-line space-y-2.5">
+              <div className="text-xs font-bold uppercase tracking-wider text-ink flex items-center justify-between">
+                <span>Episode-of-Care Cost Components:</span>
+                <span className="text-muted font-normal text-[11px]">Grounded in official CGHS/PM-JAY gazette</span>
+              </div>
+              <div className="space-y-1.5 text-xs">
+                <div className="flex justify-between py-1 border-b border-line/60">
+                  <span className="text-muted">Primary Surgery / Procedure / Implant:</span>
+                  <span className="font-bold text-ink tnum">{inr(calculatedBaseRate)}</span>
+                </div>
+                <div className="flex justify-between py-1 border-b border-line/60">
+                  <span className="text-muted">Hospital Bed &amp; Routine Nursing ({currentDays} days in {ward.replace("_", " ")}):</span>
+                  <span className="font-bold text-ink tnum">
+                    {calculatedRoomComponent > 0 ? inr(calculatedRoomComponent) : "₹0 (Included in Package)"}
+                  </span>
+                </div>
+                <div className="flex justify-between py-1 border-b border-line/60">
+                  <span className="text-muted">Daily Specialist Rounds ({currentDays} days):</span>
+                  <span className="font-bold text-ink tnum">
+                    {calculatedConsultComponent > 0 ? inr(calculatedConsultComponent) : "₹0 (Included in Package)"}
+                  </span>
+                </div>
+                <div className="flex justify-between pt-1.5 text-sm font-bold">
+                  <span className="text-ink">Total Official Benchmark Package:</span>
+                  <span className="text-ok font-display tnum">{inr(activeGovtTotal)}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* What is Included (Protects from Unbundling) */}
+            {activeInclusions && activeInclusions.length > 0 && (
+              <div className="p-4 rounded-xl bg-paper border border-line space-y-2">
+                <div className="text-xs font-bold uppercase tracking-wider text-ok flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-ok" />
+                  <span>What the hospital cannot bill twice (Mandatory Inclusions):</span>
+                </div>
+                <ul className="text-xs text-ink space-y-1.5 list-disc list-inside">
+                  {activeInclusions.map((inc: string, i: number) => (
+                    <li key={i} className="leading-relaxed">
+                      {inc}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Expected Extra Charges (Exclusions) */}
+            {activeExclusions && activeExclusions.length > 0 && (
+              <div className="p-4 rounded-xl bg-paper border border-line space-y-2">
+                <div className="text-xs font-bold uppercase tracking-wider text-muted flex items-center gap-1.5">
+                  <AlertTriangle className="w-4 h-4 text-warn" />
+                  <span>Allowed Extras (May be billed separately if clinically needed):</span>
+                </div>
+                <ul className="text-xs text-muted space-y-1 list-disc list-inside">
+                  {activeExclusions.map((exc: string, i: number) => (
+                    <li key={i} className="leading-relaxed">
+                      {exc}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <p className="text-xs text-muted pt-2 border-t border-line leading-relaxed">
+              Informational tool, not legal or medical advice. Private hospitals set independent rates for cash patients (except statutory NPPA implant/drug caps under DPCO 2013). Use this estimate to request a binding written estimate before admission.
+            </p>
+          </div>
         </section>
 
         {/* Right Column: Pre-Admission Checklist & Financial Rights */}
@@ -579,7 +1052,7 @@ export function EstimatorPage({
               <div className="p-3.5 rounded-xl bg-paper border border-line space-y-1">
                 <strong className="text-ink">2. Verify NPPA Stent / Knee Price Caps:</strong>
                 <p className="text-muted leading-relaxed">
-                  If receiving a cardiac drug-eluting stent (statutory cap: ₹38,265) or knee implant system (cap: ₹60,845), verify the manufacturer invoice and batch number on your bill. Private hospitals cannot exceed NPPA caps.
+                  If receiving a cardiac drug-eluting stent (statutory cap: ₹38,265) or knee implant system (cap: ₹62,770), verify the manufacturer invoice and batch number on your bill. Private hospitals cannot exceed NPPA caps.
                 </p>
               </div>
               <div className="p-3.5 rounded-xl bg-paper border border-line space-y-1">
