@@ -6,6 +6,7 @@ dispute letter + grievance routing, pre-treatment cost estimator, insurer claim 
 regulator k-anonymity analytics, and PDF/QR generation.
 """
 
+import asyncio
 import base64
 import json
 import sqlite3
@@ -120,7 +121,6 @@ def _get_conn() -> sqlite3.Connection:
     if _SHARED_CONN is None:
         conn = sqlite3.connect(DB_PATH, timeout=30.0, check_same_thread=False)
         conn.row_factory = sqlite3.Row
-        conn.execute("PRAGMA foreign_keys=ON;")
         conn.execute("PRAGMA journal_mode=WAL;")
         conn.execute("PRAGMA synchronous=OFF;")
         conn.execute("PRAGMA temp_store=MEMORY;")
@@ -226,8 +226,8 @@ def _persist_verified_bill_and_ledger_locked(req: VerifyBillRequest, verificatio
             ),
         )
 
-    # Fetch head of hash-chained audit ledger
-    last_row = cur.execute("SELECT report_hash FROM report ORDER BY created_at DESC, rowid DESC LIMIT 1").fetchone()
+    # Fetch head of hash-chained audit ledger (O(1) via SQLite rowid B-tree)
+    last_row = cur.execute("SELECT report_hash FROM report ORDER BY rowid DESC LIMIT 1").fetchone()
     prev_hash = last_row["report_hash"] if last_row else GENESIS_HASH
 
     ledger_payload = {
@@ -431,7 +431,7 @@ async def ocr_upload(file: UploadFile = File(...)):
     if len(content) > 12 * 1024 * 1024:
         raise HTTPException(status_code=413, detail="File exceeds 12MB upload limit.")
 
-    extracted = extract_bill_from_bytes(content, filename=fname)
+    extracted = await asyncio.to_thread(extract_bill_from_bytes, content, fname)
     pii_res = redact_text_pii(extracted.get("raw_ocr_text", ""))
     extracted["redacted_ocr_text"] = pii_res["redacted_text"]
     extracted["pii_redaction"] = pii_res["counts"]

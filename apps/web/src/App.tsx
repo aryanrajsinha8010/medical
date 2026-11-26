@@ -289,9 +289,13 @@ export default function App() {
 
   async function processUploadedFile(file: File) {
     setIsSampleBill(false);
+    setUploadedBillMeta(null);
     setIsScanning(true);
     setProcessingStage(1);
     if (file.type.startsWith("image/")) {
+      if (previewImageUrl.startsWith("blob:")) {
+        URL.revokeObjectURL(previewImageUrl);
+      }
       setPreviewImageUrl(URL.createObjectURL(file));
     }
     const timer2 = setTimeout(() => setProcessingStage(2), 380);
@@ -301,6 +305,10 @@ export default function App() {
     form.append("file", file);
     try {
       const res = await fetch("/api/ocr", { method: "POST", body: form });
+      if (!res.ok) {
+        const errBody = await res.json().catch(() => ({}));
+        throw new Error(errBody.error || errBody.detail || `OCR HTTP ${res.status}`);
+      }
       const data = await res.json();
       clearTimeout(timer2);
       clearTimeout(timer3);

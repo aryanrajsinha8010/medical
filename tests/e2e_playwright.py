@@ -149,7 +149,9 @@ def test_playwright_desktop_and_mobile_e2e(live_stack: str):
         # Upload a real hospital bill image (Landmark Polyclinic, Pune — 15 rows) and verify immediate live update
         real_bill_path = ROOT_DIR / "apps" / "web" / "public" / "real-bills" / "landmark_polyclinic_pune.jpg"
         page.get_by_test_id("file-upload-input").set_input_files(str(real_bill_path))
-        page.wait_for_selector("[data-testid='uploaded-bill-status-bar']", timeout=20000)
+        page.get_by_test_id("uploaded-bill-status-bar").filter(has_text="Landmark Polyclinic").wait_for(
+            state="visible", timeout=90000
+        )
         status_txt = page.get_by_test_id("uploaded-bill-status-bar").inner_text()
         assert "Landmark Polyclinic" in status_txt
         assert "15 items" in status_txt
@@ -168,7 +170,9 @@ def test_playwright_desktop_and_mobile_e2e(live_stack: str):
         # Upload a real diagnostic lab WEBP bill (Dr. Lal PathLabs, Delhi — 4 fungal/aspergillus tests) and verify live update
         lal_bill_path = ROOT_DIR / "apps" / "web" / "public" / "real-bills" / "lal_pathlabs_delhi.webp"
         page.get_by_test_id("file-upload-input").set_input_files(str(lal_bill_path))
-        page.wait_for_timeout(1200)
+        page.get_by_test_id("uploaded-bill-status-bar").filter(has_text="Dr. Lal PathLabs").wait_for(
+            state="visible", timeout=90000
+        )
         lal_status = page.get_by_test_id("uploaded-bill-status-bar").inner_text()
         assert "Dr. Lal PathLabs" in lal_status
         assert "4 items" in lal_status

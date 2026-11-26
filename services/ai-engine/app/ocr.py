@@ -13,6 +13,7 @@ Supports:
   tariff codes, timestamps, batch numbers, MFG/EXP dates, and HSN codes).
 """
 
+import hashlib
 import io
 import json
 import re
@@ -20,8 +21,8 @@ from pathlib import Path
 from typing import Any, Protocol
 
 import cv2
-import fitz  # PyMuPDF
 import numpy as np
+import pymupdf as fitz  # PyMuPDF
 from PIL import Image
 
 CUSTOM_MODELS_DIR = Path(__file__).resolve().parents[1] / "models"
@@ -39,10 +40,13 @@ try:
         _RAPID_OCR_INSTANCE: RapidOCR | None = RapidOCR(
             rec_model_path=str(CUSTOM_REC_ONNX),
             rec_keys_path=str(CUSTOM_REC_KEYS),
+            intra_op_num_threads=4,
+            inter_op_num_threads=1,
+            use_cls=False,
         )
         _CUSTOM_RAPID_LOADED = True
     else:
-        _RAPID_OCR_INSTANCE = RapidOCR()
+        _RAPID_OCR_INSTANCE = RapidOCR(intra_op_num_threads=4, inter_op_num_threads=1, use_cls=False)
         _CUSTOM_RAPID_LOADED = False
 except Exception:
     _RAPID_OCR_INSTANCE = None
@@ -760,11 +764,26 @@ def _extract_with_rapidocr(image_bytes: bytes, img_w: int, img_h: int) -> tuple[
     return joined_text, parsed
 
 
+_OCR_CACHE: dict[str, dict[str, Any]] = {}
+
+
 def extract_bill_from_bytes(file_bytes: bytes, filename: str = "bill.png") -> dict[str, Any]:
     """
     Extracts text and structured line items from PDF or PNG/JPG/WEBP bill images.
     Never decodes raw binary image bytes as UTF-8 text.
     """
+    cache_key = hashlib.sha256(file_bytes).hexdigest()
+    if cache_key in _OCR_CACHE:
+        return json.loads(json.dumps(_OCR_CACHE[cache_key]))
+
+    result = _extract_bill_from_bytes_uncached(file_bytes, filename)
+    if len(_OCR_CACHE) >= 64:
+        _OCR_CACHE.pop(next(iter(_OCR_CACHE)))
+    _OCR_CACHE[cache_key] = json.loads(json.dumps(result))
+    return result
+
+
+def _extract_bill_from_bytes_uncached(file_bytes: bytes, filename: str = "bill.png") -> dict[str, Any]:
     lower_name = filename.lower()
 
     # 1. PDF Handling via PyMuPDF

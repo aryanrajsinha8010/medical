@@ -14,6 +14,7 @@ import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from xml.sax.saxutils import escape as xml_escape
 
 import qrcode
 from reportlab.lib import colors
@@ -604,12 +605,15 @@ def generate_pdf_report_bytes(
         spaceAfter=10,
     )
 
+    safe_hospital = xml_escape(str(hospital_name or "Hospital"))
+    safe_verify_url = xml_escape(str(verify_url or ""))
+
     story = []
     story.append(Paragraph("SwasthyaBillCheck (NMBTP) — Official Rate Comparison Report", title_style))
     story.append(
         Paragraph(
-            f"<b>Hospital:</b> {hospital_name} &nbsp;|&nbsp; <b>City Tier:</b> {verification['summary']['city_tier']} "
-            f"&nbsp;|&nbsp; <b>Ward:</b> {verification['summary']['ward_type'].upper()} "
+            f"<b>Hospital:</b> {safe_hospital} &nbsp;|&nbsp; <b>City Tier:</b> {xml_escape(str(verification['summary']['city_tier']))} "
+            f"&nbsp;|&nbsp; <b>Ward:</b> {xml_escape(str(verification['summary']['ward_type']).upper())} "
             f"&nbsp;|&nbsp; <b>Team TechNova (SBI Youth Ideathon 2026)</b>",
             sub_style,
         )
@@ -685,10 +689,10 @@ def generate_pdf_report_bytes(
 
     ledger_text = (
         f"<b>Tamper-Evident Audit Ledger (SHA-256 Hash-Chained)</b><br/>"
-        f"<b>Report Hash:</b> <font size=7>{report_hash}</font><br/>"
-        f"<b>Previous Hash:</b> <font size=7>{prev_hash}</font><br/>"
-        f"<b>Verify Online:</b> {verify_url}<br/><br/>"
-        f"<i>Disclaimer: {summary['legal_disclaimer_en']}</i>"
+        f"<b>Report Hash:</b> <font size=7>{xml_escape(str(report_hash))}</font><br/>"
+        f"<b>Previous Hash:</b> <font size=7>{xml_escape(str(prev_hash))}</font><br/>"
+        f"<b>Verify Online:</b> {safe_verify_url}<br/><br/>"
+        f"<i>Disclaimer: {xml_escape(str(summary['legal_disclaimer_en']))}</i>"
     )
     footer_table = Table([[RLImage(qr_buf, width=72, height=72), Paragraph(ledger_text, sub_style)]], colWidths=[85, 435])
     footer_table.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP")]))

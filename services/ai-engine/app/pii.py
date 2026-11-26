@@ -1,17 +1,19 @@
 """
 DPDP Act 2023 Compliant PII Redaction Engine for SwasthyaBillCheck (NMBTP).
-Detects and masks Patient Name, Phone Number, Aadhaar (12-digit), UHID/MRN,
-and Email before storage or logging.
+Detects and masks Patient Name (English & Indic scripts), Phone Number, Aadhaar (12-digit),
+ABHA Health ID (14-digit), PAN, UHID/MRN, and Email before storage or logging.
 """
 
 import re
 from typing import Any
 
 PHONE_RE = re.compile(r"(?:\+91[\-\s]?)?[6-9]\d{9}\b")
+ABHA_RE = re.compile(r"\b\d{2}[\-\s]?\d{4}[\-\s]?\d{4}[\-\s]?\d{4}\b")
 AADHAAR_RE = re.compile(r"\b\d{4}[\s\-]?\d{4}[\s\-]?\d{4}\b")
+PAN_RE = re.compile(r"\b[A-Z]{5}\d{4}[A-Z]\b")
 UHID_RE = re.compile(r"\b(?:UHID|MRN|IPD\s*NO|REG\s*NO|PATIENT\s*ID)\s*[:\-]?\s*([A-Z0-9\/\-]{4,18})", re.IGNORECASE)
 PATIENT_NAME_RE = re.compile(
-    r"\b(?:Patient\s*Name|Name\s*of\s*Patient|Pt\.\s*Name|मरीज\s*का\s*नाम)\s*[:\-]\s*([A-Za-z\s\.]{3,35})(?=\n|\r|Age|Sex|UHID|Phone|Date|$)",
+    r"(?:Patient\s*Name|Name\s*of\s*Patient|Pt\.\s*Name|मरीज\s*का\s*नाम)\s*[:\-]\s*([^\n\r|]{2,40}?)(?=\s*(?:\n|\r|\||Age|Sex|UHID|Phone|Date|$))",
     re.IGNORECASE,
 )
 EMAIL_RE = re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b")
@@ -19,11 +21,12 @@ EMAIL_RE = re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b")
 
 def redact_text_pii(text: str) -> dict[str, Any]:
     """Redacts sensitive personal identifiers from bill text and returns summary counts."""
+    empty_counts = {"phone": 0, "aadhaar": 0, "abha": 0, "pan": 0, "uhid": 0, "patient_name": 0, "email": 0}
     if not text:
-        return {"redacted_text": "", "counts": {"phone": 0, "aadhaar": 0, "uhid": 0, "patient_name": 0, "email": 0}, "pii_found": False}
+        return {"redacted_text": "", "counts": empty_counts, "pii_found": False}
 
     redacted = text
-    counts = {"phone": 0, "aadhaar": 0, "uhid": 0, "patient_name": 0, "email": 0}
+    counts = dict(empty_counts)
 
     def _mask_name(m: re.Match) -> str:
         counts["patient_name"] += 1
@@ -38,9 +41,18 @@ def redact_text_pii(text: str) -> dict[str, Any]:
 
     redacted = UHID_RE.sub(_mask_uhid, redacted)
 
+    # Mask 14-digit ABHA before 12-digit Aadhaar so ABHA isn't partially matched
+    abha_matches = ABHA_RE.findall(redacted)
+    counts["abha"] = len(abha_matches)
+    redacted = ABHA_RE.sub("XX-XXXX-XXXX-[REDACTED]", redacted)
+
     aadhaar_matches = AADHAAR_RE.findall(redacted)
     counts["aadhaar"] = len(aadhaar_matches)
     redacted = AADHAAR_RE.sub("XXXX-XXXX-[REDACTED]", redacted)
+
+    pan_matches = PAN_RE.findall(redacted)
+    counts["pan"] = len(pan_matches)
+    redacted = PAN_RE.sub("[REDACTED_PAN]", redacted)
 
     phone_matches = PHONE_RE.findall(redacted)
     counts["phone"] = len(phone_matches)
