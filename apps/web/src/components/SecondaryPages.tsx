@@ -34,12 +34,14 @@ export function RatesPage({
   setSearch,
   scheme,
   setScheme,
+  t,
 }: {
   rates: any[];
   search: string;
   setSearch: (s: string) => void;
   scheme: string;
   setScheme: (s: string) => void;
+  t: UITranslations;
 }) {
   const schemes = ["", "CGHS", "PM-JAY", "NPPA", "MJPJAY"];
   const [selectedCategory, setSelectedCategory] = React.useState<string>("all");
@@ -47,7 +49,7 @@ export function RatesPage({
   const [nabhPreview, setNabhPreview] = React.useState<boolean>(true);
 
   const quickQueries = [
-    { label: "All 87 rates", q: "" },
+    { label: `${t.allSchemesLabel} (${rates.length || 87})`, q: "" },
     { label: "Craniectomy / Neurosurgery", q: "Craniectomy" },
     { label: "Fungal / Aspergillus Lab", q: "Fungus" },
     { label: "Heart Stent & Bypass", q: "Stent" },
@@ -58,7 +60,7 @@ export function RatesPage({
   ];
 
   const categories = [
-    { id: "all", label: "All categories" },
+    { id: "all", label: t.filterAll(rates.length) },
     { id: "investigation", label: "Lab & Diagnostic" },
     { id: "package", label: "Surgery Packages" },
     { id: "procedure", label: "Procedures & ER" },
@@ -88,13 +90,13 @@ export function RatesPage({
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <p className="text-xs font-bold uppercase tracking-wider text-saffron-ink">
-            Official Government Rate & Generic Drug Intelligence (87 Verified Benchmarks)
+            {t.ratesEyebrow} ({rates.length || 87})
           </p>
           <h1 className="font-display text-2xl sm:text-3xl mt-0.5">
-            What the government sets for surgeries, lab tests, rooms & medicines
+            {t.ratesTitle}
           </h1>
           <p className="text-sm text-muted mt-1 max-w-2xl">
-            Search by procedure name, medical abbreviation (“CBC”, “PTCA”, “KOH”), brand name (“Dolo”, “Shelcal”), ICD-10/LOINC code, or Hindi term. Every rate carries its official circular and portal link.
+            {t.ratesSub}
           </p>
         </div>
 
@@ -105,7 +107,7 @@ export function RatesPage({
             data-testid="rates-search-input"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search 87 rates: “Craniectomy”, “Fungus”, “Stent”, “LB206”…"
+            placeholder={t.ratesSearchPlaceholder}
             className="w-full min-h-[48px] pl-10 pr-3.5 rounded-xl border border-line bg-card text-sm"
           />
         </div>
@@ -113,7 +115,7 @@ export function RatesPage({
 
       {/* 1-Click Quick Search Chips */}
       <div className="flex flex-wrap items-center gap-1.5">
-        <span className="text-xs font-bold uppercase tracking-wider text-muted mr-1">Popular lookups:</span>
+        <span className="text-xs font-bold uppercase tracking-wider text-muted mr-1">{t.popularLookups}</span>
         {quickQueries.map((item) => (
           <button
             key={item.label}
@@ -148,7 +150,7 @@ export function RatesPage({
                   active ? "bg-brand text-[rgb(var(--on-brand))] border-brand" : "bg-paper border-line hover:border-brand/50"
                 }`}
               >
-                {s || "All schemes (87)"}
+                {s || `${t.allSchemesLabel} (${rates.length || 87})`}
               </button>
             );
           })}
@@ -156,7 +158,7 @@ export function RatesPage({
 
         {/* Interactive CGHS Tier & NABH Calculator */}
         <div className="flex flex-wrap items-center gap-2 text-xs">
-          <span className="font-bold text-muted">CGHS Tier & Accreditation Adjuster:</span>
+          <span className="font-bold text-muted">{t.tierAdjusterLabel}</span>
           {(["X", "Y", "Z"] as const).map((tr) => (
             <button
               key={tr}
@@ -205,11 +207,11 @@ export function RatesPage({
           <table className="w-full text-left border-collapse text-sm">
             <thead>
               <tr className="border-b border-line text-xs uppercase tracking-wider text-muted bg-paper/60">
-                <th className="py-3.5 px-4">Treatment, diagnostic test or medicine</th>
-                <th className="py-3.5 px-4">Scheme, code & clinical ID</th>
-                <th className="py-3.5 px-4">Category</th>
-                <th className="py-3.5 px-4 text-right">Official rate ({tierPreview})</th>
-                <th className="py-3.5 px-4">Source circular & generic alternative</th>
+                <th className="py-3.5 px-4">{t.ratesColTreatment}</th>
+                <th className="py-3.5 px-4">{t.ratesColScheme}</th>
+                <th className="py-3.5 px-4">{t.ratesColCategory}</th>
+                <th className="py-3.5 px-4 text-right">{t.ratesColOfficialRate} ({tierPreview})</th>
+                <th className="py-3.5 px-4">{t.ratesColSource}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-line">
@@ -271,7 +273,7 @@ export function RatesPage({
                         </div>
                       )}
                       <div className="flex flex-wrap items-center gap-2 mt-0.5">
-                        <span>From {r.effective_from}</span>
+                        <span>{r.effective_from}</span>
                         {r.source_url && (
                           <a
                             href={r.source_url}
@@ -279,7 +281,7 @@ export function RatesPage({
                             rel="noreferrer"
                             className="inline-flex items-center gap-1 font-semibold text-saffron-ink underline"
                           >
-                            Official site <ExternalLink className="w-3 h-3" />
+                            {t.officialSite} <ExternalLink className="w-3 h-3" />
                           </a>
                         )}
                       </div>
@@ -290,7 +292,7 @@ export function RatesPage({
               {filteredRates.length === 0 && (
                 <tr>
                   <td colSpan={5} className="py-10 text-center text-muted">
-                    Nothing matched “{search}”. Try “Craniectomy”, “Fungus”, “Room”, “CBC”, or “Stent”.
+                    {t.noRatesMatched(search)}
                   </td>
                 </tr>
               )}
@@ -710,6 +712,7 @@ export function EstimatorPage({
   stayDays,
   setStayDays,
   onNavigateToCheckBill,
+  t,
 }: {
   term: string;
   setTerm: (v: string) => void;
@@ -723,6 +726,7 @@ export function EstimatorPage({
   stayDays?: number;
   setStayDays?: (d: number) => void;
   onNavigateToCheckBill?: () => void;
+  t: UITranslations;
 }) {
   const [activeCategory, setActiveCategory] = useState<string>("All");
 
@@ -751,6 +755,7 @@ export function EstimatorPage({
   // Resilient benchmark metadata: merges server result with built-in instant reference master
   const benchmarkMeta = PROCEDURE_BENCHMARKS[term] || PROCEDURE_BENCHMARKS["TERM_PKG_LAP_CHOLE"];
   const currentDays = stayDays && stayDays > 0 ? stayDays : benchmarkMeta.recommendedDays;
+  const dayUnit = currentDays === 1 ? "day" : "days";
 
   // Real-time calculation rules
   const tier = cityTier || "X";
@@ -774,23 +779,29 @@ export function EstimatorPage({
   const calculatedPrivateMin = Math.round(calculatedGovtTotal * 1.35);
   const calculatedPrivateMax = Math.round(calculatedGovtTotal * 2.25);
 
-  // Active displayed values prioritize backend response if valid, falling back seamlessly to deterministic master
-  const activeName = result?.name || benchmarkMeta.name;
-  const activeNameHi = result?.name_hi || benchmarkMeta.name_hi;
-  const activeScheme = result?.primary_scheme || benchmarkMeta.scheme;
-  const activeCode = result?.primary_code || benchmarkMeta.code;
-  const activeIcd10 = result?.icd10_code || benchmarkMeta.icd10;
-  const activeGovtTotal = typeof result?.estimated_govt_benchmark_total === "number"
-    ? result.estimated_govt_benchmark_total
-    : calculatedGovtTotal;
-  const activePrivateMin = result?.typical_private_estimate_range?.min ?? calculatedPrivateMin;
-  const activePrivateMax = result?.typical_private_estimate_range?.max ?? calculatedPrivateMax;
-  const activeInclusions = (result?.inclusions && result.inclusions.length > 0)
-    ? result.inclusions
-    : benchmarkMeta.inclusions;
-  const activeExclusions = (result?.exclusions && result.exclusions.length > 0)
-    ? result.exclusions
-    : benchmarkMeta.exclusions;
+  // Active displayed values prioritize backend response if valid & matching current term, falling back seamlessly to deterministic master
+  const serverMatches = result?.found && result?.canonical_id === term;
+  const activeName = (serverMatches && result?.name) || benchmarkMeta.name;
+  const activeNameHi = (serverMatches && result?.name_hi) || benchmarkMeta.name_hi;
+  const activeScheme = (serverMatches && result?.primary_scheme) || benchmarkMeta.scheme;
+  const activeCode = (serverMatches && result?.primary_code) || benchmarkMeta.code;
+  const activeIcd10 = (serverMatches && result?.icd10_code) || benchmarkMeta.icd10;
+  const activeGovtTotal =
+    serverMatches && typeof result?.estimated_govt_benchmark_total === "number"
+      ? result.estimated_govt_benchmark_total
+      : calculatedGovtTotal;
+  const activePrivateMin =
+    (serverMatches && result?.typical_private_estimate_range?.min) ?? calculatedPrivateMin;
+  const activePrivateMax =
+    (serverMatches && result?.typical_private_estimate_range?.max) ?? calculatedPrivateMax;
+  const activeInclusions =
+    serverMatches && result?.inclusions && result.inclusions.length > 0
+      ? result.inclusions
+      : benchmarkMeta.inclusions;
+  const activeExclusions =
+    serverMatches && result?.exclusions && result.exclusions.length > 0
+      ? result.exclusions
+      : benchmarkMeta.exclusions;
 
   return (
     <div data-testid="estimator-tab" className="space-y-6">
@@ -799,17 +810,15 @@ export function EstimatorPage({
         <div className="space-y-1">
           <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-brand-soft text-xs font-bold uppercase tracking-wider text-saffron-ink">
             <Calculator className="w-3.5 h-3.5" />
-            <span>Pre-Admission Episode-of-Care Cost Benchmark</span>
+            <span>{t.estEyebrow}</span>
           </div>
-          <h1 className="font-display text-2xl sm:text-3xl">What should this surgery or treatment cost?</h1>
-          <p className="text-sm text-muted max-w-2xl">
-            Check the government standard package rate (CGHS / PM-JAY / NPPA), see what must be included, and compare with typical private hospital billing quotes before you get admitted.
-          </p>
+          <h1 className="font-display text-2xl sm:text-3xl">{t.estTitle}</h1>
+          <p className="text-sm text-muted max-w-2xl">{t.estSub}</p>
         </div>
         {onNavigateToCheckBill && (
           <Button variant="primary" onClick={onNavigateToCheckBill} className="min-h-[48px] px-5">
             <FileCheck2 className="w-4 h-4 text-saffron" />
-            <span>Already have a bill? Audit it now →</span>
+            <span>{t.estAlreadyHaveBill}</span>
           </Button>
         )}
       </div>
@@ -821,7 +830,7 @@ export function EstimatorPage({
           <div className="bg-card rounded-2xl border border-line p-6 shadow-paper space-y-4">
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-muted mb-2">
-                1. Filter by medical specialty:
+                {t.estFilterSpecialty}
               </label>
               <div className="flex flex-wrap gap-1.5">
                 {categories.map((c) => (
@@ -843,7 +852,7 @@ export function EstimatorPage({
 
             <div>
               <label htmlFor="estimator-select" className="block text-sm font-semibold mb-1.5">
-                2. Pick the procedure, surgery or implant:
+                {t.estPickProcedure}
               </label>
               <select
                 id="estimator-select"
@@ -864,45 +873,45 @@ export function EstimatorPage({
             {setCityTier && setWardType && setNabhAccredited && (
               <div className="pt-3 border-t border-line grid grid-cols-1 sm:grid-cols-4 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-muted mb-1">City Tier</label>
+                  <label className="block text-xs font-bold text-muted mb-1">{t.estCityTier}</label>
                   <select
                     value={tier}
                     onChange={(e) => setCityTier(e.target.value as "X" | "Y" | "Z")}
                     className="w-full min-h-[40px] rounded-lg border border-line bg-paper px-2 text-xs font-semibold"
                   >
-                    <option value="X">Tier X (Metros)</option>
-                    <option value="Y">Tier Y (Cities)</option>
-                    <option value="Z">Tier Z (Towns)</option>
+                    <option value="X">Tier X ({t.cityMetro})</option>
+                    <option value="Y">Tier Y ({t.cityMid})</option>
+                    <option value="Z">Tier Z ({t.citySmall})</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-muted mb-1">Ward Entitlement</label>
+                  <label className="block text-xs font-bold text-muted mb-1">{t.estWard}</label>
                   <select
                     value={ward}
                     onChange={(e) => setWardType(e.target.value as "general" | "semi_private" | "private")}
                     className="w-full min-h-[40px] rounded-lg border border-line bg-paper px-2 text-xs font-semibold"
                   >
-                    <option value="general">General (-5%)</option>
-                    <option value="semi_private">Semi-Private (Base)</option>
-                    <option value="private">Private (+5%)</option>
+                    <option value="general">{t.roomGeneral} (-5%)</option>
+                    <option value="semi_private">{t.roomShared}</option>
+                    <option value="private">{t.roomPrivate} (+5%)</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-muted mb-1">Hospital Quality</label>
+                  <label className="block text-xs font-bold text-muted mb-1">{t.estQuality}</label>
                   <select
                     value={nabhFlag ? "nabh" : "non_nabh"}
                     onChange={(e) => setNabhAccredited(e.target.value === "nabh")}
                     className="w-full min-h-[40px] rounded-lg border border-line bg-paper px-2 text-xs font-semibold"
                   >
-                    <option value="nabh">NABH Accredited</option>
+                    <option value="nabh">NABH ({t.nabhYes})</option>
                     <option value="non_nabh">Non-NABH (-15%)</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-muted mb-1">Stay Duration</label>
+                  <label className="block text-xs font-bold text-muted mb-1">{t.estStay}</label>
                   <select
                     value={currentDays}
                     onChange={(e) => setStayDays && setStayDays(parseInt(e.target.value, 10))}
@@ -924,7 +933,7 @@ export function EstimatorPage({
             <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-line pb-3">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-saffron-ink">
-                  Official Reference: {activeScheme} {activeCode ? `(${activeCode})` : ""}
+                  {t.estOfficialRef} {activeScheme} {activeCode ? `(${activeCode})` : ""}
                 </span>
                 <h2 className="font-display text-xl font-bold mt-0.5">{activeName}</h2>
                 {activeNameHi && <p className="text-xs text-muted font-hindi">{activeNameHi}</p>}
@@ -940,52 +949,52 @@ export function EstimatorPage({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div className="p-4 rounded-xl bg-ok-soft/70 border border-ok/30 space-y-1">
                 <div className="text-xs font-bold uppercase tracking-wider text-ok">
-                  Government Package Benchmark
+                  {t.estGovtBenchmark}
                 </div>
                 <div className="font-display text-3xl text-ok tnum font-bold">
                   {inr(activeGovtTotal)}
                 </div>
                 <p className="text-xs text-muted">
-                  Tier-{tier} · {nabhFlag ? "NABH Accredited" : "Non-NABH"} · {ward.replace("_", " ")} ward · {currentDays} days
+                  Tier-{tier} · {nabhFlag ? "NABH" : "Non-NABH"} · {ward.replace("_", " ")} · {currentDays} {dayUnit}
                 </p>
               </div>
 
               <div className="p-4 rounded-xl bg-paper border border-line space-y-1">
                 <div className="text-xs font-bold uppercase tracking-wider text-muted">
-                  Typical Private Hospital Quote Range
+                  {t.estPrivateRange}
                 </div>
                 <div className="font-display text-2xl sm:text-3xl tnum text-ink font-bold">
                   {inr(activePrivateMin)} – {inr(activePrivateMax)}
                 </div>
-                <p className="text-xs text-muted">Estimated fair private billing range</p>
+                <p className="text-xs text-muted">{t.estPrivateSub}</p>
               </div>
             </div>
 
             {/* Episode of Care Component Breakdown Table */}
             <div className="p-4 rounded-xl bg-paper border border-line space-y-2.5">
               <div className="text-xs font-bold uppercase tracking-wider text-ink flex items-center justify-between">
-                <span>Episode-of-Care Cost Components:</span>
-                <span className="text-muted font-normal text-[11px]">Grounded in official CGHS/PM-JAY gazette</span>
+                <span>{t.estComponentsTitle}</span>
+                <span className="text-muted font-normal text-[11px]">{t.estComponentsSub}</span>
               </div>
               <div className="space-y-1.5 text-xs">
                 <div className="flex justify-between py-1 border-b border-line/60">
-                  <span className="text-muted">Primary Surgery / Procedure / Implant:</span>
+                  <span className="text-muted">{t.estPrimaryProc}</span>
                   <span className="font-bold text-ink tnum">{inr(calculatedBaseRate)}</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-line/60">
-                  <span className="text-muted">Hospital Bed &amp; Routine Nursing ({currentDays} days in {ward.replace("_", " ")}):</span>
+                  <span className="text-muted">{t.estBedNursing} ({currentDays} {dayUnit}):</span>
                   <span className="font-bold text-ink tnum">
-                    {calculatedRoomComponent > 0 ? inr(calculatedRoomComponent) : "₹0 (Included in Package)"}
+                    {calculatedRoomComponent > 0 ? inr(calculatedRoomComponent) : t.estIncludedInPkg}
                   </span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-line/60">
-                  <span className="text-muted">Daily Specialist Rounds ({currentDays} days):</span>
+                  <span className="text-muted">{t.estSpecialistRounds} ({currentDays} {dayUnit}):</span>
                   <span className="font-bold text-ink tnum">
-                    {calculatedConsultComponent > 0 ? inr(calculatedConsultComponent) : "₹0 (Included in Package)"}
+                    {calculatedConsultComponent > 0 ? inr(calculatedConsultComponent) : t.estIncludedInPkg}
                   </span>
                 </div>
                 <div className="flex justify-between pt-1.5 text-sm font-bold">
-                  <span className="text-ink">Total Official Benchmark Package:</span>
+                  <span className="text-ink">{t.estTotalBenchmark}</span>
                   <span className="text-ok font-display tnum">{inr(activeGovtTotal)}</span>
                 </div>
               </div>
@@ -996,7 +1005,7 @@ export function EstimatorPage({
               <div className="p-4 rounded-xl bg-paper border border-line space-y-2">
                 <div className="text-xs font-bold uppercase tracking-wider text-ok flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4 text-ok" />
-                  <span>What the hospital cannot bill twice (Mandatory Inclusions):</span>
+                  <span>{t.estMandatoryInc}</span>
                 </div>
                 <ul className="text-xs text-ink space-y-1.5 list-disc list-inside">
                   {activeInclusions.map((inc: string, i: number) => (
@@ -1013,7 +1022,7 @@ export function EstimatorPage({
               <div className="p-4 rounded-xl bg-paper border border-line space-y-2">
                 <div className="text-xs font-bold uppercase tracking-wider text-muted flex items-center gap-1.5">
                   <AlertTriangle className="w-4 h-4 text-warn" />
-                  <span>Allowed Extras (May be billed separately if clinically needed):</span>
+                  <span>{t.estAllowedExtras}</span>
                 </div>
                 <ul className="text-xs text-muted space-y-1 list-disc list-inside">
                   {activeExclusions.map((exc: string, i: number) => (
@@ -1026,7 +1035,7 @@ export function EstimatorPage({
             )}
 
             <p className="text-xs text-muted pt-2 border-t border-line leading-relaxed">
-              Informational tool, not legal or medical advice. Private hospitals set independent rates for cash patients (except statutory NPPA implant/drug caps under DPCO 2013). Use this estimate to request a binding written estimate before admission.
+              {t.disclaimerBanner} {t.disclaimerMore}
             </p>
           </div>
         </section>
@@ -1037,36 +1046,16 @@ export function EstimatorPage({
           <div className="bg-card rounded-2xl border border-line p-6 shadow-paper space-y-4">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-5 h-5 text-saffron-ink" />
-              <h2 className="font-display text-lg font-bold">Pre-Admission Patient Checklist</h2>
+              <h2 className="font-display text-lg font-bold">{t.estChecklistTitle}</h2>
             </div>
-            <p className="text-xs text-muted">
-              Use these statutory rights before signing admission papers at any private hospital in India:
-            </p>
+            <p className="text-xs text-muted">{t.estChecklistSub}</p>
             <div className="space-y-3 text-xs">
-              <div className="p-3.5 rounded-xl bg-paper border border-line space-y-1">
-                <strong className="text-ink">1. Demand a Written Cost Estimate:</strong>
-                <p className="text-muted leading-relaxed">
-                  Under the Clinical Establishments Rules and Consumer Protection Act 2019, hospitals must provide an itemized written estimate detailing bed charges, OT, surgeon fee, and consumables before admission.
-                </p>
-              </div>
-              <div className="p-3.5 rounded-xl bg-paper border border-line space-y-1">
-                <strong className="text-ink">2. Verify NPPA Stent / Knee Price Caps:</strong>
-                <p className="text-muted leading-relaxed">
-                  If receiving a cardiac drug-eluting stent (statutory cap: ₹38,265) or knee implant system (cap: ₹62,770), verify the manufacturer invoice and batch number on your bill. Private hospitals cannot exceed NPPA caps.
-                </p>
-              </div>
-              <div className="p-3.5 rounded-xl bg-paper border border-line space-y-1">
-                <strong className="text-ink">3. Clarify Package vs Itemized Billing:</strong>
-                <p className="text-muted leading-relaxed">
-                  If paying for a surgery package, routine nursing care, RMO monitoring, and OT disposables cannot be charged again as separate line items.
-                </p>
-              </div>
-              <div className="p-3.5 rounded-xl bg-paper border border-line space-y-1">
-                <strong className="text-ink">4. Check City Tier &amp; Ward Entitlement:</strong>
-                <p className="text-muted leading-relaxed">
-                  Government benchmarks vary by Tier-X (Metro), Tier-Y, and Tier-Z cities, with 5% adjustments between General and Semi-Private wards. Use this benchmark to negotiate fair room tariffs.
-                </p>
-              </div>
+              {t.estChecklistItems.map((item, idx) => (
+                <div key={idx} className="p-3.5 rounded-xl bg-paper border border-line space-y-1">
+                  <strong className="text-ink">{item.title}</strong>
+                  <p className="text-muted leading-relaxed">{item.body}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -1077,7 +1066,7 @@ export function EstimatorPage({
 
 /* ------------------------------------------------------------------ 3. Policy analytics (k >= 10) */
 
-export function AnalyticsPage({ data }: { data: any }) {
+export function AnalyticsPage({ data, t }: { data: any; t: UITranslations }) {
   if (!data) {
     return (
       <section className="space-y-4">
@@ -1091,19 +1080,19 @@ export function AnalyticsPage({ data }: { data: any }) {
     <section data-testid="regulator-analytics-tab" className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-bold uppercase tracking-wider text-saffron-ink">Public-interest view</p>
-          <h1 className="font-display text-2xl sm:text-3xl mt-0.5">Where hospital bills drift furthest from government rates</h1>
+          <p className="text-xs font-bold uppercase tracking-wider text-saffron-ink">{t.analyticsEyebrow}</p>
+          <h1 className="font-display text-2xl sm:text-3xl mt-0.5">{t.analyticsTitle}</h1>
           <p className="text-sm text-muted mt-1 max-w-2xl">
-            Protected by strict k-Anonymity (k ≥ {data.k_anonymity_threshold}): only categories with at least {data.k_anonymity_threshold} anonymous bills are shown, so no single patient or bill can ever be identified.
+            {t.analyticsSub(data.k_anonymity_threshold)}
           </p>
         </div>
         <span className="px-3.5 py-1.5 rounded-full bg-ok-soft text-ok text-xs font-bold">
-          {data.total_anonymized_bills_analyzed} anonymous bills · zero personal data
+          {t.analyticsBadge(data.total_anonymized_bills_analyzed)}
         </span>
       </div>
 
       <div className="bg-card rounded-2xl border border-line p-6 shadow-paper space-y-4">
-        <h2 className="font-display text-lg">Average billed amount vs government benchmark</h2>
+        <h2 className="font-display text-lg">{t.analyticsChartTitle}</h2>
         <div className="h-72 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data.category_benchmarks}>
@@ -1112,8 +1101,8 @@ export function AnalyticsPage({ data }: { data: any }) {
               <YAxis tick={{ fontSize: 12 }} />
               <RechartsTooltip />
               <Legend />
-              <Bar dataKey="avg_billed_inr" name="Avg hospital bill (₹)" fill="#B3261E" radius={[6, 6, 0, 0]} isAnimationActive={false} />
-              <Bar dataKey="avg_reference_inr" name="Govt reference rate (₹)" fill="#1D6B45" radius={[6, 6, 0, 0]} isAnimationActive={false} />
+              <Bar dataKey="avg_billed_inr" name={t.totalBilled} fill="#B3261E" radius={[6, 6, 0, 0]} isAnimationActive={false} />
+              <Bar dataKey="avg_reference_inr" name={t.govtRate} fill="#1D6B45" radius={[6, 6, 0, 0]} isAnimationActive={false} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -1121,8 +1110,8 @@ export function AnalyticsPage({ data }: { data: any }) {
 
       <div className="bg-card rounded-2xl border border-line p-6 shadow-paper space-y-4">
         <div>
-          <h2 className="font-display text-lg">Hospital billing clarity scores</h2>
-          <p className="text-xs text-muted">Higher scores mean fewer unbundled items and closer alignment with published schedules.</p>
+          <h2 className="font-display text-lg">{t.analyticsLeaderboardTitle}</h2>
+          <p className="text-xs text-muted">{t.analyticsLeaderboardSub}</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {data.hospital_transparency_leaderboard.map((h: any) => (
@@ -1135,7 +1124,7 @@ export function AnalyticsPage({ data }: { data: any }) {
               </div>
               <div className="text-right shrink-0">
                 <div className="font-display text-2xl text-ok tnum">{h.transparency_score}/100</div>
-                <div className="text-[11px] text-muted">Clarity score</div>
+                <div className="text-[11px] text-muted">{t.analyticsClarityScore}</div>
               </div>
             </div>
           ))}
@@ -1150,24 +1139,24 @@ export function AnalyticsPage({ data }: { data: any }) {
 export function HistoryPage({
   list,
   onOpenHash,
+  t,
 }: {
   list: any[];
   onOpenHash: (hash: string) => void;
+  t: UITranslations;
 }) {
   return (
     <section data-testid="history-tab" className="space-y-5">
       <div>
-        <p className="text-xs font-bold uppercase tracking-wider text-saffron-ink">Saved in this browser session</p>
-        <h1 className="font-display text-2xl sm:text-3xl mt-0.5">Bills you've checked</h1>
+        <p className="text-xs font-bold uppercase tracking-wider text-saffron-ink">{t.historyEyebrow}</p>
+        <h1 className="font-display text-2xl sm:text-3xl mt-0.5">{t.historyTitle}</h1>
       </div>
 
       {list.length === 0 ? (
         <div className="bg-card rounded-2xl border border-line p-10 text-center space-y-2">
           <FileText className="w-8 h-8 text-muted mx-auto" />
-          <div className="font-semibold">No reports saved right now</div>
-          <p className="text-sm text-muted max-w-md mx-auto">
-            When you check a bill, it shows up here so you can download the PDF again or verify its code. You can wipe this list anytime from Privacy.
-          </p>
+          <div className="font-semibold">{t.historyEmptyTitle}</div>
+          <p className="text-sm text-muted max-w-md mx-auto">{t.historyEmptyBody}</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -1192,9 +1181,9 @@ export function HistoryPage({
               </div>
               <div className="flex items-center gap-4">
                 <div className="text-right text-sm">
-                  <div className="tnum">Billed {inr(item.billed_total)}</div>
+                  <div className="tnum">{t.billedLabel} {inr(item.billed_total)}</div>
                   <div className="text-xs font-semibold text-saffron-ink tnum">
-                    {item.flagged_count} flagged · {inr(item.potential_savings)} difference
+                    {t.historyFlaggedDiff(item.flagged_count, inr(item.potential_savings))}
                   </div>
                 </div>
                 <a
@@ -1219,20 +1208,20 @@ export function VerifyHashPage({
   setHash,
   result,
   onVerify,
+  t,
 }: {
   hash: string;
   setHash: (h: string) => void;
   result: any;
   onVerify: () => void;
+  t: UITranslations;
 }) {
   return (
     <section data-testid="verify-hash-tab" className="max-w-2xl space-y-5">
       <div>
-        <p className="text-xs font-bold uppercase tracking-wider text-saffron-ink">Public verification · /verify/:hash</p>
-        <h1 className="font-display text-2xl sm:text-3xl mt-0.5">Check if a printed report is genuine</h1>
-        <p className="text-sm text-muted mt-1">
-          Every PDF we create carries a QR code and a 64-character fingerprint. Paste that code here to confirm not a single number was edited after the report was made.
-        </p>
+        <p className="text-xs font-bold uppercase tracking-wider text-saffron-ink">{t.verifyEyebrow}</p>
+        <h1 className="font-display text-2xl sm:text-3xl mt-0.5">{t.verifyTitle}</h1>
+        <p className="text-sm text-muted mt-1">{t.verifySub}</p>
       </div>
 
       <form
@@ -1246,12 +1235,12 @@ export function VerifyHashPage({
           type="text"
           value={hash}
           onChange={(e) => setHash(e.target.value)}
-          placeholder="Paste the 64-character report code…"
+          placeholder={t.verifyPlaceholder}
           data-testid="hash-lookup-input"
           className="flex-1 min-h-[48px] rounded-xl border border-line bg-card px-3.5 font-mono text-xs"
         />
         <Button type="submit" variant="primary" data-testid="verify-hash-submit-btn">
-          <QrCode className="w-4 h-4" /> Check report
+          <QrCode className="w-4 h-4" /> {t.verifyBtn}
         </Button>
       </form>
 
@@ -1263,11 +1252,13 @@ export function VerifyHashPage({
           }`}
         >
           <div className="flex items-center gap-2 font-bold text-base">
-            <CheckCircle2 className="w-5 h-5 text-ok shrink-0" />
+            {result.valid ? (
+              <CheckCircle2 className="w-5 h-5 text-ok shrink-0" />
+            ) : (
+              <AlertTriangle className="w-5 h-5 text-flag shrink-0" />
+            )}
             <span>
-              {result.valid
-                ? "CRYPTOGRAPHIC PROOF VALID — This report matches our ledger word for word."
-                : "We couldn't find this code, or the report was changed after creation."}
+              {result.valid ? t.verifyValidMsg : t.verifyInvalidMsg}
             </span>
           </div>
           {result.valid && (
@@ -1318,35 +1309,29 @@ export function PrivacyPage({
   return (
     <section data-testid="privacy-tab" className="max-w-2xl space-y-6">
       <div>
-        <p className="text-xs font-bold uppercase tracking-wider text-saffron-ink">Digital Personal Data Protection Act 2023</p>
-        <h1 className="font-display text-2xl sm:text-3xl mt-0.5">Your bill, your data</h1>
-        <p className="text-sm text-muted mt-1">
-          Medical bills are personal. Here is what we do to keep yours private, and how to wipe everything we hold.
-        </p>
+        <p className="text-xs font-bold uppercase tracking-wider text-saffron-ink">{t.privacyEyebrow}</p>
+        <h1 className="font-display text-2xl sm:text-3xl mt-0.5">{t.privacyTitle}</h1>
+        <p className="text-sm text-muted mt-1">{t.privacySub}</p>
       </div>
 
       <div className="bg-card rounded-2xl border border-line p-6 shadow-paper space-y-4 text-sm">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="p-4 rounded-xl bg-paper border border-line">
-            <div className="font-semibold">Names & IDs are stripped first</div>
-            <p className="text-xs text-muted mt-1">
-              Patient name, phone number, 12-digit Aadhaar, UHID and email are masked before anything touches the database.
-            </p>
+            <div className="font-semibold">{t.privacyCard1Title}</div>
+            <p className="text-xs text-muted mt-1">{t.privacyCard1Body}</p>
           </div>
           <div className="p-4 rounded-xl bg-paper border border-line">
-            <div className="font-semibold">Never sold, never shared raw</div>
-            <p className="text-xs text-muted mt-1">
-              Policy charts only ever show totals across 10 or more bills. Nobody can trace a number back to you.
-            </p>
+            <div className="font-semibold">{t.privacyCard2Title}</div>
+            <p className="text-xs text-muted mt-1">{t.privacyCard2Body}</p>
           </div>
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-line">
           <div>
             <label htmlFor="retention-select" className="font-semibold block">
-              Auto-delete my uploaded bill after
+              {t.privacyRetentionLabel}
             </label>
-            <span className="text-xs text-muted">Shorter is safer; longer lets you re-download your PDF next week.</span>
+            <span className="text-xs text-muted">{t.privacyRetentionHint}</span>
           </div>
           <select
             id="retention-select"
@@ -1354,9 +1339,9 @@ export function PrivacyPage({
             onChange={(e) => setRetentionDays(Number(e.target.value))}
             className="min-h-[44px] rounded-xl border border-line bg-paper px-3 font-semibold"
           >
-            <option value={1}>1 day</option>
-            <option value={7}>7 days (default)</option>
-            <option value={30}>30 days</option>
+            <option value={1}>{t.privacyDays1}</option>
+            <option value={7}>{t.privacyDays7}</option>
+            <option value={30}>{t.privacyDays30}</option>
           </select>
         </div>
 

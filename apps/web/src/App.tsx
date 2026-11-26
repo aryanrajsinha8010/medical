@@ -61,7 +61,7 @@ import {
   useOnline,
   usePersistentState,
 } from "./components/ui";
-import { LANGUAGE_LABELS, SupportedLang, explanationLang, getTranslations } from "./i18n/translations";
+import { LANGUAGE_LABELS, SupportedLang, VOICE_LOCALES, explanationLang, getTranslations } from "./i18n/translations";
 
 type ActiveTab =
   | "home"
@@ -175,7 +175,6 @@ export default function App() {
   const [rateSchemeFilter, setRateSchemeFilter] = useState("");
   const [estimatorTerm, setEstimatorTerm] = useState("TERM_PKG_LAP_CHOLE");
   const [estimatorResult, setEstimatorResult] = useState<any>(null);
-  const [insurerClaimResult, setInsurerClaimResult] = useState<any>(null);
   const [regulatorData, setRegulatorData] = useState<any>(null);
   const [historyList, setHistoryList] = useState<any[]>([]);
   const [lookupHash, setLookupHash] = useState("");
@@ -234,7 +233,7 @@ export default function App() {
           ward_type: ward,
           stay_days: days,
           retention_days: retentionDays,
-          billed_grand_total: billedGrandTotal ?? null,
+          declared_grand_total: billedGrandTotal ?? null,
           raw_ocr_text:
             rawOcrText || `${hosp}\nPatient Name: Rajesh Sharma | Phone: 9811223344 | UHID: IMSH-0891`,
           lines: linesToVerify,
@@ -328,9 +327,11 @@ export default function App() {
         setEditableLines(data.lines);
         setStepMode("review");
 
-        const piiTotal = data.pii_redaction?.counts
-          ? Object.values<number>(data.pii_redaction.counts).reduce((a, b) => a + b, 0)
-          : 0;
+        const piiCountsObj = data.pii_redaction?.counts || data.pii_redaction;
+        const piiTotal =
+          piiCountsObj && typeof piiCountsObj === "object"
+            ? Object.values<number>(piiCountsObj).reduce((a, b) => a + (Number(b) || 0), 0)
+            : 0;
         setUploadedBillMeta({
           filename: file.name,
           engine: data.ocr_engine || "OpenCV+RapidOCR",
@@ -348,7 +349,7 @@ export default function App() {
           nextWard,
           nextDays,
           true,
-          data.redacted_text,
+          data.redacted_ocr_text || data.raw_ocr_text,
           data.billed_grand_total
         );
         setToast(`Read ${data.lines.length} items from ${nextHosp} and checked official rates.`);
@@ -402,24 +403,41 @@ export default function App() {
   }
 
   function stopCameraAndUseFrame() {
-    if (videoRef.current && videoRef.current.srcObject) {
-      const stream = videoRef.current.srcObject as MediaStream;
+    const videoEl = videoRef.current;
+    let capturedCanvas: HTMLCanvasElement | null = null;
+    if (videoEl && videoEl.videoWidth > 0 && videoEl.videoHeight > 0) {
+      capturedCanvas = document.createElement("canvas");
+      capturedCanvas.width = videoEl.videoWidth;
+      capturedCanvas.height = videoEl.videoHeight;
+      const ctx = capturedCanvas.getContext("2d");
+      if (ctx) ctx.drawImage(videoEl, 0, 0, capturedCanvas.width, capturedCanvas.height);
+    }
+    if (videoEl && videoEl.srcObject) {
+      const stream = videoEl.srcObject as MediaStream;
       stream.getTracks().forEach((tr) => tr.stop());
     }
     setCameraActive(false);
-    setStepMode("review");
+    if (capturedCanvas) {
+      capturedCanvas.toBlob((blob) => {
+        if (blob) {
+          const capturedFile = new File([blob], `camera_bill_${Date.now()}.png`, { type: "image/png" });
+          processUploadedFile(capturedFile);
+        } else {
+          setStepMode("review");
+        }
+      }, "image/png");
+    } else {
+      setStepMode("review");
+    }
   }
 
   function speakReportSummary() {
     if (!("speechSynthesis" in window) || !verificationData) return;
     window.speechSynthesis.cancel();
     const sum = verificationData.verification.summary;
-    const text =
-      lang === "hi"
-        ? `स्वास्थ्य बिल चेक रिपोर्ट: कुल बिल ${sum.billed_total} रुपये है। सरकारी संदर्भ दर ${sum.reference_total} रुपये है। ${sum.flagged_count} मद सरकारी दर से ज़्यादा हैं। पूछने लायक अंतर ${sum.potential_savings} रुपये है।`
-        : `SwasthyaBillCheck report: You were billed ${sum.billed_total} rupees. The government reference rate is ${sum.reference_total} rupees. ${sum.flagged_count} item is higher than the reference rate, a difference of ${sum.potential_savings} rupees.`;
+    const text = t.voiceSummary(sum.billed_total, sum.reference_total, sum.flagged_count, sum.potential_savings);
     const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = lang === "hi" ? "hi-IN" : "en-IN";
+    utter.lang = VOICE_LOCALES[lang] || "en-IN";
     window.speechSynthesis.speak(utter);
   }
 
@@ -445,7 +463,7 @@ export default function App() {
 
   function copyText(text: string) {
     navigator.clipboard?.writeText(text);
-    setToast("Copied to clipboard");
+    setToast(t.copiedToast);
   }
 
   // Load secondary tab datasets
@@ -456,7 +474,8 @@ export default function App() {
       if (rateSearch) qs.set("q", rateSearch);
       fetch(`/api/rates?${qs.toString()}`)
         .then((r) => r.json())
-        .then((d) => setRatesCatalog(d.rates || []));
+        .then((d) => setRatesCatalog(d.rates || []))
+        .catch(() => {});
     } else if (activeTab === "estimator") {
       fetch("/api/estimator", {
         method: "POST",
@@ -470,15 +489,18 @@ export default function App() {
         }),
       })
         .then((r) => r.json())
-        .then((d) => setEstimatorResult(d));
+        .then((d) => setEstimatorResult(d))
+        .catch(() => setEstimatorResult(null));
     } else if (activeTab === "analytics") {
       fetch("/api/analytics/regulator")
         .then((r) => r.json())
-        .then((d) => setRegulatorData(d));
+        .then((d) => setRegulatorData(d))
+        .catch(() => {});
     } else if (activeTab === "history") {
       fetch(`/api/history?session_id=${encodeURIComponent(sessionId)}`)
         .then((r) => r.json())
-        .then((d) => setHistoryList(d.history || []));
+        .then((d) => setHistoryList(d.history || []))
+        .catch(() => {});
     }
   }, [activeTab, rateSchemeFilter, rateSearch, estimatorTerm, cityTier, nabhAccredited, wardType, stayDays]);
 
@@ -488,7 +510,7 @@ export default function App() {
   const vLedger = verificationData?.ledger;
 
   const navItems = [
-    { id: "home", label: "Home & Guide", icon: BookOpen },
+    { id: "home", label: t.navHome, icon: BookOpen },
     { id: "verify", label: t.navCheck, icon: FileCheck2 },
     { id: "rates", label: t.navRates, icon: Database },
     { id: "estimator", label: t.navEstimator, icon: Calculator },
@@ -522,7 +544,7 @@ export default function App() {
               onClick={() => setShowConsentModal(true)}
               className="underline opacity-90 hover:opacity-100 text-xs px-1.5 py-0.5"
             >
-              How we handle your bill
+              {t.howWeHandleBill}
             </button>
           </div>
         </div>
@@ -655,20 +677,17 @@ export default function App() {
                 <div className="lg:col-span-7 space-y-4">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-soft text-xs font-bold uppercase tracking-wider text-saffron-ink">
                     <ShieldCheck className="w-4 h-4" />
-                    <span>National Medical Bill Transparency Platform (NMBTP)</span>
+                    <span>{t.landingBadge}</span>
                   </div>
                   <h1 className="font-display text-3xl sm:text-5xl leading-[1.12] tracking-tight">
-                    Know if your hospital bill is fair —{" "}
+                    {t.landingTitleA}
                     <em className="italic underline decoration-saffron decoration-2 underline-offset-4">
-                      before you pay
-                    </em>{" "}
-                    or file a claim.
+                      {t.landingTitleEm}
+                    </em>
+                    {t.landingTitleB}
                   </h1>
                   <p className="text-base sm:text-lg text-muted max-w-2xl leading-relaxed">
-                    Upload a photo or PDF of any Indian hospital or pharmacy bill. We automatically hide your personal
-                    details, read every line item, compare each charge with published{" "}
-                    <strong>CGHS, PM-JAY, NPPA &amp; Jan Aushadhi</strong> rates, and explain every difference in plain
-                    words.
+                    {t.landingBody}
                   </p>
                   <div className="pt-2 flex flex-wrap items-center gap-3">
                     <Button
@@ -678,7 +697,7 @@ export default function App() {
                       className="min-h-[52px] px-6 text-base"
                     >
                       <Upload className="w-5 h-5 text-saffron" />
-                      <span>Check my hospital bill →</span>
+                      <span>{t.landingCtaCheck}</span>
                     </Button>
                     <Button
                       variant="secondary"
@@ -686,7 +705,7 @@ export default function App() {
                       className="min-h-[52px] px-5 text-sm"
                     >
                       <Calculator className="w-4 h-4 text-saffron-ink" />
-                      <span>Estimate treatment cost first</span>
+                      <span>{t.landingCtaEstimate}</span>
                     </Button>
                     <Button
                       variant="ghost"
@@ -694,7 +713,7 @@ export default function App() {
                       className="min-h-[52px] px-4 text-sm"
                     >
                       <Database className="w-4 h-4 text-saffron-ink" />
-                      <span>Browse 87 official govt rates</span>
+                      <span>{t.landingCtaRates}</span>
                     </Button>
                   </div>
                 </div>
@@ -703,12 +722,10 @@ export default function App() {
                 <div className="lg:col-span-5 bg-paper rounded-2xl border border-line p-6 space-y-4">
                   <div>
                     <div className="text-xs font-bold uppercase tracking-wider text-saffron-ink">
-                      Instant Live Demo (9 Real Hospital, Lab &amp; Pharmacy Bills)
+                      {t.demoLauncherEyebrow}
                     </div>
-                    <h2 className="font-display text-xl mt-0.5">Test with a real hospital, lab or pharmacy bill</h2>
-                    <p className="text-xs text-muted mt-1">
-                      Click any real bill below to watch our neural OCR &amp; government rate engine audit it live:
-                    </p>
+                    <h2 className="font-display text-xl mt-0.5">{t.demoLauncherTitle}</h2>
+                    <p className="text-xs text-muted mt-1">{t.demoLauncherSub}</p>
                   </div>
                   <div className="space-y-1.5 max-h-[340px] overflow-y-auto pr-1">
                     {[
@@ -792,33 +809,15 @@ export default function App() {
             <section className="bg-warn-soft/55 rounded-2xl border border-warn/30 p-6 space-y-3">
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-warn">
                 <Scale className="w-4 h-4" />
-                <span>Important Message: Your Rights &amp; How Government Reference Rates Work</span>
+                <span>{t.rightsTitle}</span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs sm:text-sm">
-                <div className="p-4 rounded-xl bg-card border border-line space-y-1">
-                  <div className="font-bold text-ink">1. Statutory Caps (Legally Binding)</div>
-                  <p className="text-muted leading-relaxed">
-                    Under the <strong>Drugs (Prices Control) Order (DPCO) / NPPA</strong>, every hospital and pharmacy in
-                    India—private or public—is legally prohibited from charging above the ceiling price for coronary
-                    stents, orthopaedic knee implants, and scheduled NLEM medicines.
-                  </p>
-                </div>
-                <div className="p-4 rounded-xl bg-card border border-line space-y-1">
-                  <div className="font-bold text-ink">2. CGHS &amp; PM-JAY Rates (Reference Benchmarks)</div>
-                  <p className="text-muted leading-relaxed">
-                    Private hospitals are <strong>not legally bound</strong> to charge CGHS or PM-JAY rates unless you are
-                    an eligible beneficiary at an empanelled hospital. We show them as official government reference
-                    benchmarks so you can ask polite, informed questions.
-                  </p>
-                </div>
-                <div className="p-4 rounded-xl bg-card border border-line space-y-1">
-                  <div className="font-bold text-ink">3. Right to an Itemized Bill &amp; Privacy</div>
-                  <p className="text-muted leading-relaxed">
-                    Under the <strong>Consumer Protection Act 2019</strong> and Clinical Establishments Rules, you have the
-                    right to a detailed breakup before paying. Under the <strong>DPDP Act 2023</strong>, we redact your
-                    name, phone, Aadhaar, and UHID automatically.
-                  </p>
-                </div>
+                {t.rightsCards.map((rc, i) => (
+                  <div key={i} className="p-4 rounded-xl bg-card border border-line space-y-1">
+                    <div className="font-bold text-ink">{rc.title}</div>
+                    <p className="text-muted leading-relaxed">{rc.body}</p>
+                  </div>
+                ))}
               </div>
             </section>
 
@@ -826,50 +825,21 @@ export default function App() {
             <section className="space-y-4">
               <div className="flex flex-wrap items-end justify-between gap-2">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-wider text-saffron-ink">Guided Citizen Pathways</p>
-                  <h2 className="font-display text-2xl sm:text-3xl mt-0.5">Where would you like to start?</h2>
+                  <p className="text-xs font-bold uppercase tracking-wider text-saffron-ink">{t.pathwaysEyebrow}</p>
+                  <h2 className="font-display text-2xl sm:text-3xl mt-0.5">{t.pathwaysTitle}</h2>
                 </div>
-                <p className="text-xs text-muted max-w-md">
-                  Explore one step at a time. Each tool connects directly with our official government tariffs and OCR audit engine.
-                </p>
+                <p className="text-xs text-muted max-w-md">{t.pathwaysSub}</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {[
-                  {
-                    id: "verify" as ActiveTab,
-                    icon: FileCheck2,
-                    badge: "Primary workflow",
-                    title: "Audit a Hospital or Pharmacy Bill",
-                    desc: "Upload any bill photo or PDF. Watch neural OCR extract line items, mask personal details, and benchmark against CGHS/NPPA rates.",
-                    cta: "Check my bill now →",
-                  },
-                  {
-                    id: "estimator" as ActiveTab,
-                    icon: Calculator,
-                    badge: "Before admission",
-                    title: "Pre-Treatment Cost Estimator",
-                    desc: "Planning surgery? Get expected government package rates, typical private quote ranges, and mandatory inclusions before signing admission.",
-                    cta: "Estimate surgery cost →",
-                  },
-                  {
-                    id: "rates" as ActiveTab,
-                    icon: Database,
-                    badge: "87 official rates",
-                    title: "Official Government Rates Explorer",
-                    desc: "Search CGHS 2024 tariffs, PM-JAY HBP 2.2 surgical packages, NPPA statutory price caps, and Jan Aushadhi generic MRPs.",
-                    cta: "Search rate database →",
-                  },
-                  {
-                    id: "hash_lookup" as ActiveTab,
-                    icon: QrCode,
-                    badge: "Cryptographic proof",
-                    title: "Verify Report Authenticity",
-                    desc: "Check any SwasthyaBillCheck PDF QR code or 64-character hash against our append-only SHA-256 tamper-evident ledger.",
-                    cta: "Verify report code →",
-                  },
-                ].map((card) => {
-                  const Icon = card.icon;
+                {t.pathways.map((card) => {
+                  const iconMap = {
+                    verify: FileCheck2,
+                    estimator: Calculator,
+                    rates: Database,
+                    hash_lookup: QrCode,
+                  };
+                  const Icon = iconMap[card.id];
                   return (
                     <button
                       key={card.id}
@@ -912,15 +882,15 @@ export default function App() {
             >
               <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs">
                 {[
-                  { num: 1, label: "1. Bill Selected / Uploaded", active: true },
-                  { num: 2, label: `2. OCR Read (${editableLines.length} items)`, active: editableLines.length > 0 },
-                  { num: 3, label: "3. Govt Rate Audit Complete", active: Boolean(vSummary) },
+                  { num: 1, label: t.milestone1, active: Boolean(selectedBillId || uploadedBillMeta) },
+                  { num: 2, label: t.milestone2(editableLines.length), active: editableLines.length > 0 },
+                  { num: 3, label: t.milestone3, active: Boolean(vSummary) },
                   {
                     num: 4,
                     label:
                       vSummary?.flagged_count > 0
-                        ? `4. Next Step: Ask hospital about ${vSummary.flagged_count} flagged item(s)`
-                        : "4. All items within govt benchmark",
+                        ? t.milestone4Flagged(vSummary.flagged_count)
+                        : t.milestone4Ok,
                     active: Boolean(vSummary),
                   },
                 ].map((m) => (
@@ -941,7 +911,7 @@ export default function App() {
                 onClick={() => setActiveTab("home")}
                 className="text-xs font-semibold text-saffron-ink underline"
               >
-                ← Back to Home &amp; Guide
+                {t.backToHome}
               </button>
             </div>
 
@@ -1044,7 +1014,7 @@ export default function App() {
                         }}
                         className="w-full min-h-[44px] rounded-xl border border-line bg-card px-3 text-xs sm:text-sm font-semibold"
                       >
-                        <option value="">-- Choose a sample bill to inspect --</option>
+                        <option value="">{t.chooseSamplePlaceholder}</option>
                         {demoBills.map((b, idx) => (
                           <option key={b.bill_id} value={b.bill_id}>
                             {friendlyBillTitle(b, idx)}
@@ -1056,7 +1026,7 @@ export default function App() {
                     {/* One-click real bill photos that run through the live RapidOCR + OpenCV pipeline */}
                     <div>
                       <div className="text-[11px] font-bold uppercase tracking-wider text-muted mb-1.5">
-                        Or click any real bill to test live OCR:
+                        {t.orClickRealBill}
                       </div>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
                         {[
@@ -1104,7 +1074,9 @@ export default function App() {
                     ]}
                     onChange={(nextTier) => {
                       setCityTier(nextTier);
-                      runVerificationRequest(editableLines, hospitalName, stateCode, nextTier, nabhAccredited, wardType, stayDays);
+                      if (editableLines.length > 0) {
+                        runVerificationRequest(editableLines, hospitalName, stateCode, nextTier, nabhAccredited, wardType, stayDays);
+                      }
                     }}
                   />
 
@@ -1118,7 +1090,9 @@ export default function App() {
                     ]}
                     onChange={(nextWard) => {
                       setWardType(nextWard);
-                      runVerificationRequest(editableLines, hospitalName, stateCode, cityTier, nabhAccredited, nextWard, stayDays);
+                      if (editableLines.length > 0) {
+                        runVerificationRequest(editableLines, hospitalName, stateCode, cityTier, nabhAccredited, nextWard, stayDays);
+                      }
                     }}
                   />
 
@@ -1132,7 +1106,9 @@ export default function App() {
                       onClick={() => {
                         const nextNabh = !nabhAccredited;
                         setNabhAccredited(nextNabh);
-                        runVerificationRequest(editableLines, hospitalName, stateCode, cityTier, nextNabh, wardType, stayDays);
+                        if (editableLines.length > 0) {
+                          runVerificationRequest(editableLines, hospitalName, stateCode, cityTier, nextNabh, wardType, stayDays);
+                        }
                       }}
                       data-testid="nabh-toggle-btn"
                       className={`min-h-[44px] px-4 rounded-full text-sm font-semibold border transition ${
@@ -1177,16 +1153,10 @@ export default function App() {
                       <div className="flex items-center justify-between gap-2">
                         <div className="font-display text-lg sm:text-xl font-bold flex items-center gap-2">
                           <span className="inline-block w-3 h-3 rounded-full bg-saffron animate-ping" />
-                          <span>Reading & checking your hospital bill...</span>
+                          <span>{t.scanningTitle}</span>
                         </div>
                         <span className="text-xs font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/10">
-                          {processingStage === 1
-                            ? "Step 1 of 4 · Image Cleanup"
-                            : processingStage === 2
-                            ? "Step 2 of 4 · Neural OCR"
-                            : processingStage === 3
-                            ? "Step 3 of 4 · Privacy Guard"
-                            : "Step 4 of 4 · Rate Matching"}
+                          {t.scanningBadge(processingStage)}
                         </span>
                       </div>
 
@@ -1210,16 +1180,12 @@ export default function App() {
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 text-xs">
-                        {[
-                          { step: 1, title: "1. Straighten & clean", sub: "OpenCV deskew & denoise" },
-                          { step: 2, title: "2. Read table rows", sub: "RapidOCR neural engine" },
-                          { step: 3, title: "3. Hide personal info", sub: "DPDP Act 2023 redaction" },
-                          { step: 4, title: "4. Check govt rates", sub: "CGHS · PM-JAY · NPPA" },
-                        ].map((s) => {
-                          const done = (processingStage || 4) >= s.step;
+                        {t.scanningSteps.map((s, idx) => {
+                          const stepNum = idx + 1;
+                          const done = (processingStage || 4) >= stepNum;
                           return (
                             <div
-                              key={s.step}
+                              key={stepNum}
                               className={`p-2.5 rounded-xl border transition ${
                                 done
                                   ? "bg-white/15 border-saffron/60 text-white"
@@ -1253,11 +1219,11 @@ export default function App() {
                   </span>
                   <div>
                     <div className="text-sm font-bold text-ink">
-                      Checked your uploaded bill: <span className="underline">{uploadedBillMeta.hospital}</span> (
-                      {uploadedBillMeta.lineCount} items read from <span className="font-mono text-xs">{uploadedBillMeta.filename}</span>)
+                      {t.uploadedCheckedPrefix} <span className="underline">{uploadedBillMeta.hospital}</span> (
+                      {uploadedBillMeta.lineCount} items · <span className="font-mono text-xs">{uploadedBillMeta.filename}</span>)
                     </div>
                     <div className="text-xs text-muted">
-                      Engine: {uploadedBillMeta.engine} · DPDP Privacy Guard active · All report cards below now show this bill
+                      Engine: {uploadedBillMeta.engine} · DPDP Privacy Guard ({uploadedBillMeta.piiRedacted} PII masked)
                     </div>
                   </div>
                 </div>
@@ -1266,7 +1232,7 @@ export default function App() {
                   variant="secondary"
                   onClick={() => setStepMode(stepMode === "review" ? "report" : "review")}
                 >
-                  {stepMode === "review" ? "Hide row editor" : `Review / edit ${uploadedBillMeta.lineCount} rows`}
+                  {stepMode === "review" ? t.hideRowEditor : t.reviewEditRows(uploadedBillMeta.lineCount)}
                 </Button>
               </div>
             )}
@@ -1311,7 +1277,7 @@ export default function App() {
                         <th className="py-2.5 px-2 w-24">{t.reviewQty}</th>
                         <th className="py-2.5 px-2 w-36">{t.reviewPrice}</th>
                         <th className="py-2.5 px-2 w-32">{t.reviewTotal}</th>
-                        <th className="py-2.5 px-2">Read accuracy</th>
+                        <th className="py-2.5 px-2">{t.reviewAccuracy}</th>
                         <th className="py-2.5 px-2 w-12"></th>
                       </tr>
                     </thead>
@@ -1412,10 +1378,10 @@ export default function App() {
                 </div>
                 <div className="space-y-1.5">
                   <h2 className="font-display text-2xl sm:text-3xl text-ink">
-                    No bill loaded yet
+                    {t.noBillTitle}
                   </h2>
                   <p className="text-sm text-muted max-w-lg mx-auto">
-                    Please upload your hospital bill photo / PDF above, or pick one of the 9 sample bills to watch the live OCR and government rate audit in action.
+                    {t.noBillBody}
                   </p>
                 </div>
 
@@ -1425,7 +1391,7 @@ export default function App() {
                     className={buttonClass("primary", "cursor-pointer text-sm min-h-[46px] px-5")}
                   >
                     <Upload className="w-4 h-4 text-saffron" />
-                    <span>Upload my bill (Photo/PDF)</span>
+                    <span>{t.uploadMyBillBtn}</span>
                     <input
                       id="empty-state-upload"
                       type="file"
@@ -1449,7 +1415,7 @@ export default function App() {
                     className="min-h-[46px] px-5 text-sm"
                   >
                     <Eye className="w-4 h-4 text-saffron-ink" />
-                    <span>Try with sample bill</span>
+                    <span>{t.tryWithSampleBtn}</span>
                   </Button>
                 </div>
               </div>
@@ -1655,7 +1621,7 @@ export default function App() {
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <div className="space-y-1">
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-brand-soft text-[11px] font-bold uppercase tracking-wider text-ink">
-                          <ShieldCheck className="w-3.5 h-3.5 text-saffron-ink" /> Official Audit Executive Summary
+                          <ShieldCheck className="w-3.5 h-3.5 text-saffron-ink" /> {t.execSummaryBadge}
                         </span>
                         <p className="font-display text-lg sm:text-xl leading-snug pt-0.5">
                           {t.summarySentence(
@@ -1674,8 +1640,8 @@ export default function App() {
                         }`}
                       >
                         {vSummary.flagged_count > 0
-                          ? `Action Recommended · ${vSummary.flagged_count} item(s) above govt rate`
-                          : "All items within government reference"}
+                          ? t.actionRecommended(vSummary.flagged_count)
+                          : t.allWithinRef}
                       </span>
                     </div>
 
@@ -1720,10 +1686,10 @@ export default function App() {
                       <div className="flex items-center justify-between gap-2">
                         <div className="text-xs font-bold uppercase tracking-wider text-ink flex items-center gap-1.5">
                           <AlertTriangle className="w-4 h-4 text-saffron-ink" />
-                          Important Findings & Citizen Guidance
+                          {t.importantFindingsTitle}
                         </div>
                         <span className="text-[11px] font-semibold text-muted">
-                          Who acts next: {vSummary.flagged_count > 0 ? "Patient / Billing Desk Query" : "No dispute needed"}
+                          {t.whoActsNext} {vSummary.flagged_count > 0 ? t.billingDeskQuery : t.noDisputeNeeded}
                         </span>
                       </div>
 
@@ -1734,22 +1700,19 @@ export default function App() {
                             .slice(0, 3)
                             .map((l: any, i: number) => (
                               <li key={i}>
-                                <strong>{lang === "hi" ? l.canonical_name_hi : l.canonical_name}:</strong> Billed{" "}
+                                <strong>{lang === "hi" ? l.canonical_name_hi : l.canonical_name}:</strong> {t.billedLabel}{" "}
                                 <strong className="tnum">{inr(l.billed_total)}</strong> vs. {l.evidence?.scheme || "Govt"}{" "}
-                                reference <strong className="tnum text-ok">{inr(l.reference_total)}</strong> (
+                                {t.rateLabel.toLowerCase()} <strong className="tnum text-ok">{inr(l.reference_total)}</strong> (
                                 <span className="text-flag font-bold tnum">+{inr(l.delta_amount)}</span>).
                               </li>
                             ))}
                           <li className="text-muted">
-                            <strong>Legal Context:</strong> Private hospitals set their own tariffs unless empaneled under
-                            CGHS/PM-JAY, except <strong>NPPA DPCO capped drugs & implants</strong> which are legally binding
-                            nationwide. Use these figures to politely request an itemized review at the billing desk.
+                            <strong>{t.legalContextLabel}</strong> {t.legalContextBody}
                           </li>
                         </ul>
                       ) : (
                         <p className="text-xs text-ink/85 leading-relaxed">
-                          Every line item on this bill is at or below the official Indian government benchmark (CGHS / PM-JAY /
-                          NPPA / Jan Aushadhi). You can download the cryptographically signed report for your records.
+                          {t.allLinesFairBody}
                         </p>
                       )}
                     </div>
@@ -1793,19 +1756,19 @@ export default function App() {
                 <div className="space-y-3.5">
                   <div className="flex flex-wrap items-center justify-between gap-2 bg-card px-4 py-3 rounded-xl border border-line">
                     <div className="text-xs font-bold uppercase tracking-wider text-muted">
-                      Line-by-Line Audit Breakdown ({vLines.length} items)
+                      {t.lineBreakdownTitle(vLines.length)}
                     </div>
                     <div className="flex flex-wrap items-center gap-1.5" role="tablist" aria-label="Filter bill items">
                       {[
-                        { id: "all", label: `All items (${vLines.length})` },
+                        { id: "all", label: t.filterAll(vLines.length) },
                         {
                           id: "flagged",
-                          label: `Needs attention (${vLines.filter((l: any) => l.status === "above_reference").length})`
+                          label: t.filterFlagged(vLines.filter((l: any) => l.status === "above_reference").length),
                         },
                         {
                           id: "ok",
-                          label: `Within govt rate (${vLines.filter((l: any) => l.status === "ok").length})`
-                        }
+                          label: t.filterOk(vLines.filter((l: any) => l.status === "ok").length),
+                        },
                       ].map((tab) => (
                         <button
                           key={tab.id}
@@ -1996,6 +1959,7 @@ export default function App() {
             setSearch={setRateSearch}
             scheme={rateSchemeFilter}
             setScheme={setRateSchemeFilter}
+            t={t}
           />
         )}
 
@@ -2013,10 +1977,11 @@ export default function App() {
             stayDays={stayDays}
             setStayDays={setStayDays}
             onNavigateToCheckBill={() => setActiveTab("verify")}
+            t={t}
           />
         )}
 
-        {activeTab === "analytics" && <AnalyticsPage data={regulatorData} />}
+        {activeTab === "analytics" && <AnalyticsPage data={regulatorData} t={t} />}
 
         {activeTab === "history" && (
           <HistoryPage
@@ -2026,8 +1991,10 @@ export default function App() {
               setActiveTab("hash_lookup");
               fetch(`/api/verify/${encodeURIComponent(hash)}`)
                 .then((r) => r.json())
-                .then((d) => setLookupResult(d));
+                .then((d) => setLookupResult(d))
+                .catch(() => {});
             }}
+            t={t}
           />
         )}
 
@@ -2039,8 +2006,10 @@ export default function App() {
             onVerify={() => {
               fetch(`/api/verify/${encodeURIComponent(lookupHash)}`)
                 .then((r) => r.json())
-                .then((d) => setLookupResult(d));
+                .then((d) => setLookupResult(d))
+                .catch(() => {});
             }}
+            t={t}
           />
         )}
 
@@ -2068,9 +2037,9 @@ export default function App() {
       <footer className="border-t border-line bg-card/50 mt-12 py-6 text-xs text-muted">
         <div className="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <strong className="text-ink">SwasthyaBillCheck (NMBTP)</strong> · Built by Team TechNova (VIT Bhopal University) for SBI Youth Ideathon 2026
+            <strong className="text-ink">{t.appName}</strong> · {t.footerTeam}
           </div>
-          <div>National Consumer Helpline: 1915 · PM-JAY: 14555 · NPPA Pharma Jan Samadhan: 1800-111-255</div>
+          <div>{t.footerHelplines}</div>
         </div>
       </footer>
 

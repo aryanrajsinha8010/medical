@@ -205,6 +205,27 @@ def test_playwright_desktop_and_mobile_e2e(live_stack: str):
         page.get_by_test_id("nav-history").click()
         page.wait_for_selector("[data-testid='history-tab']", timeout=10000)
 
+        # Verify all 12 Indian languages switch and render native script cleanly
+        lang_checks = {
+            "bn": "বিল যাচাই করুন",
+            "ta": "பில் சரிபார்",
+            "te": "బిల్లు తనిఖీ",
+            "mr": "बिल तपासा",
+            "gu": "બિલ તપાસો",
+            "kn": "ಬಿಲ್ ಪರಿಶೀಲಿಸಿ",
+            "ml": "ബിൽ പരിശോധിക്കുക",
+            "pa": "ਬਿੱਲ ਜਾਂਚੋ",
+            "or": "ବିଲ୍ ଯାଞ୍ଚ",
+            "as": "বিল পৰীক্ষা",
+            "hi": "बिल जांचें",
+            "en": "Check a bill",
+        }
+        for lcode, expected_nav in lang_checks.items():
+            page.get_by_test_id("language-selector").select_option(lcode)
+            page.wait_for_timeout(120)
+            nav_text = page.get_by_test_id("nav-verify").inner_text()
+            assert expected_nav in nav_text, f"Expected '{expected_nav}' in nav for {lcode}, got '{nav_text}'"
+
         desktop_ctx.close()
 
         # =====================================================================

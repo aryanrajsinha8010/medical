@@ -37,10 +37,114 @@ def _get_cached_grievance_routes(db_path: Path = DEFAULT_DB_PATH) -> list[dict[s
     return _CACHED_GRIEVANCE_ROUTES
 
 
+_GROUNDED_CHAT_LABELS: dict[str, dict[str, str]] = {
+    "hi": {
+        "billed": "बिल राशि",
+        "ref": "संदर्भ दर",
+        "code": "कोड",
+        "source": "प्रमाण / स्रोत",
+        "diff": "अंतर",
+        "ask": "अस्पताल से क्या पूछें",
+        "disclaimer": "अस्वीकरण: यह केवल सरकारी दर डेटा पर आधारित सूचनात्मक जानकारी है, कानूनी या चिकित्सा सलाह नहीं।",
+    },
+    "mr": {
+        "billed": "बिल रक्कम",
+        "ref": "संदर्भ दर",
+        "code": "कोड",
+        "source": "पुरावा / स्रोत",
+        "diff": "फरक",
+        "ask": "रुग्णालयाला काय विचारावे",
+        "disclaimer": "अस्वीकरण: ही केवळ सरकारी दर डेटावर आधारित माहिती आहे, कायदेशीर किंवा वैद्यकीय सल्ला नाही.",
+    },
+    "bn": {
+        "billed": "বিলের পরিমাণ",
+        "ref": "সরকারি রেফারেন্স হার",
+        "code": "কোড",
+        "source": "প্রমাণ / উৎস",
+        "diff": "পার্থক্য",
+        "ask": "হাসপাতালকে কী জিজ্ঞাসা করবেন",
+        "disclaimer": "দাবিত্যাগ: এটি কেবল সরকারি হার তথ্যের উপর ভিত্তি করে তথ্যমূলক নির্দেশিকা, আইনি বা চিকিৎসা পরামর্শ নয়।",
+    },
+    "ta": {
+        "billed": "பில் தொகை",
+        "ref": "அரசு குறிப்பு கட்டணம்",
+        "code": "குறியீடு",
+        "source": "ஆதாரம் / சான்று",
+        "diff": "வேறுபாடு",
+        "ask": "மருத்துவமனையில் என்ன கேட்க வேண்டும்",
+        "disclaimer": "பொறுப்புத்துறப்பு: இது அரசு கட்டணத் தரவின் அடிப்படையிலான தகவல் மட்டுமே, சட்ட அல்லது மருத்துவ ஆலோசனை அல்ல.",
+    },
+    "te": {
+        "billed": "బిల్లు మొత్తం",
+        "ref": "ప్రభుత్వ సూచన ధర",
+        "code": "కోడ్",
+        "source": "ఆధారం / మూలం",
+        "diff": "తేడా",
+        "ask": "ఆసుపత్రిని ఏమి అడగాలి",
+        "disclaimer": "నిరాకరణ: ఇది ప్రభుత్వ ధరల డేటా ఆధారిత సమాచారం మాత్రమే, న్యాయ లేదా వైద్య సలహా కాదు.",
+    },
+    "gu": {
+        "billed": "બિલ રકમ",
+        "ref": "સરકારી સંદર્ભ દર",
+        "code": "કોડ",
+        "source": "પુરાવો / સ્રોત",
+        "diff": "તફાવત",
+        "ask": "હોસ્પિટલને શું પૂછવું",
+        "disclaimer": "અસ્વીકરણ: આ ફક્ત સરકારી દર ડેટા પર આધારિત માહિતી છે, કાનૂની કે તબીબી સલાહ નથી.",
+    },
+    "kn": {
+        "billed": "ಬಿಲ್ ಮೊತ್ತ",
+        "ref": "ಸರ್ಕಾರಿ ಉಲ್ಲೇಖ ದರ",
+        "code": "ಕೋಡ್",
+        "source": "ಸಾಕ್ಷ್ಯ / ಮೂಲ",
+        "diff": "ವ್ಯತ್ಯಾಸ",
+        "ask": "ಆಸ್ಪತ್ರೆಯಲ್ಲಿ ಏನು ಕೇಳಬೇಕು",
+        "disclaimer": "ಹಕ್ಕುತ್ಯಾಗ: ಇದು ಸರ್ಕಾರಿ ದರ ಮಾಹಿತಿಯ ಆಧಾರದ ಮೇಲೆ ನೀಡಿದ ವಿವರ ಮಾತ್ರ, ಕಾನೂನು ಅಥವಾ ವೈದ್ಯಕೀಯ ಸಲಹೆಯಲ್ಲ.",
+    },
+    "ml": {
+        "billed": "ബിൽ തുക",
+        "ref": "സർക്കാർ റഫറൻസ് നിരക്ക്",
+        "code": "കോഡ്",
+        "source": "തെളിവ് / ഉറവിടം",
+        "diff": "വ്യത്യാസം",
+        "ask": "ആശുപത്രിയോട് എന്ത് ചോദിക്കണം",
+        "disclaimer": "നിരാകരണം: ഇത് സർക്കാർ നിരക്ക് വിവരങ്ങളെ അടിസ്ഥാനമാക്കിയുള്ള വിവരം മാത്രമാണ്, നിയമപരമോ വൈദ്യപരമോ ആയ ഉപദേശമല്ല.",
+    },
+    "pa": {
+        "billed": "ਬਿੱਲ ਰਕਮ",
+        "ref": "ਸਰਕਾਰੀ ਸੰਦਰਭ ਦਰ",
+        "code": "ਕੋਡ",
+        "source": "ਸਬੂਤ / ਸਰੋਤ",
+        "diff": "ਅੰਤਰ",
+        "ask": "ਹਸਪਤਾਲ ਨੂੰ ਕੀ ਪੁੱਛਣਾ ਹੈ",
+        "disclaimer": "ਬੇਦਾਅਵਾ: ਇਹ ਸਿਰਫ਼ ਸਰਕਾਰੀ ਦਰਾਂ 'ਤੇ ਆਧਾਰਿਤ ਜਾਣਕਾਰੀ ਹੈ, ਕਾਨੂੰਨੀ ਜਾਂ ਡਾਕਟਰੀ ਸਲਾਹ ਨਹੀਂ।",
+    },
+    "or": {
+        "billed": "ବିଲ୍ ରାଶି",
+        "ref": "ସରକାରୀ ସନ୍ଦର୍ଭ ଦର",
+        "code": "କୋଡ୍",
+        "source": "ପ୍ରମାଣ / ଉତ୍ସ",
+        "diff": "ପାର୍ଥକ୍ୟ",
+        "ask": "ଡାକ୍ତରଖାନାକୁ କ’ଣ ପଚାରିବେ",
+        "disclaimer": "ଅସ୍ୱୀକରଣ: ଏହା କେବଳ ସରକାରୀ ଦର ତଥ୍ୟ ଉପରେ ଆଧାରିତ ସୂଚନା, ଆଇନଗତ କିମ୍ବା ଡାକ୍ତରୀ ପରାମର୍ଶ ନୁହେଁ।",
+    },
+    "as": {
+        "billed": "বিলৰ পৰিমাণ",
+        "ref": "চৰকাৰী প্ৰসংগ নিৰিখ",
+        "code": "কোড",
+        "source": "প্ৰমাণ / উৎস",
+        "diff": "পাৰ্থক্য",
+        "ask": "চিকিৎসালয়ত কি সুধিব",
+        "disclaimer": "অস্বীকাৰ: এইটো কেৱল চৰকাৰী নিৰিখ তথ্যৰ ওপৰত আধাৰিত তথ্য, আইনী বা চিকিৎসা পৰামৰ্শ নহয়।",
+    },
+}
+
+
 def answer_grounded_charge_question(line_verification: dict[str, Any], user_question: str, lang: str = "en") -> dict[str, Any]:
     """
     Answers a citizen's question about a specific bill line strictly using the retrieved
-    rate item, canonical term, and source evidence. Never invents rates or medical advice.
+    rate item, canonical term, and source evidence across all 12 supported Indian languages.
+    Never invents rates or medical advice.
     """
     ev = line_verification.get("evidence", {})
     scheme = ev.get("scheme", "Government Reference")
@@ -51,19 +155,23 @@ def answer_grounded_charge_question(line_verification: dict[str, Any], user_ques
     ref_total = line_verification.get("reference_total", 0)
     delta = line_verification.get("delta_amount", 0)
     term_name = line_verification.get("canonical_name", line_verification.get("raw_text", "Item"))
-    term_meaning = line_verification.get("plain_term_meaning_i18n", {}).get(lang if lang in ("en", "hi") else "en", "")
-    question_to_ask = line_verification.get("hospital_question_i18n", {}).get(lang if lang in ("en", "hi") else "en", "")
+    elang = "hi" if lang in ("hi", "mr") else "en"
+    term_meaning = line_verification.get("plain_term_meaning_i18n", {}).get(elang, "")
+    question_to_ask = line_verification.get("hospital_question_i18n", {}).get(elang, "")
 
     q_lower = user_question.lower()
 
-    if lang == "hi":
+    if lang in _GROUNDED_CHAT_LABELS:
+        lbl = _GROUNDED_CHAT_LABELS[lang]
+        display_name = line_verification.get("canonical_name_hi", term_name) if lang in ("hi", "mr") else term_name
+        status_expl = line_verification.get("explanation_i18n", {}).get(elang, "")
         answer = (
-            f"**{line_verification.get('canonical_name_hi', term_name)}** ({term_meaning})\n\n"
-            f"• **बिल राशि**: ₹{billed:,.0f} | **{scheme} संदर्भ दर**: ₹{ref_total:,.0f} (कोड: `{code}`)\n"
-            f"• **प्रमाण / स्रोत**: {doc_ver} ({page_ref})\n"
-            f"• **अंतर**: ₹{delta:,.0f} ({line_verification.get('explanation_i18n', {}).get('hi', '')})\n"
-            f"• **अस्पताल से क्या पूछें**: \"{question_to_ask}\"\n\n"
-            f"*अस्वीकरण: यह केवल सरकारी दर डेटा पर आधारित सूचनात्मक जानकारी है, कानूनी या चिकित्सा सलाह नहीं।*"
+            f"**{display_name}** ({term_meaning})\n\n"
+            f"• **{lbl['billed']}**: ₹{billed:,.0f} | **{scheme} {lbl['ref']}**: ₹{ref_total:,.0f} ({lbl['code']}: `{code}`)\n"
+            f"• **{lbl['source']}**: {doc_ver} ({page_ref})\n"
+            f"• **{lbl['diff']}**: ₹{delta:,.0f} ({status_expl})\n"
+            f"• **{lbl['ask']}**: \"{question_to_ask}\"\n\n"
+            f"*{lbl['disclaimer']}*"
         )
     else:
         legal_note = (
@@ -91,6 +199,7 @@ def answer_grounded_charge_question(line_verification: dict[str, Any], user_ques
 
     return {
         "answer": answer,
+        "lang": lang,
         "grounded_sources": [
             {
                 "scheme": scheme,
@@ -104,6 +213,90 @@ def answer_grounded_charge_question(line_verification: dict[str, Any], user_ques
     }
 
 
+_REGIONAL_LETTER_TEMPLATES: dict[str, dict[str, str]] = {
+    "mr": {
+        "to": "प्रति,\nबिलिंग व्यवस्थापक / रुग्ण तक्रार निवारण अधिकारी,",
+        "date": "दिनांक",
+        "subject": "विषय: सरकारी संदर्भ दरांच्या (CGHS / PM-JAY / NPPA) आधारे रुग्णालय बिलाचे स्पष्टीकरण व पुनर्तपासणीसाठी विनम्र विनंती.",
+        "salutation": "महोदय / महोदया,",
+        "intro": "आपल्या रुग्णालयाने दिलेल्या वैद्यकीय सेवेबद्दल धन्यवाद. आमच्या रुग्णालयाच्या बिलाची (एकूण रक्कम: ₹{billed}) तपासणी करताना खालील {count} बाबी प्रकाशित सरकारी संदर्भ दरांपेक्षा ₹{savings} जास्त आढळल्या:",
+        "closing": "कृपया वरील शुल्कांचा सविस्तर तपशील (आणि NPPA अंतर्गत स्टेंट/इम्प्लांट/औषधांचा बॅच क्रमांक) देऊन बिलाची पुनर्तपासणी करण्याची कृपा करावी.\n\nआपला नम्र,\nरुग्ण / अधिकृत कुटुंब प्रतिनिधी",
+    },
+    "bn": {
+        "to": "প্রতি,\nবিলিং ম্যানেজার / রোগী অভিযোগ নিষ্পত্তি কর্মকর্তা,",
+        "date": "তারিখ",
+        "subject": "বিষয়: সরকারি রেফারেন্স হারের (CGHS / PM-JAY / NPPA) ভিত্তিতে হাসপাতালের বিলের স্পষ্টীকরণ ও পর্যালোচনার বিনীত অনুরোধ।",
+        "salutation": "মহাশয় / মহাশয়া,",
+        "intro": "আপনার হাসপাতালের চিকিৎসা সেবার জন্য ধন্যবাদ। আমাদের হাসপাতালের বিল (মোট পরিমাণ: ₹{billed}) পর্যালোচনা করতে গিয়ে দেখা গেছে নিম্নলিখিত {count}টি আইটেম প্রকাশিত সরকারি রেফারেন্স হারের চেয়ে ₹{savings} বেশি:",
+        "closing": "অনুগ্রহ করে উপরোক্ত চার্জগুলির বিশদ বিবরণ (এবং NPPA নিয়ন্ত্রিত স্টেন্ট/ইমপ্লান্ট/ওষুধের ব্যাচ নম্বর) প্রদান করে বিলটি পুনরায় পর্যালোচনা করার অনুরোধ জানাচ্ছি।\n\nবিনীত,\nরোগী / অনুমোদিত পরিবারের প্রতিনিধি",
+    },
+    "ta": {
+        "to": "பெறுநர்,\nபில்லிங் மேலாளர் / நோயாளி குறைதீர்ப்பு அதிகாரி,",
+        "date": "தேதி",
+        "subject": "பொருள்: அரசு குறிப்பு கட்டணங்களின் (CGHS / PM-JAY / NPPA) அடிப்படையில் மருத்துவமனை பில் விளக்கம் மற்றும் மறுஆய்வுக்கான பணிவான கோரிக்கை.",
+        "salutation": "மதிப்பிற்குரிய ஐயா / அம்மா,",
+        "intro": "உங்கள் மருத்துவமனையின் சிகிச்சை சேவைக்கு நன்றி. எங்கள் பில்லை (மொத்த தொகை: ₹{billed}) சரிபார்த்தபோது கீழ்க்கண்ட {count} உருப்படிகள் அரசு குறிப்பு கட்டணத்தை விட ₹{savings} அதிகமாக இருப்பது கண்டறியப்பட்டது:",
+        "closing": "மேற்கண்ட கட்டணங்களின் விரிவான விவரத்தையும் (மற்றும் NPPA கட்டுப்பாட்டில் உள்ள ஸ்டென்ட்/இம்ப்ளாண்ட்/மருந்துகளின் பேட்ச் எண்ணையும்) வழங்கி பில்லை மறுஆய்வு செய்யுமாறு பணிவுடன் கேட்டுக்கொள்கிறோம்.\n\nதங்கள் உண்மையுள்ள,\nநோயாளி / அங்கீகரிக்கப்பட்ட குடும்பப் பிரதிநிதி",
+    },
+    "te": {
+        "to": "కు,\nబిల్లింగ్ మేనేజర్ / రోగి ఫిర్యాదుల పరిష్కార అధికారి,",
+        "date": "తేదీ",
+        "subject": "విషయం: ప్రభుత్వ సూచన ధరల (CGHS / PM-JAY / NPPA) ఆధారంగా ఆసుపత్రి బిల్లు వివరణ మరియు సమీక్ష కోసం వినయపూర్వక అభ్యర్థన.",
+        "salutation": "గౌరవనీయులైన సర్ / మేడమ్,",
+        "intro": "మీ ఆసుపత్రి అందించిన వైద్య సేవలకు ధన్యవాదాలు. మా బిల్లును (మొత్తం: ₹{billed}) సమీక్షించినప్పుడు ఈ క్రింది {count} అంశాలు ప్రభుత్వ సూచన ధరల కంటే ₹{savings} ఎక్కువగా కనిపించాయి:",
+        "closing": "దయచేసి పై ఛార్జీల పూర్తి వివరాలు (మరియు NPPA పరిధిలోని స్టెంట్/ఇంప్లాంట్/మందుల బ్యాచ్ నంబర్లు) అందించి బిల్లును పునఃసమీక్షించగలరని కోరుతున్నాము.\n\nభవదీయులు,\nరోగి / అధికారిక కుటుంబ ప్రతినిధి",
+    },
+    "gu": {
+        "to": "પ્રતિ,\nબિલિંગ મેનેજર / દર્દી ફરિયાદ નિવારણ અધિકારી,",
+        "date": "તારીખ",
+        "subject": "વિષય: સરકારી સંદર્ભ દરો (CGHS / PM-JAY / NPPA) ના આધારે હોસ્પિટલ બિલની સ્પષ્ટતા અને સમીક્ષા માટે વિનમ્ર વિનંતી.",
+        "salutation": "મહોદય / મહોદયા,",
+        "intro": "તમારી હોસ્પિટલ દ્વારા આપવામાં આવેલી તબીબી સેવા બદલ આભાર. અમારા બિલ (કુલ રકમ: ₹{billed}) ની સમીક્ષા કરતા નીચેની {count} વસ્તુઓ સરકારી સંદર્ભ દર કરતા ₹{savings} વધુ જણાઈ છે:",
+        "closing": "કૃપા કરીને ઉપરોક્ત ચાર્જની વિગતવાર માહિતી (અને NPPA નિયંત્રિત સ્ટેન્ટ/ઈમ્પ્લાન્ટ/દવાઓના બેચ નંબર) આપી બિલની ફરી સમીક્ષા કરવા વિનંતી છે.\n\nઆપનો વિશ્વાસુ,\nદર્દી / અધિકૃત પરિવાર પ્રતિનિધિ",
+    },
+    "kn": {
+        "to": "ಗೆ,\nಬಿಲ್ಲಿಂಗ್ ವ್ಯವಸ್ಥಾಪಕರು / ರೋಗಿ ಕುಂದುಕೊರತೆ ನಿವಾರಣಾ ಅಧಿಕಾರಿ,",
+        "date": "ದಿನಾಂಕ",
+        "subject": "ವಿಷಯ: ಸರ್ಕಾರಿ ಉಲ್ಲೇಖ ದರಗಳ (CGHS / PM-JAY / NPPA) ಆಧಾರದ ಮೇಲೆ ಆಸ್ಪತ್ರೆ ಬಿಲ್ ಸ್ಪಷ್ಟೀಕರಣ ಮತ್ತು ಮರುಪರಿಶೀಲನೆಗೆ ವಿನಮ್ರ ವಿನಂತಿ.",
+        "salutation": "ಮಾನ್ಯರೇ,",
+        "intro": "ನಿಮ್ಮ ಆಸ್ಪತ್ರೆಯ ವೈದ್ಯಕೀಯ ಸೇವೆಗೆ ಧನ್ಯವಾದಗಳು. ನಮ್ಮ ಬಿಲ್ (ಒಟ್ಟು ಮೊತ್ತ: ₹{billed}) ಪರಿಶೀಲಿಸಿದಾಗ ಕೆಳಗಿನ {count} ಅಂಶಗಳು ಸರ್ಕಾರಿ ಉಲ್ಲೇಖ ದರಕ್ಕಿಂತ ₹{savings} ಹೆಚ್ಚಾಗಿವೆ:",
+        "closing": "ದಯವಿಟ್ಟು ಮೇಲಿನ ಶುಲ್ಕಗಳ ವಿವರವಾದ ಮಾಹಿತಿ (ಹಾಗೂ NPPA ನಿಯಂತ್ರಿತ ಸ್ಟೆಂಟ್/ಇಂಪ್ಲಾಂಟ್/ಔಷಧಿಗಳ ಬ್ಯಾಚ್ ಸಂಖ್ಯೆ) ನೀಡಿ ಬಿಲ್ ಮರುಪರಿಶೀಲಿಸಲು ವಿನಂತಿಸುತ್ತೇವೆ.\n\nತಮ್ಮ ವಿಶ್ವಾಸಿ,\nರೋಗಿ / ಅಧಿಕೃತ ಕುಟುಂಬ ಪ್ರತಿನಿಧಿ",
+    },
+    "ml": {
+        "to": "സ്വീകർത്താവ്,\nബില്ലിംഗ് മാനേജർ / രോഗി പരാതി പരിഹാര ഓഫീസർ,",
+        "date": "തീയതി",
+        "subject": "വിഷയം: സർക്കാർ റഫറൻസ് നിരക്കുകളുടെ (CGHS / PM-JAY / NPPA) അടിസ്ഥാനത്തിൽ ആശുപത്രി ബിൽ വിശദീകരണത്തിനും പുനഃപരിശോധനയ്ക്കുമുള്ള വിനീത അഭ്യർത്ഥന.",
+        "salutation": "ബഹുമാനപ്പെട്ട സർ / മാഡം,",
+        "intro": "നിങ്ങളുടെ ആശുപത്രി നൽകിയ ചികിത്സാ സേവനത്തിന് നന്ദി. ഞങ്ങളുടെ ബിൽ (ആകെ തുക: ₹{billed}) പരിശോധിച്ചപ്പോൾ താഴെ പറയുന്ന {count} ഇനങ്ങൾ സർക്കാർ റഫറൻസ് നിരക്കിനേക്കാൾ ₹{savings} കൂടുതലായി കണ്ടെത്തി:",
+        "closing": "ദയവായി മുകളിലുള്ള ചാർജുകളുടെ വിശദമായ വിവരങ്ങളും (NPPA പരിധിയിലുള്ള സ്റ്റെന്റ്/ഇംപ്ലാന്റ്/മരുന്നുകളുടെ ബാച്ച് നമ്പറും) നൽകി ബിൽ പുനഃപരിശോധിക്കാൻ അഭ്യർത്ഥിക്കുന്നു.\n\nവിശ്വസ്തതയോടെ,\nരോഗി / അംഗീകൃത കുടുംബ പ്രതിനിധി",
+    },
+    "pa": {
+        "to": "ਸੇਵਾ ਵਿਖੇ,\nਬਿੱਲਿੰਗ ਮੈਨੇਜਰ / ਮਰੀਜ਼ ਸ਼ਿਕਾਇਤ ਨਿਵਾਰਣ ਅਧਿਕਾਰੀ,",
+        "date": "ਮਿਤੀ",
+        "subject": "ਵਿਸ਼ਾ: ਸਰਕਾਰੀ ਸੰਦਰਭ ਦਰਾਂ (CGHS / PM-JAY / NPPA) ਦੇ ਆਧਾਰ 'ਤੇ ਹਸਪਤਾਲ ਬਿੱਲ ਦੇ ਸਪੱਸ਼ਟੀਕਰਨ ਅਤੇ ਸਮੀਖਿਆ ਲਈ ਨਿਮਰ ਬੇਨਤੀ।",
+        "salutation": "ਸ੍ਰੀਮਾਨ / ਸ੍ਰੀਮਤੀ ਜੀ,",
+        "intro": "ਤੁਹਾਡੇ ਹਸਪਤਾਲ ਵੱਲੋਂ ਦਿੱਤੀ ਗਈ ਡਾਕਟਰੀ ਸੇਵਾ ਲਈ ਧੰਨਵਾਦ। ਸਾਡੇ ਬਿੱਲ (ਕੁੱਲ ਰਕਮ: ₹{billed}) ਦੀ ਸਮੀਖਿਆ ਕਰਦੇ ਸਮੇਂ ਹੇਠ ਲਿਖੀਆਂ {count} ਆਈਟਮਾਂ ਸਰਕਾਰੀ ਸੰਦਰਭ ਦਰ ਤੋਂ ₹{savings} ਵੱਧ ਪਾਈਆਂ ਗਈਆਂ:",
+        "closing": "ਕਿਰਪਾ ਕਰਕੇ ਉਪਰੋਕਤ ਚਾਰਜਾਂ ਦਾ ਵਿਸਥਾਰਤ ਵੇਰਵਾ (ਅਤੇ NPPA ਅਧੀਨ ਸਟੈਂਟ/ਇਮਪਲਾਂਟ/ਦਵਾਈਆਂ ਦੇ ਬੈਚ ਨੰਬਰ) ਦੇ ਕੇ ਬਿੱਲ ਦੀ ਦੁਬਾਰਾ ਸਮੀਖਿਆ ਕਰਨ ਦੀ ਕਿਰਪਾਲਤਾ ਕਰੋ।\n\nਆਪ ਜੀ ਦਾ ਵਿਸ਼ਵਾਸਪਾਤਰ,\nਮਰੀਜ਼ / ਅਧਿਕਾਰਤ ਪਰਿਵਾਰਕ ਪ੍ਰਤੀਨਿਧੀ",
+    },
+    "or": {
+        "to": "ପ୍ରତି,\nବିଲିଂ ମ୍ୟାନେଜର୍ / ରୋଗୀ ଅଭିଯୋଗ ନିବାରଣ ଅଧିକାରୀ,",
+        "date": "ତାରିଖ",
+        "subject": "ବିଷୟ: ସରକାରୀ ସନ୍ଦର୍ଭ ଦର (CGHS / PM-JAY / NPPA) ଆଧାରରେ ଡାକ୍ତରଖାନା ବିଲ୍‌ର ସ୍ପଷ୍ଟୀକରଣ ଓ ସମୀକ୍ଷା ପାଇଁ ବିନମ୍ର ଅନୁରୋଧ।",
+        "salutation": "ମହାଶୟ / ମହାଶୟା,",
+        "intro": "ଆପଣଙ୍କ ଡାକ୍ତରଖାନାର ଚିକିତ୍ସା ସେବା ପାଇଁ ଧନ୍ୟବାଦ। ଆମର ବିଲ୍ (ମୋଟ ରାଶି: ₹{billed}) ସମୀକ୍ଷା କଲାବେଳେ ନିମ୍ନଲିଖିତ {count}ଟି ଆଇଟମ୍ ସରକାରୀ ସନ୍ଦର୍ଭ ଦରଠାରୁ ₹{savings} ଅଧିକ ଥିବା ଜଣାପଡ଼ିଛି:",
+        "closing": "ଦୟାକରି ଉପରୋକ୍ତ ଚାର୍ଜଗୁଡ଼ିକର ବିସ୍ତୃତ ବିବରଣୀ (ଏବଂ NPPA ଅଧୀନ ଷ୍ଟେଣ୍ଟ/ଇମ୍ପ୍ଲାଣ୍ଟ/ଔଷଧର ବ୍ୟାଚ୍ ନମ୍ବର) ପ୍ରଦାନ କରି ବିଲ୍‌ର ପୁନଃ ସମୀକ୍ଷା କରିବାକୁ ଅନୁରୋଧ।\n\nଆପଣଙ୍କର ବିଶ୍ୱସ୍ତ,\nରୋଗୀ / ଅଧିକୃତ ପରିବାର ପ୍ରତିନିଧି",
+    },
+    "as": {
+        "to": "প্ৰতি,\nবিলিং মেনেজাৰ / ৰোগী অভিযোগ নিষ্পত্তি বিষয়া,",
+        "date": "তাৰিখ",
+        "subject": "বিষয়: চৰকাৰী প্ৰসংগ নিৰিখৰ (CGHS / PM-JAY / NPPA) ভিত্তিত চিকিৎসালয়ৰ বিলৰ স্পষ্টীকৰণ আৰু পুনৰীক্ষণৰ বিনম্ৰ অনুৰোধ।",
+        "salutation": "মহোদয় / মহোদয়া,",
+        "intro": "আপোনাৰ চিকিৎসালয়ৰ চিকিৎসা সেৱাৰ বাবে ধন্যবাদ। আমাৰ বিল (মুঠ পৰিমাণ: ₹{billed}) পৰীক্ষা কৰোঁতে নিম্নলিখিত {count}টা পদ চৰকাৰী প্ৰসংগ নিৰিখতকৈ ₹{savings} বেছি পোৱা গৈছে:",
+        "closing": "অনুগ্ৰহ কৰি ওপৰোক্ত মাচুলসমূহৰ বিশদ বিৱৰণ (আৰু NPPA অধীন ষ্টেণ্ট/ইমপ্লাণ্ট/দৰবৰ বেচ নম্বৰ) প্ৰদান কৰি বিলখন পুনৰ পৰীক্ষা কৰিবলৈ অনুৰোধ জনালোঁ।\n\nআপোনাৰ বিশ্বাসী,\nৰোগী / অনুমোদিত পৰিয়ালৰ প্ৰতিনিধি",
+    },
+}
+
+
 def generate_dispute_letter_and_routes(
     hospital_name: str,
     state: str,
@@ -112,7 +305,7 @@ def generate_dispute_letter_and_routes(
 ) -> dict[str, Any]:
     """
     Generates a polite, fact-based billing clarification request letter for the hospital's
-    Billing / Medical Superintendent desk, plus verified escalation contacts.
+    Billing / Medical Superintendent desk in all 12 supported Indian languages, plus verified escalation contacts.
     """
     summary = verification_result["summary"]
     flagged_lines = [l for l in verification_result["lines"] if l["status"] == "above_reference"]
@@ -183,6 +376,20 @@ Patient / Authorized Family Representative
 भवदीय,
 मरीज / अधिकृत परिजन"""
 
+    letters_i18n: dict[str, str] = {"en": letter_en, "hi": letter_hi}
+    for lcode, tpl in _REGIONAL_LETTER_TEMPLATES.items():
+        items_block = items_block_hi if lcode == "mr" else items_block_en
+        intro = tpl["intro"].format(
+            billed=f"{summary['billed_total']:,.0f}",
+            count=len(flagged_lines),
+            savings=f"{summary['potential_savings']:,.0f}",
+        )
+        letters_i18n[lcode] = (
+            f"{tpl['to']}\n{hospital_name}\n{tpl['date']}: {today_str}\n\n"
+            f"{tpl['subject']}\n\n{tpl['salutation']}\n\n{intro}\n\n"
+            f"{items_block}\n\n{tpl['closing']}"
+        )
+
     routes = _get_cached_grievance_routes(db_path)
 
     return {
@@ -191,6 +398,7 @@ Patient / Authorized Family Representative
         "has_statutory_nppa_flag": has_nppa_violation,
         "letter_en": letter_en,
         "letter_hi": letter_hi,
+        "letters_i18n": letters_i18n,
         "verified_grievance_routes": routes,
     }
 

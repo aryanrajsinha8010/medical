@@ -281,9 +281,30 @@ def test_grounded_explainer_dispute_estimator_and_regulator_k_anonymity(engine: 
     qa_hi = answer_grounded_charge_question(flagged_line, "यह अधिक क्यों है?", lang="hi")
     assert "संदर्भ दर" in qa_hi["answer"]
 
+    # Verify all 12 supported Indian languages in grounded chat & dispute letters
+    expected_lang_markers = {
+        "en": "Reference Rate",
+        "hi": "संदर्भ दर",
+        "mr": "संदर्भ दर",
+        "bn": "সরকারি রেফারেন্স হার",
+        "ta": "அரசு குறிப்பு கட்டணம்",
+        "te": "ప్రభుత్వ సూచన ధర",
+        "gu": "સરકારી સંદર્ભ દર",
+        "kn": "ಸರ್ಕಾರಿ ಉಲ್ಲೇಖ ದರ",
+        "ml": "സർക്കാർ റഫറൻസ് നിരക്ക്",
+        "pa": "ਸਰਕਾਰੀ ਸੰਦਰਭ ਦਰ",
+        "or": "ସରକାରୀ ସନ୍ଦର୍ଭ ଦର",
+        "as": "চৰকাৰী প্ৰসংগ নিৰিখ",
+    }
     dispute = generate_dispute_letter_and_routes("Indraprastha Metro Hospital", "DL", ver)
     assert "1915" in json.dumps(dispute["verified_grievance_routes"])
     assert "Room charges" in dispute["letter_en"]
+    for lang_code, marker in expected_lang_markers.items():
+        qa_lang = answer_grounded_charge_question(flagged_line, "Explain this charge", lang=lang_code)
+        assert qa_lang["strictly_grounded"] is True
+        assert marker in qa_lang["answer"], f"Missing localized marker for {lang_code}"
+        assert lang_code in dispute["letters_i18n"], f"Missing dispute letter for {lang_code}"
+        assert "Indraprastha Metro Hospital" in dispute["letters_i18n"][lang_code]
 
     est = estimate_pretreatment_cost("TERM_PKG_LAP_CHOLE", city_tier="X", nabh_accredited=True)
     assert est["found"] is True

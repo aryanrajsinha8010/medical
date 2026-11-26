@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Camera,
   Check,
@@ -10,7 +10,7 @@ import {
   ShieldCheck,
   Volume2,
 } from "lucide-react";
-import { SupportedLang, UITranslations, explanationLang } from "../i18n/translations";
+import { LANGUAGE_LABELS, SupportedLang, UITranslations, explanationLang } from "../i18n/translations";
 import { Button, SCHEME_MEANING, Sheet, Term, inr, useMediaQuery } from "./ui";
 
 /* ------------------------------------------------------------------ 1. Evidence ("Where's this rate from?") */
@@ -78,7 +78,7 @@ export function EvidenceSheet({
               <div className="text-xs font-bold uppercase tracking-wider text-warn">{t.whatToAsk}</div>
               <p className="font-medium leading-relaxed">“{question}”</p>
               <Button size="sm" variant="secondary" onClick={() => onCopy(question)}>
-                <Copy className="w-3.5 h-3.5" /> Copy this question
+                <Copy className="w-3.5 h-3.5" /> {t.copyQuestion}
               </Button>
             </div>
           )}
@@ -86,7 +86,7 @@ export function EvidenceSheet({
           {/* Other schemes if both exist (e.g. PM-JAY package alongside CGHS) */}
           {alts.length > 0 && (
             <div className="space-y-2">
-              <div className="text-xs font-bold uppercase tracking-wider text-muted">Other government benchmarks</div>
+              <div className="text-xs font-bold uppercase tracking-wider text-muted">{t.otherBenchmarks}</div>
               {alts.map((a, i) => (
                 <div key={i} className="p-3 rounded-xl border border-line flex items-center justify-between gap-3">
                   <div>
@@ -103,17 +103,17 @@ export function EvidenceSheet({
 
           {/* Official citation */}
           <dl className="divide-y divide-line border-t border-b border-line">
-            <Row label="Scheme">
+            <Row label={t.schemeLabel}>
               <Term meaning={SCHEME_MEANING[ev.scheme] || ev.scheme}>{ev.scheme}</Term> ({ev.authority || "Govt of India"})
             </Row>
-            <Row label="Notice">{ev.document_version || "—"}</Row>
-            <Row label="Where in document">{ev.page_ref || "—"}</Row>
-            <Row label="In effect since">{ev.effective_from || "—"}</Row>
-            <Row label="Checked for">
+            <Row label={t.noticeLabel}>{ev.document_version || "—"}</Row>
+            <Row label={t.whereInDocLabel}>{ev.page_ref || "—"}</Row>
+            <Row label={t.effectiveSinceLabel}>{ev.effective_from || "—"}</Row>
+            <Row label={t.checkedForLabel}>
               Tier {ev.city_tier || "X"} · {ev.nabh_accredited ? "NABH" : "Non-NABH"} · {(ev.ward_type || "").replace("_", "-")}
             </Row>
             {ev.source_url && (
-              <Row label="Official portal">
+              <Row label={t.officialPortalLabel}>
                 <a
                   href={ev.source_url}
                   target="_blank"
@@ -128,7 +128,7 @@ export function EvidenceSheet({
           </dl>
 
           <details className="text-xs text-muted">
-            <summary className="font-semibold hover:text-ink py-1">Medical codes & licence note</summary>
+            <summary className="font-semibold hover:text-ink py-1">{t.medicalCodesNote}</summary>
             <div className="pt-2 space-y-1 font-mono">
               <div>Canonical ID: {ev.terminology?.canonical_id || "—"}</div>
               <div>
@@ -154,12 +154,6 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
 }
 
 /* ------------------------------------------------------------------ 2. Grounded "Ask about this" chat */
-
-const QUICK_QUESTIONS = [
-  "Does the hospital have to charge the government rate?",
-  "Is there a cheaper generic or Jan Aushadhi option?",
-  "Which circular can I show at the billing desk?",
-];
 
 export function AskChargeSheet({
   line,
@@ -202,11 +196,11 @@ export function AskChargeSheet({
               type="text"
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
-              placeholder="Ask anything about this charge…"
+              placeholder={t.askPlaceholder}
               className="flex-1 min-h-[48px] rounded-xl border border-line bg-paper px-3.5 text-sm"
             />
             <Button type="submit" variant="accent">
-              Ask
+              {t.askBtn}
             </Button>
           </form>
         )
@@ -214,12 +208,10 @@ export function AskChargeSheet({
     >
       {line && (
         <div className="space-y-4 text-sm">
-          <p className="text-xs text-muted">
-            Answers come only from the government rate notice and medical code for this item. We don't guess or invent policies.
-          </p>
+          <p className="text-xs text-muted">{t.askGroundedNote}</p>
 
           <div className="flex flex-wrap gap-2">
-            {QUICK_QUESTIONS.map((q) => (
+            {t.quickQuestions.map((q) => (
               <button
                 key={q}
                 type="button"
@@ -238,7 +230,7 @@ export function AskChargeSheet({
             <div className="p-4 rounded-2xl bg-paper border border-line space-y-2 leading-relaxed whitespace-pre-line">
               <div className="flex items-center gap-1.5 text-xs font-semibold text-muted">
                 <MessageSquare className="w-3.5 h-3.5 text-saffron-ink" />
-                From the {line.evidence?.scheme || "official"} rate schedule
+                {t.fromScheduleLabel} ({line.evidence?.scheme || "CGHS/NPPA"})
               </div>
               <div>{response.answer}</div>
             </div>
@@ -251,7 +243,7 @@ export function AskChargeSheet({
   );
 }
 
-/* ------------------------------------------------------------------ 3. Polite letter + helplines */
+/* ------------------------------------------------------------------ 3. Polite letter + helplines (All 12 Languages) */
 
 export function DisputeLetterModal({
   open,
@@ -268,8 +260,17 @@ export function DisputeLetterModal({
   t: UITranslations;
   onCopy: (text: string) => void;
 }) {
-  const [letterLang, setLetterLang] = useState<"en" | "hi">(lang === "hi" ? "hi" : "en");
-  const letter = (letterLang === "hi" ? disputePack?.letter_hi : disputePack?.letter_en) || "";
+  const [letterLang, setLetterLang] = useState<SupportedLang>(lang);
+
+  // Sync letter language whenever user switches global language
+  useEffect(() => {
+    setLetterLang(lang);
+  }, [lang]);
+
+  const letter =
+    disputePack?.letters_i18n?.[letterLang] ||
+    (letterLang === "hi" ? disputePack?.letter_hi : disputePack?.letter_en) ||
+    "";
   const routes: any[] = disputePack?.verified_grievance_routes || [];
 
   return (
@@ -277,7 +278,7 @@ export function DisputeLetterModal({
       open={open && Boolean(disputePack)}
       onClose={onClose}
       side="center"
-      eyebrow="Calm, polite, cites the exact circular"
+      eyebrow={t.disputeEyebrow}
       title={t.generateDisputeLetter}
       testId="dispute-letter-modal"
       closeTestId="close-dispute-modal"
@@ -286,28 +287,27 @@ export function DisputeLetterModal({
       {disputePack && (
         <div className="space-y-5 text-sm">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <div className="inline-flex rounded-xl border border-line p-1 bg-paper">
-              <button
-                type="button"
-                onClick={() => setLetterLang("en")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold ${letterLang === "en" ? "bg-brand text-[rgb(var(--on-brand))]" : ""}`}
+            <div className="flex items-center gap-2">
+              <select
+                aria-label="Letter language"
+                data-testid="dispute-letter-lang-select"
+                value={letterLang}
+                onChange={(e) => setLetterLang(e.target.value as SupportedLang)}
+                className="min-h-[38px] rounded-xl border border-line bg-paper px-3 text-xs font-semibold"
               >
-                English
-              </button>
-              <button
-                type="button"
-                onClick={() => setLetterLang("hi")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold ${letterLang === "hi" ? "bg-brand text-[rgb(var(--on-brand))]" : ""}`}
-              >
-                हिन्दी
-              </button>
+                {(Object.keys(LANGUAGE_LABELS) as SupportedLang[]).map((code) => (
+                  <option key={code} value={code}>
+                    {LANGUAGE_LABELS[code]}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="flex flex-wrap gap-2">
               <Button size="sm" variant="primary" onClick={() => onCopy(letter)}>
-                <Copy className="w-3.5 h-3.5" /> Copy letter
+                <Copy className="w-3.5 h-3.5" /> {t.copyLetter}
               </Button>
               <Button size="sm" variant="secondary" onClick={() => window.print()}>
-                <Printer className="w-3.5 h-3.5" /> Print
+                <Printer className="w-3.5 h-3.5" /> {t.printBtn}
               </Button>
             </div>
           </div>
@@ -317,10 +317,8 @@ export function DisputeLetterModal({
           </pre>
 
           <div className="space-y-2.5">
-            <h3 className="font-display text-base">If the hospital doesn't help, who can you call?</h3>
-            <p className="text-xs text-muted">
-              Start with the hospital's billing desk or grievance officer. If you hit a wall, these are official government helplines:
-            </p>
+            <h3 className="font-display text-base">{t.helplinesTitle}</h3>
+            <p className="text-xs text-muted">{t.helplinesSub}</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {routes.map((g) => (
                 <div key={g.route_id} className="p-3.5 rounded-xl border border-line bg-paper flex flex-col justify-between gap-2">
@@ -333,7 +331,7 @@ export function DisputeLetterModal({
                       href={`tel:${String(g.toll_free).replace(/[^0-9+]/g, "")}`}
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-ok-soft text-ok font-bold text-xs"
                     >
-                      <PhoneCall className="w-3.5 h-3.5" /> Call {g.toll_free}
+                      <PhoneCall className="w-3.5 h-3.5" /> {t.callBtn} {g.toll_free}
                     </a>
                     {g.portal_url && (
                       <a
@@ -342,7 +340,7 @@ export function DisputeLetterModal({
                         rel="noreferrer"
                         className="text-xs font-semibold text-saffron-ink underline inline-flex items-center gap-1"
                       >
-                        Portal <ExternalLink className="w-3 h-3" />
+                        {t.portalBtn} <ExternalLink className="w-3 h-3" />
                       </a>
                     )}
                   </div>
@@ -366,25 +364,25 @@ export function CameraModal({
   t,
 }: {
   open: boolean;
-  videoRef: React.RefObject<HTMLVideoElement | null>;
+  videoRef: React.RefObject<HTMLVideoElement>;
   onClose: () => void;
   onCapture: () => void;
   t: UITranslations;
 }) {
   return (
-    <Sheet open={open} onClose={onClose} side="center" title="Hold the bill flat in good light" closeLabel={t.close}>
+    <Sheet open={open} onClose={onClose} side="center" title={t.cameraTitle} closeLabel={t.close}>
       <div className="space-y-4">
         <div className="relative rounded-2xl overflow-hidden bg-[#120C22] aspect-[3/4] max-h-[60vh] mx-auto">
           <video ref={videoRef} autoPlay playsInline className="w-full h-full object-cover" />
           <div className="absolute inset-5 border-2 border-dashed border-saffron/90 rounded-xl pointer-events-none">
             <span className="absolute -top-3 left-3 bg-saffron text-[#1E1240] text-xs font-bold px-2.5 py-0.5 rounded-full">
-              Fit all four corners inside the frame
+              {t.cameraFrameHint}
             </span>
             <div className="scan-line" />
           </div>
         </div>
         <Button variant="accent" size="lg" className="w-full" data-testid="capture-frame-confirm-btn" onClick={onCapture}>
-          <Camera className="w-5 h-5" /> Use this photo
+          <Camera className="w-5 h-5" /> {t.cameraUsePhoto}
         </Button>
       </div>
     </Sheet>
@@ -459,10 +457,10 @@ export function LowLiteracyBar({
         </span>
         <div>
           <div className="font-display text-lg">
-            {flagged ? `${summary.flagged_count} charge looks high` : "Every charge matches government rates"}
+            {flagged ? t.lowLitHigh(summary.flagged_count) : t.lowLitOk}
           </div>
           <div className="text-sm opacity-85">
-            Billed {inr(summary.billed_total)} · Government rate {inr(summary.reference_total)}
+            {t.totalBilled} {inr(summary.billed_total)} · {t.govtRate} {inr(summary.reference_total)}
           </div>
         </div>
       </div>
@@ -474,10 +472,9 @@ export function LowLiteracyBar({
           ✉️ {t.generateDisputeLetter}
         </Button>
         <Button variant="secondary" onClick={onWhatsApp}>
-          💬 WhatsApp
+          💬 {t.whatsappShare}
         </Button>
       </div>
     </div>
   );
 }
-

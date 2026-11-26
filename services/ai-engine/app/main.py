@@ -120,6 +120,7 @@ def _get_conn() -> sqlite3.Connection:
     if _SHARED_CONN is None:
         conn = sqlite3.connect(DB_PATH, timeout=30.0, check_same_thread=False)
         conn.row_factory = sqlite3.Row
+        conn.execute("PRAGMA foreign_keys=ON;")
         conn.execute("PRAGMA journal_mode=WAL;")
         conn.execute("PRAGMA synchronous=OFF;")
         conn.execute("PRAGMA temp_store=MEMORY;")
@@ -537,26 +538,33 @@ def get_verification_history(session_id: str = "demo-citizen-session"):
 
 @app.delete("/api/privacy/session/{session_id}")
 def delete_my_data_dpdp(session_id: str):
-    """DPDP Act 2023 Right to Erasure ('Delete My Data' button)."""
-    conn = _get_conn()
-    cur = conn.cursor()
-    count = cur.execute("SELECT COUNT(*) FROM bill WHERE session_id = ?", (session_id,)).fetchone()[0]
-    cur.execute("DELETE FROM bill WHERE session_id = ?", (session_id,))
-    cur.execute(
-        """
-        INSERT INTO audit_log (log_id, event_type, actor_session, resource_id, details, created_at)
-        VALUES (?, ?, ?, ?, ?, ?)
-        """,
-        (
-            f"LOG_{uuid.uuid4().hex[:10].upper()}",
-            "DPDP_RIGHT_TO_ERASURE_EXECUTED",
-            session_id,
-            session_id,
-            json.dumps({"deleted_bills": count}),
-            datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        ),
-    )
-    conn.commit()
+    """DPDP Act 2023 Right to Erasure ('Delete My Data' button) with full cascade cleanup."""
+    with _DB_WRITE_LOCK:
+        conn = _get_conn()
+        cur = conn.cursor()
+        bill_ids = [r[0] for r in cur.execute("SELECT bill_id FROM bill WHERE session_id = ?", (session_id,)).fetchall()]
+        count = len(bill_ids)
+        if bill_ids:
+            placeholders = ",".join("?" for _ in bill_ids)
+            cur.execute(f"DELETE FROM verification WHERE bill_id IN ({placeholders})", bill_ids)
+            cur.execute(f"DELETE FROM bill_line WHERE bill_id IN ({placeholders})", bill_ids)
+            cur.execute(f"DELETE FROM report WHERE bill_id IN ({placeholders})", bill_ids)
+            cur.execute(f"DELETE FROM bill WHERE bill_id IN ({placeholders})", bill_ids)
+        cur.execute(
+            """
+            INSERT INTO audit_log (log_id, event_type, actor_session, resource_id, details, created_at)
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (
+                f"LOG_{uuid.uuid4().hex[:10].upper()}",
+                "DPDP_RIGHT_TO_ERASURE_EXECUTED",
+                session_id,
+                session_id,
+                json.dumps({"deleted_bills": count}),
+                datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            ),
+        )
+        conn.commit()
     return {"deleted": True, "deleted_bills_count": count, "session_id": session_id}
 
 
